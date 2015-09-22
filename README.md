@@ -22,3 +22,6 @@ Kap. 7: SMP : SaMPling, Analog-Digital-Wandlung and Downsampling
 Kap. 8: INP : Upsampling, INterPolation and Digital-Analog Conversion
 
 Kap. 9: SRC : Sample Rate Conversion
+
+## Get started
+You can either download the zip-File containing the most up-to-date version of the files or (better) clone this repository:
