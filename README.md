@@ -13,15 +13,19 @@ Here, you find python snippets to demonstrate various aspects of digital signal 
 
 **4 FIL :** Digital FILters and filter design
 
-**5 FIX :** Word length effects and FIXpoint systems in the time domain
+**5 FIX :** FIXpoint systems in the time domain: Quantization and word length effects 
 
-**6 NOI :** Word length effects in the frequency domain: Quantization NOIse
+**6 NOI :** Fixpoint systems in the frequency domain: Quantization NOIse
 
-**7 SMP :** SaMPling, Analog-Digital-Wandlung and Downsampling
+**7 SMP :** SaMPling, Analog-Digital Conversion and Downsampling
 
-**8 INP :** Upsampling, INterPolation and Digital-Analog Conversion
+**8 INP :** Upsampling, INterPolation and Digital-Analog conversion
 
 **9 SRC :** Sample Rate Conversion
 
 ## Get started
-You can either download the zip-File containing the most up-to-date version of the files or (better) clone this repository. For doing this, you need to install git, e.g. Good introductory & interactive course under [http://rypress.com/tutorials/git/index].
+You can either download the zip-File containing the most up-to-date version of the files or (better) clone this repository. For doing this, you need to install git, e.g. 
+
+Under windows, install [http://msysgit.github.io/}{mSysGit}]
+
+A good introductory & interactive course is {Ry’s Git Tutorial}[http://rypress.com/tutorials/git/index].
