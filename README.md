@@ -23,7 +23,11 @@ Here, you find python snippets to demonstrate various aspects of digital signal 
 
 **9 SRC:** Sample Rate Conversion
 
-## Get started
-You can either download the zip-File containing the most up-to-date version of the files or (better) clone this repository. For doing this, you need to install a git client from the git homepage [http://git-scm.com/]. For windows, there are other sites providing essentially the same software (see (this discussion)[http://stackoverflow.com/questions/22310007/difference-between-git-scm-msysgit] for explanations).
+## Getting started
+You can either download the zip-File containing the most up-to-date version of the files (then you can stop reading) or (better) clone this repository to your local computer. For doing this, you need to install a git client from the git homepage [http://git-scm.com/]. For windows, there are other sites providing essentially the same software (see [this discussion](http://stackoverflow.com/questions/22310007/difference-between-git-scm-msysgit) for explanations).
 
-A good introductory & interactive course is {Ry’s Git Tutorial}[http://rypress.com/tutorials/git/index].
+A good introductory & interactive course is [Ry’s Git Tutorial](http://rypress.com/tutorials/git/index).
+
+```
+git clone
+```
