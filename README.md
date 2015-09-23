@@ -1,5 +1,5 @@
 # dsvFPGA
-### Python und Matlab Files zur Vorlesung EE303 "DSV auf FPGAs" im Master Electrical Engineering an der HochschuleMünchen
+### Python und Matlab Files zur Vorlesung EE303 "DSV auf FPGAs" im Master Electrical Engineering an der Hochschule München
 
 [Python and Matlab files accompanying the lecture "DSP on FPGAs" (Digital signal processing on FPGAs) at the University of Applied Sciences Munich]
 
@@ -24,10 +24,18 @@ Here, you find python snippets to demonstrate various aspects of digital signal 
 **9 SRC:** Sample Rate Conversion
 
 ## Getting started
-You can either download the zip-File containing the most up-to-date version of the files (then you can stop reading) or (better) clone this repository to your local computer. For doing this, you need to install a git client from the git homepage [http://git-scm.com/]. For windows, there are other sites providing essentially the same software (see [this discussion](http://stackoverflow.com/questions/22310007/difference-between-git-scm-msysgit) for explanations).
+You can either download the zip-File containing the most up-to-date version of the files - then you can stop reading here.
 
-A good introductory & interactive course is [Ry’s Git Tutorial](http://rypress.com/tutorials/git/index).
+Or - better - clone this repository to your local computer. For doing this, you need to 
 
-```
-git clone
-```
+* **Create a GitHub account** (this file hosting platform) under [https://github.com/]
+* **Install a git client** from the git homepage [http://git-scm.com/], providing a console (`git bash`) and a graphical (`Git GUI`) frontend to git.
+* **Get to know a few basic commands**, a good introductory & interactive course is [Ry’s Git Tutorial](http://rypress.com/tutorials/git/index).
+* **Clone the repository:**
+  Start the `git bash` from the local directory where you want to copy the data to and enter:
+
+  ```
+  git clone https://github.com/chipmuenk/dsp_fpga
+  ```
+  
+  Or start Git GUI -> Clone Repository.  
