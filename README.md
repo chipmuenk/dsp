@@ -19,9 +19,9 @@ Here, you find python snippets to demonstrate various aspects of digital signal 
 
 **7. SMP:** SaMPling, Analog-Digital Conversion and Downsampling
 
-**8 INP:** Upsampling, INterPolation and Digital-Analog conversion
+**8. INP:** Upsampling, INterPolation and Digital-Analog conversion
 
-**9 SRC:** Sample Rate Conversion
+**9. SRC:** Sample Rate Conversion
 
 ## Getting started
 You can either download the zip-File containing the most up-to-date version of the files - then you can stop reading here.
@@ -30,7 +30,7 @@ Or - better - clone this repository to your local computer. For doing this, you 
 
 * **Create a GitHub account** (this file hosting platform) under [https://github.com/]
 * **Install a git client** from the git homepage [http://git-scm.com/], providing a console (`git bash`) and a graphical (`Git GUI`) frontend to git.
-* **Get to know a few basic commands**, a good introductory & interactive course is [Ry’s Git Tutorial](http://rypress.com/tutorials/git/index).
+* **Get to know a few basic commands**, a good introductory & interactive course is e.g. [Ry’s Git Tutorial](http://rypress.com/tutorials/git/index).
 * **Clone the repository:**
   Start the `git bash` from the local directory where you want to copy the data to and enter:
 
