@@ -3,7 +3,7 @@
 
 [Python and Matlab files accompanying the lecture "DSP on FPGAs" (Digital signal processing on FPGAs) at the University of Applied Sciences Munich]
 
-Here, you find python snippets to demonstrate various aspects of digital signal processing. Don't expect too much "FPGA" in the code snippets, the focus is more on general digital signal processing with some fixpoint arithmetics. The chapters are labeled as following:
+Here, you find python snippets to demonstrate various aspects of digital signal processing. Don't expect too much "FPGA" in the code snippets, the focus is more on general digital signal processing with some fixpoint arithmetics. The chapters and code snippets are labeled as following:
 
 **[1. LTI :](https://github.com/chipmuenk/dsp_fpga/tree/master/code/1_LTI)** Linear Time-Invariant systems in the time domain
 
