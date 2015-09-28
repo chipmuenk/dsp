@@ -5,7 +5,7 @@
 
 Here, you find python snippets to demonstrate various aspects of digital signal processing. Don't expect too much "FPGA" in the code snippets, the focus is more on general digital signal processing with some fixpoint arithmetics. The chapters are labeled as following:
 
-**1. LTI:** Linear Time-Invariant systems in the time domain
+**[1. LTI:](https://github.com/chipmuenk/dsp_fpga/tree/master/code/1_LTI)** Linear Time-Invariant systems in the time domain
 
 **2. LTF:** LTI systems in the Frequency domain
 
@@ -17,7 +17,7 @@ Here, you find python snippets to demonstrate various aspects of digital signal 
 
 **[6. NOI:](https://github.com/chipmuenk/dsp_fpga/tree/master/code/6_NOI)** Fixpoint systems in the frequency domain: Quantization NOIse
 
-**7. SMP:** SaMPling, Analog-Digital Conversion and Downsampling
+**[7. SMP:](https://github.com/chipmuenk/dsp_fpga/tree/master/code/7_SMP)** SaMPling, Analog-Digital Conversion and Downsampling
 
 **8. INP:** Upsampling, INterPolation and Digital-Analog conversion
 
