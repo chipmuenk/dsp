@@ -38,4 +38,4 @@ Or - better - clone this repository to your local computer. For doing this, you 
   git clone https://github.com/chipmuenk/dsp_fpga
   ```
   
-  Or start Git GUI -> Clone Repository.  
+  Or start `Git GUI` -> Clone Repository.  
