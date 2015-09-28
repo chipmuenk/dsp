@@ -15,7 +15,7 @@ Here, you find python snippets to demonstrate various aspects of digital signal 
 
 **5. FIX:** FIXpoint systems in the time domain: Quantization and word length effects 
 
-**6. NOI:** Fixpoint systems in the frequency domain: Quantization NOIse
+**[6. NOI:](https://github.com/chipmuenk/dsp_fpga/tree/master/code/6_NOI)** Fixpoint systems in the frequency domain: Quantization NOIse
 
 **7. SMP:** SaMPling, Analog-Digital Conversion and Downsampling
 
