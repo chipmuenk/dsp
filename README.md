@@ -11,9 +11,9 @@ Here, you find python snippets to demonstrate various aspects of digital signal 
 
 **[3. DFT :](https://github.com/chipmuenk/dsp_fpga/tree/master/code/3_DFT)** Discrete Fourier Transformation and FFT
 
-**4. FIL :** Digital FILters and filter design
+**[4. FIL :](https://github.com/chipmuenk/dsp_fpga/tree/master/code/4_FIL)** Digital FILters and filter design
 
-**5. FIX :** FIXpoint systems in the time domain: Quantization and word length effects 
+**[5. FIX :](https://github.com/chipmuenk/dsp_fpga/tree/master/code/5_FIX)** FIXpoint systems in the time domain: Quantization and word length effects 
 
 **[6. NOI :](https://github.com/chipmuenk/dsp_fpga/tree/master/code/6_NOI)** Fixpoint systems in the frequency domain: Quantization NOIse
 
