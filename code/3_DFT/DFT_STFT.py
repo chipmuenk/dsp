@@ -39,9 +39,9 @@ fs = 100e3 # Abtastfrequenz
 NFFT = 1000 # FFT Punkte
 
 fsig = 10000 # Signalfrequenz
-Asig = 1 # Signalamplitude
+Asig = 0.01 # Signalamplitude
 fsig2 = 8376
-Asig2 = 0.0
+Asig2 = 1
 fmod = 0.5  # Modulationsfrequenz
 Amod = 5000 # Modulation gain in Hz / V
 tmax = 5 # Simulationzeit in s
@@ -65,8 +65,8 @@ H_label = r'$|H(e^{j \Omega})|$ in dB $\rightarrow$'
 
 t = arange(0, tmax, 1/fs)
 x = Asig*sig.chirp(t, 100, tmax, 1e5) # Chirp-Impuls
-x = Asig*(sin(t* 2* pi * fsig) + 1) # Reiner Sinus
-#x = Asig*sin(t* 2* pi * fsig + Amod *sin(t* 2* pi * fmod)) # FM-Signal
+#x = Asig*(sin(t* 2* pi * fsig) + 1) # Reiner Sinus
+x = Asig*sin(t* 2* pi * fsig + Amod *sin(t* 2* pi * fmod)) # FM-Signal
 #x = Asig *sin(t* 2* pi * (fsig + Amod * np.sign(sin(t * 2 * pi * fmod)))) # FSK-Signal
 x += Asig2 * sin(t* 2* pi * fsig2) # Zusätzlicher Sinuston
 #x = A*np.sign(x) # Rechteckfunktion
