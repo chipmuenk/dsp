@@ -123,7 +123,7 @@ ax2.text(0.97, 0.04, '$f_S = %.1f$ Hz, $f_{sig} = %.1f$ Hz' %(fs,fsig),
 if disp_L==True:
     # double-headed arrow for period length using annotate command with empty text:
     ax2.annotate('', (0, ylbl),(N, ylbl), xycoords='data', ha="center", va="center", size=18,
-        arrowprops=dict(arrowstyle="<->", facecolor = 'red', edgecolor='black' ))
+        arrowprops=dict(arrowstyle="<|-|>", facecolor = 'red', edgecolor='black' ))
         #see matplotlib.patches.ArrowStyle
     plt.axvline(x=N, linewidth=2, color='k', linestyle='--') 
     #
