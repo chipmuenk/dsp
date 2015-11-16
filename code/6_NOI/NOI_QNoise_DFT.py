@@ -113,8 +113,7 @@ Yq  = 2 * np.abs(np.fft.fft(yq, N_FFT))[0:N_FFT/2] / N_FFT / sqrt(2)
 Yq[0] /= sqrt(2.) # remove rms scaling + factor 2 for DC component
 Yq_dB = np.maximum(20 * log10(Yq), Hmin) # replace log(0) = -inf by Hmin
 
-Yqc = Yq.copy() # create a copy for calculating average noise power etc.
-f   = np.fft.fftfreq(N_FFT, d=Ts) # generate vector with frequency points
+f = np.fft.fftfreq(N_FFT, d=Ts) # generate vector with frequency points
 #-----------------------------------------------------------------
 
 Yq_sig = Yq[N_per]        # rms voltage of quantized test signal
@@ -132,37 +131,37 @@ N_Q = adc.LSB ** 2 / 12  # total noise power, calculated from LSB size
 # spurious line and the corresponding spurious free dynamic range (SFDR).
 # Calculate the SIgnal to Noise And Distortion (SINAD) ratio and the 
 # Total Harmonic Distortions (THD)
-Yqc[N_per] = 0
+Yq[N_per] = 0
 N = N_FFT/2 - 1 # subtract one frequency point for eliminating the signal bin
 for i in arange(N_FFT_min):
-    Yqc[i] = 0
+    Yq[i] = 0
     N -= 1  
 
-SINAD = 10 * log10(PSigQ / np.sum(Yqc[0:N_FFT/2] ** 2)) # SINAD
-THD = 100 * (Yqc[N_per2] ** 2 + Yqc[N_per3] ** 2) / PSigQ # THD in %
+SINAD = 10 * log10(PSigQ / np.sum(Yq[0:N_FFT/2] ** 2)) # SINAD
+THD = 100 * (Yq[N_per2] ** 2 + Yq[N_per3] ** 2) / PSigQ # THD in %
     
-Yq_max_spur_dB = 20*log10(np.max(Yqc))
+Yq_max_spur_dB = 20*log10(np.max(Yq))
 SFDR = Yq_sig_dB - Yq_max_spur_dB
-f_max_spur = np.argmax(Yqc)/ N_FFT * f_S
+f_max_spur = np.argmax(Yq)/ N_FFT * f_S
 
 # Additionally, set second and third harmonic to zero for calculating average 
 # noise power per bin for the display. The value is 
 # used for filling the zeroed-out data points with useful data.
 
 if k2 != 0: 
-    Yqc[N_per2] = 0
+    Yq[N_per2] = 0
     N -= 1
 if k3 != 0:
-    Yqc[N_per3] = 0
+    Yq[N_per3] = 0
     N -= 1
  
-e_N = np.sum(Yqc[0:N_FFT/2] ** 2) # total noise power from the remaining N bins
+e_N = np.sum(Yq[0:N_FFT/2] ** 2) # total noise power from the remaining N bins
 e_N_avg = e_N / N                  # average noise power per bin
 e_N_avg_dB = 10*log10(e_N_avg)
 Aq_avg = sqrt(e_N_avg)         # average rms noise voltage
 e_N = e_N_avg * N_FFT/2   # total noise power from DFT without distortions and DC,
                         # calculated over all N_FFT/2 bins
-# e_N = np.inner(Yqc[0:N_FFT/2], Yqc[0:N_FFT/2]) # same, using scalar product
+# e_N = np.inner(Yq[0:N_FFT/2], Yq[0:N_FFT/2]) # same, using scalar product
 e_N_dens = 2 * e_N / f_S # single-sided noise power density, calculated from total noise power
     
 #------------------------------------------------------------------
