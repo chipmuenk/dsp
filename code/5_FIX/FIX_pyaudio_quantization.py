@@ -3,15 +3,14 @@
 #===========================================================================
 # FIX_pyaudio_quantization.py
 #
-# Demonstration von Quantisierungseffekten auf Audiosignale:
+# Demonstrate quantization effects with audio signals:
 #
-# Eine Audio-Datei wird blockweise eingelesen, in numpy-Arrays umgewandelt 
-# dann werden linker und rechter Kanal getauscht und die Datei wird auf
-# ein Audio-Device ausgegeben.
+# Read an audio file frame by frame, quantize the samples and stream the data
+# to an audio device via pyaudio.
 #
 # 
 #===========================================================================
-#from __future__ import division, print_function, unicode_literals # v3line15
+from __future__ import division, print_function, unicode_literals # v3line15
 
 import numpy as np
 import numpy.random as rnd
@@ -34,8 +33,9 @@ import wave
 np_type = np.int16
 wf = wave.open(r'C:\Windows\Media\chord.wav', 'rb') # open WAV-File in read mode
 #wf = wave.open(r'D:\Musik\wav\Jazz\07 - Duet.wav')
-#wf = wave.open(r'D:\Daten\share\Musi\wav\Feist - My Moon My Man.wav')
-wf = wave.open(r'D:\Daten\share\Musi\wav\01 - Santogold - L.E.S Artistes.wav')
+wf = wave.open(r'D:\Daten\share\Musi\wav\Feist - My Moon My Man.wav')
+#wf = wave.open(r'D:\Daten\share\Musi\wav\01 - Santogold - L.E.S Artistes.wav')
+
 p = pyaudio.PyAudio() # instantiate PyAudio + setup PortAudio system
 
 # open a stream on the desired device with the desired audio parameters 
@@ -44,63 +44,55 @@ stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
                 channels=wf.getnchannels(),
                 rate=wf.getframerate(),
                 output=True) 
-CHUNK = 1024 # number of samples in one frame
+CHUNK = 1024 # number of stereo samples per frame
 
-#q_obj = (14, 0, 'fix', 'sat') # try 'round' ; 'sat'
-q_obj = {'Q':13.0,'quant':'fix','ovfl':'sat'}  # große Grenzzyklen bei QI = 0
+# Define quantization mode and create a quantization instance for each channel
+# quantize with just a few bits:
+q_obj = {'Q':0.4,'quant':'fix','ovfl':'wrap'} # try 'quant':'round', 'ovfl':'sat'
+
+# Overflows QI = -1 means the MSB is 2^{-1} = 0.5
+#q_obj = {'Q':-1.15,'quant':'fix','ovfl':'wrap'} # try  'ovfl':'sat'
+
 fx_Q_l = fx.Fixed(q_obj)
 fx_Q_r = fx.Fixed(q_obj) 
 
+# initialize arrays for audio samples
+samples_in = zeros(CHUNK*2, dtype=np_type) # stereo int16
+samples_out = zeros(CHUNK*2, dtype=float) # stereo float
+samples_l  = samples_r = zeros(CHUNK, dtype=np_type) # separate channels int16
 
-# initialize arrays for samples
-samples_in = samples_out = zeros(CHUNK*2, dtype=np_type) # stereo
-samples_l  = samples_r = zeros(CHUNK, dtype=np_type) # mono
-
-data_out = 'dummy'
-
+data_out = 'start'
 
 while data_out:
 
-# read CHUNK frames to string, convert to numpy array and split in R / L chan.:
-# R / L samples are interleaved, each sample is 16 bit = 2 Bytes
+# read CHUNK stereo samples to string and convert to numpy array.
+# R / L samples are interleaved, each sample is 16 bit wide (dtype = np.int16)
     samples_in = np.fromstring(wf.readframes(CHUNK), dtype=np_type)
 
-## dtype = np.int8 (8 bits) = 1 ndarray element
-##    two consecutive bytes / ndarray elements = 1 sample    
-#    samples_l[0::2] = samples[0::4]
-#    samples_l[1::2] = samples[1::4]
-#    samples_r[0::2] = samples[2::4]
-#    samples_r[1::2] = samples[3::4]
-## Do some numpy magic here
-#    samples_new[0::4] = samples_l[0::2]
-#    samples_new[1::4] = samples_l[1::2]
-#    samples_new[2::4] = samples_r[0::2]
-#    samples_new[3::4] = samples_r[1::2]
-#---------------------------------------------------------------------------
-## dtype = np.int16 (16 bits): 1 ndarray element = 1 sample :
+    # split interleaved data stream into R and L channel:
     samples_l = samples_in[0::2]
     samples_r = samples_in[1::2]
+    # Check whether there was enough data for a full frame
     if len(samples_r) < CHUNK: # check whether frame has full length
-        samples_out = samples_np = zeros(len(samples_in), dtype=np_type)
+        samples_out = samples_np = zeros(len(samples_in), dtype=float)
         samples_l = samples_l = zeros(len(samples_in)/2, dtype=np_type)
 
-# Quantize signals here:
+# - Convert from 16 bit integer to floating point in the range -1 ... 1
+# - Quantize 
+# - Construct interleaved data stream from R/L channel (still as floating point)
     
-#    samples_out[0::2] = fx_Q_l.fix(samples_l)
-#    samples_out[1::2] = fx_Q_r.fix(samples_r)
-    samples_out = fx_Q_r.fix(samples_in).astype(np_type)    
-       
-## Stereo signal processing: This only works for sample-by-sample operations,
-## not e.g. for filtering where consecutive samples are combined
-    
-#    samples_out = abs(samples_in)
-#    samples_out = ((samples_in.astype(np.float32))**2 /2**15).astype(np_type)
-    samples_out = sqrt(samples_in.astype(np.float32)**2).astype(np_type)
-    
-#    data_out = np.chararray.tostring(samples_np.astype(np_type)) # convert back to string
-    data_out = np.chararray.tostring(samples_out) # convert back to string
-    stream.write(data_out) # play audio by writing audio data to the stream (blocking)
+# Process L and R channel separately
+#    samples_out[0::2] = fx_Q_l.fix(samples_l/2**15)
+#    samples_out[1::2] = fx_Q_r.fix(samples_r/2**15)
+
+# Stereo signal processing: This only works for sample-by-sample operations,
+# not e.g. for filtering where consecutive samples have to be combined
+    samples_out = fx_Q_r.fix(samples_in / 2. **15)
+
+# Do explicit type casting to 16 bin and convert data back to string 
+    data_out = np.chararray.tostring((samples_out * 2.**15).astype(np_type)) # convert back to string
 #    data_out = wf.readframes(CHUNK) # direct streaming without numpy
+    stream.write(data_out) # play audio by writing audio data to the stream (blocking)
 
 stream.stop_stream() # pause audio stream
 stream.close() # close audio stream
