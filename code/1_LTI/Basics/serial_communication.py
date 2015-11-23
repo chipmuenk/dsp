@@ -72,7 +72,7 @@ class Communicator(object):
         ----------
         self
         """
-    
+        
         ports = []
         for i in range(256):
             try:
@@ -172,12 +172,13 @@ class Communicator(object):
         ReturnValue : None
         
         """
-        self.ser.write(SendMsg)
+#        self.ser.write(SendMsg) # only Py2?
+        self.ser.write(bytes(SendMsg.encode('ascii'))) # Py3
         hutzelbrutzel = self.serialReadLine()
         self.settext(hutzelbrutzel)
         
          
-    def exitApp():
+    def closePort(self):
         """
         exitApp schließt die Serieleschnitstelle und beendet anschließend das
         Programm
