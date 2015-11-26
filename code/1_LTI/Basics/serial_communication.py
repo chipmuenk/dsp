@@ -55,14 +55,16 @@ class Communicator(object):
                                  bytesize=serial.EIGHTBITS,
                                  timeout = 1
                                  )
-        
+        self.ser.close()
+        print("%s is open: %s" %(com, ("True" if self.ser.isOpen() else "False")))
+                
         if(self.ser.isOpen() == False):
-            self.Debug_Msg("COM ist nicht offen")
+            print("COM ist nicht offen")
             try:
                 self.ser.open()
-                self.Debug_Msg("versuche COM zu oeffnen")
+                print("versuche COM zu oeffnen")
             except serial.SerialException:
-                self.Debug_Msg("COM konnte nicht geoeffnet werden")
+                print("COM konnte nicht geoeffnet werden")
                 self.settext("Ausgewaelter Port konnte nicht geoefnet werden")
     
     def serialScan(self):
@@ -209,6 +211,7 @@ if __name__ == '__main__':
     ports = my_com.serialScan()
     my_com.generate_sine()
     my_com.openSerialPort(ports[0][1])
+    print(my_com.ser.isOpen())
     print("\nStart Transmission\n")
     i = 0
     while True:
