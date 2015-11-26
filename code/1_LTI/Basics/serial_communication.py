@@ -28,6 +28,7 @@ USE_BAUD_DELAY = False
 #######################    
 import serial
 import sys
+import struct
 import time
 import numpy as np
 
@@ -177,11 +178,29 @@ class Communicator(object):
         """
 #        self.ser.write(SendMsg) # only Py2?
 #        self.ser.write(bytes(SendMsg.encode('ascii'))) # Py3
-        self.ser.write(SendMsg.encode()) # Py3
+        pass
+#        self.ser.write(bytes(SendMsg.encode())) # Py3
 
-#        hutzelbrutzel = self.serialReadLine()
-#        self.settext(hutzelbrutzel)
+    def serial_send_bytes(self, send_int):
+        """
+        Send the integer send_int as two bytes 
         
+        Parameters
+        ---------         
+        
+        send_int : the integer to be sent
+        
+        Returns : None
+        
+        """
+#        self.ser.write(SendMsg) # only Py2?
+#        self.ser.write(bytes(SendMsg.encode('ascii'))) # Py3
+
+        
+
+        send_bytes = struct.pack("<H", send_int) # unsigned short, little endian
+        print(send_bytes)
+        self.ser.write(str(send_bytes))   
          
     def closePort(self):
         """
@@ -197,7 +216,7 @@ class Communicator(object):
     
     def generate_sine(self):
         self.x = np.arange(100)
-        self.y = np.round(np.sin(2 * np.pi * self.x / 100)*2**14).astype(np.int16)
+        self.y = np.round(1 + np.sin(2 * np.pi * self.x / 100)*2**13).astype(np.int16)
         for i in range(100):
             print("%d \t %d" %(self.x[i], self.y[i]))       
             
@@ -216,8 +235,9 @@ if __name__ == '__main__':
     i = 0
     while True:
         sin_str = str(my_com.y[i%100])
-        print(sin_str)
-        my_com.serialSend(sin_str)
+        sin_int = my_com.y[i%100]
+        print(sin_str, sin_int)
+        my_com.serial_send_bytes(sin_int)
         i += 1
         time.sleep(0.1)
     
