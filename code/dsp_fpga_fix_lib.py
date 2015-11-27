@@ -301,8 +301,6 @@ class FIX_filt_MA(Fixed):
         yq : ndarray
             The quantized input value(s) as an ndarray with np.float64. If this is
             not what you want, see examples.
-     
-        
         """
 
         # Initialize vectors (also speeds up calculation)
@@ -330,7 +328,6 @@ class FIX_filt_MA(Fixed):
 #	  accu_q[k] = fixed(q_acc, (accu_q[k] + fixed(q_mul, x[k+i]*bq[i+1])))
 
 #----------------------------------------------------------------------
-)
 
 #######################################
 # If called directly, do some example #
