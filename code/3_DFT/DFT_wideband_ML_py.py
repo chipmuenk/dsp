@@ -63,8 +63,8 @@ print (Syn[k_1])
 fig1 = figure(1); fig1.clf()
 ax1 = fig1.add_subplot(211)
 ax1.plot(t, yn)
-ax1.set_xlabel(r'$t / \mathrm{s} \rightarrow$')
-
+ax1.set_xlabel(r'$t \, / \,\mathrm{s} \rightarrow$')
+ax1.set_ylabel(r'$y \, / \,\mathrm{V} \rightarrow$')
 ax21 = fig1.add_subplot(212)
 ax21.plot(f,10*log10(Syn),'r') # Leistung in dBW/bin
 #ax21.plot(f,10*log10(Syn/N_FFT_2),'b')
@@ -73,12 +73,12 @@ ax21.set_ylabel(r'$S_y \, \mathrm{[dBW/bin]} \rightarrow$')
 ylim21 = ax21.get_ylim()
 ax22 = ax21.twinx()
 ax22.set_ylim(ylim21 + 10*log10(N_FFT_2))
-ax22.set_ylabel(r"$N \, \mathrm{[dBW]} \rightarrow$")
-ax22.text(0.98,0.9,r'$N_{FFT}/2\, = \, %s \, (%.2f \, {dB})$'
+ax22.set_ylabel(r"$N \, \mathrm{/ \, dBW} \rightarrow$")
+ax22.text(0.98,0.95,r'$N_{FFT}/2$ = %s (%.2f dB)'
                             %(N_FFT_2, 10*log10(N_FFT_2)),
-         fontsize=16, ha="right", va="center", linespacing=1.5,
+         fontsize=16, ha="right", va="top",
          transform = ax22.transAxes,
          bbox=dict(boxstyle="square", fc='white'))
 
-fig1.tight_layout(pad = 0.8, h_pad = 0.3)
+fig1.tight_layout(pad = 0.5, h_pad = 0.2)
 plt.show()
