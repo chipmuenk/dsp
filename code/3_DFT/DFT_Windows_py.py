@@ -23,12 +23,20 @@ import scipy.signal as sig
 import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
 #import dsp_fpga_lib as dsp
 #------------------------------------------------------------------ v3line30
 # ... Ende der Import-Anweisungen
+
+mpl.rcParams['xtick.major.size'] = 5
+mpl.rcParams['xtick.major.width'] = 2
+mpl.rcParams['xtick.minor.size'] = 5
+mpl.rcParams['xtick.minor.width'] = 1
+mpl.rcParams['ytick.major.size'] = 5
+mpl.rcParams['ytick.major.width'] = 2
 
 def lim_eps(a,eps):
     """
@@ -42,19 +50,20 @@ def lim_eps(a,eps):
       
 SHOW_CFT = True # show continuous signal
 SHOW_SAMPLED = False # show sampled signal
-SHOW_ZERO = True # show cut out zeros 
+SHOW_ZERO = True # show zeros outside the window
 SHOW_DFT = True # show DFT samples
 SHOW_REP = False # show repeated measurement windows
-SHOW_LABEL = False # show label with plot info
-SHOW_WINDOW = True
+SHOW_LABEL = True # show label with plot info in FIG 1
+SHOW_WINDOW = True # window function as a semi-transparent area
 
 SHOW_FIG_WINDOW = True  # Window function and its spectrum
 SHOW_FIG_SLIDE = False # Window spectrum for presentation (large plot)
 SHOW_FIG3 = True # single-sided DFT
 SHOW_FIG4 = True # two-sided DFT
+SHOW_FIG4_SLIDE = False #two-sided DFT for slides
 
 TWINY = True
-PRINT = True # export plots to ...
+PRINT = False # export plots to ...
 PRINT_PATH = 'D:/Daten/' # ... this path
 
 #------------------------------------------------
@@ -62,10 +71,10 @@ PRINT_PATH = 'D:/Daten/' # ... this path
 #------------------------------------------------
 #fs = 5500, fsig = 550, NFFT = 50
 #fs = 12000, fsig = 1000 + 2000, NFFT = 36   
-fs = 12000.0   # sampling frequency
+fs = 44000.0   # sampling frequency
 Ts = 1.0/fs    # sampling period
 OSR = 500      # "Oversampling Ratio" for displaying pseudo-analog signal
-M_FFT  = 10    # DFT points
+M_FFT  = 100    # DFT points
 L = 3          # show L DFT windows of time signal
 
 Tmeas = M_FFT * Ts # calculate meas. window of FFT
@@ -74,9 +83,9 @@ tstep = 1.0/(fs*OSR) # time step for plotting "analog" signal
 #------------------------------------------------
 #Initialize signal related variables
 #------------------------------------------------
-DC   = 1.0    # DC-Offset
-fsig1 = 1000.0;  fsig2 = 2000.0  # analog signal frequencies,
-A1   = 0.8;       A2 = 0.5          # amplitudes and
+DC   = 0.0    # DC-Offset
+fsig1 = 6000.0;  fsig2 = 24200  # analog signal frequencies,
+A1   = 1.0;       A2 = 0.5          # amplitudes and
 phi1 = pi/3;    phi2 = 0     # starting phases
 Anoi = 0.0; # noise amplitude (uniform distribution)
 Xn_dB_min = -80 # minimum displayed dB value
@@ -274,7 +283,7 @@ if SHOW_FIG3:
     # f = [0 ... f_S[ = [0... f_S/2[, [-f_S/2 ... 0[
     xf  = fftfreq(M_FFT, Ts)
     xf_DTFT = fftfreq(M_FFT*OSR, Ts)
-    xfn = fftfreq(M_FFT, d=1.0/M_FFT) 
+    xfn = fftfreq(M_FFT, d=1.0/M_FFT)
     # Corresponding freq. points at [0... f_S/2[, [-f_S/2 ... 0[
     #
     # Calculate Xn in dBs with a fixed minimum
@@ -285,13 +294,14 @@ if SHOW_FIG3:
     ax31 = fig3.add_subplot(211)
     ax31.grid('on')
     plt.title('Einseitige DFT $S[k]$') # Overall title
-    ml, sl, bl = ax31.stem(xf[:M_FFT/2],Xn1)
+    ml, sl, bl = ax31.stem(xf[:M_FFT/2],Xn1) # plot vs freq.
+    ml, sl, bl = ax31.stem(xfn[:M_FFT/2],Xn1) # plot vs. n
     plt.setp(ml, 'markerfacecolor', 'r', 'markersize', mk_lg) # markerline
     plt.setp(sl, 'color','r', 'linewidth', 2) # stemline
     plt.setp(bl, 'linewidth',0) # turn off baseline
     plt.ylabel(r'$|S(f)|$' )
     ax31.set_ylim(0,1.1)
-    ax31.set_xlim(-fs/50,fs/2.)
+#    ax31.set_xlim(-fs/50,fs/2.)
     plt.axhline(0, xmin = 0, xmax = 1, linewidth=1, color='k')
     plt.axvline(x=0, ymin = 0, ymax = 1, linewidth=1, color='k')
     ax31.set_xlabel(r'$f \; \mathrm{[Hz]} \;\rightarrow $')
@@ -311,12 +321,49 @@ if SHOW_FIG3:
     
     plt.tight_layout()
     plt.grid(True)
+    
+fig6 = plt.figure(6)
+fig6.clf()
+ax61 = fig6.add_subplot(111)
+#plt.title('Einseitige DFT $S[k]$') # Overall title
+ml, sl, bl = ax61.stem(xf[:M_FFT/2],Xn1) # plot vs freq.
+ml, sl, bl = ax61.stem(xfn[:M_FFT/2],Xn1) # plot vs. n
+plt.setp(ml, 'markerfacecolor', 'k', 'markersize', mk_lg) # markerline
+plt.setp(sl, 'color','k', 'linewidth', 2) # stemline
+plt.setp(bl, 'linewidth',0) # turn off baseline
+plt.ylabel(r'$|S[k]|$ in V $\rightarrow$' )
+ax61.set_ylim(0,1.1)
+ax61.set_xlim(-M_FFT/100.,M_FFT/2.)
+minor_ticks = np.arange(0, M_FFT/2, 5)
+plt.axhline(0, xmin = 0, xmax = 1, linewidth=1, color='k')
+plt.axvline(x=0, ymin = 0, ymax = 1, linewidth=1, color='k')
+ax61.set_xlabel(r'$k \;\rightarrow $')
+ax61.text(0.5,0.9,
+     r'$f_S = %.1f$ kHz, $N_{FFT} = %d$, $f_{sig1} = %.1f$ kHz, $f_{sig2} = %.1f$ kHz' 
+       %(fs/1000,M_FFT, fsig1/1000, fsig2/1000), fontsize=16,
+     ha="center", va="center",linespacing=1.5, transform = ax61.transAxes,
+     bbox=dict(alpha=0.9,boxstyle="round,pad=0.2", fc='0.9'))
+ax61.grid(which='both')
+ax61.tick_params(which = 'both', direction = 'out')
+minor_ticksx = np.arange(0, M_FFT/2, 5)
+major_ticksx = np.arange(0, M_FFT/2,10)
+ax61.set_xticks(major_ticksx)                                                       
+ax61.set_xticks(minor_ticksx, minor=True)    
+ax61.grid(which='minor', alpha=0.5)                                                
+ax61.grid(which='major', alpha=1)
+
+
+plt.tight_layout()
+
 
 #-------------------------------------------------------------
 #    Figure 4: CALCULATE AND PLOT TWO-SIDED DFT
 #-------------------------------------------------------------
 if SHOW_FIG4:
-    fig4 = figure(4, figsize = (5,4), dpi = 300)  
+    if SHOW_FIG4_SLIDE:
+        fig4 = figure(4, figsize = (5,4), dpi = 300)
+    else:
+        fig4 = figure(4)
     fig4.clf() # 
 
     # fftshift centers freq. vector to f = [-f_S/2... f_S/2[
