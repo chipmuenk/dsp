@@ -46,3 +46,15 @@ print(title_str, "\n","-"*len(title_str))
 for i in range(len(b)):
     print("{0:8.5f} | {1:10.6g} | {2:9.2E}| {3:9.6f} | {4:9.2E}".format(b[i], bq17[i], 
           b[i] - bq17[i], bq7[i], b[i] - bq7[i]))
+          
+w, H_id = sig.freqz(b)
+w, H_q7 = sig.freqz(bq7)
+F = w / (2*pi)
+fig = figure(1)
+ax = fig.add_subplot(111)
+ax.plot(F, np.abs(H_id), label = "ideal")
+ax.plot(F, np.abs(H_q7), label = "Q(0,7)")
+ax.legend()
+plt.show()
+
+
