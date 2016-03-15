@@ -1,15 +1,11 @@
-# Unterlagen zur Vorlesung "DSV auf FPGAs" 
+# Unterlagen zum Kurs "DSV auf FPGAs" 
 [Course material accompanying the lecture "DSP on FPGAs" (Digital signal processing on FPGAs)]
 
 Hier finden Sie die folgenden Materialien:
 
-* Folien zur Vorlesung und den Videos auf Youtube
+* Folien zur Vorlesung und den Screencasts auf dem YouTube Channel [https://www.youtube.com/channel/UCsnhY3xQqxw8tjpsAH_vBeA](https://www.youtube.com/channel/UCsnhY3xQqxw8tjpsAH_vBeA)
 * Übungsaufgaben und (etwas) Theorie
 * Python und Matlab Files
-
-### Python und Matlab Files
-
-
 
 ### Python und Matlab Files
 Here, you find python snippets to demonstrate various aspects of digital signal processing. Don't expect too much "FPGA" in the code snippets, the focus is more on general digital signal processing with some fixpoint arithmetics. The chapters and code snippets are labeled as following:
