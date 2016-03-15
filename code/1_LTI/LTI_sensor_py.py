@@ -50,7 +50,6 @@ title('$x(t) = 1.5 + \
 0.5 \cos(2 \pi t \cdot 50 \mathrm{Hz})$\n\
 $x[n] = 1.5 + 0.5 \cos[2 \pi n \cdot 50 / %.1f]$'\
 %(1./Ts))
-
 plot(t, xt, 'b-') # x(t) with blue line
 stem(n*Ts, xn, linefmt='r-') # x[n], red stems
 ylim(-0.1, 2.2)   # set y-limits to ymin, ymax
@@ -59,7 +58,6 @@ plt.axhline(1.5, linestyle='--')
 plt.subplots_adjust(top=0.88,right=0.95)
 # ------- Impulse response ------------------
 figure(2); grid(True)
-# v hier die Koeeffizienten eintragen
 h = [1, 1, 1, 1] # impulse response MA-filter
 #h = np.convolve([1,1,1],[1,1,1]) # cascaded filt.
 #h = [1, 0.5, 0.25, 0.125, 0.0625, 0.03125] # ~IIR
