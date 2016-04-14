@@ -84,8 +84,8 @@ tstep = 1.0/(fs*OSR) # time step for plotting "analog" signal
 #Initialize signal related variables
 #------------------------------------------------
 DC   = 0.0    # DC-Offset
-fsig1 = 6000.0;  fsig2 = 24200  # analog signal frequencies,
-A1   = 1.0;       A2 = 0.5          # amplitudes and
+fsig1 = 6000.0;  fsig2 = 19800 #24200  # analog signal frequencies,
+A1   = 1.0;       A2 = 1          # amplitudes and
 phi1 = pi/3;    phi2 = 0     # starting phases
 Anoi = 0.0; # noise amplitude (uniform distribution)
 Xn_dB_min = -80 # minimum displayed dB value
@@ -332,7 +332,7 @@ plt.setp(ml, 'markerfacecolor', 'k', 'markersize', mk_lg) # markerline
 plt.setp(sl, 'color','k', 'linewidth', 2) # stemline
 plt.setp(bl, 'linewidth',0) # turn off baseline
 plt.ylabel(r'$|S[k]|$ in V $\rightarrow$' )
-ax61.set_ylim(0,1.1)
+ax61.set_ylim(0,1.2)
 ax61.set_xlim(-M_FFT/100.,M_FFT/2.)
 minor_ticks = np.arange(0, M_FFT/2, 5)
 plt.axhline(0, xmin = 0, xmax = 1, linewidth=1, color='k')
