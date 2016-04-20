@@ -83,7 +83,7 @@ ax1.set_ylabel(r'$x[n] \; \rightarrow$')
 #ax1.set_ylim([-1, NFFT+1])
 
 fig1.tight_layout(pad = 0.1)
-fig1.savefig(BASE_DIR + FILENAME + str(NFFT+ZEROPAD) + '_xn' + FMT)
+#fig1.savefig(BASE_DIR + FILENAME + str(NFFT+ZEROPAD) + '_xn' + FMT)
 
 X = fft(x)/NFFT
 Xt = fft(xt)/NFFT
@@ -112,6 +112,6 @@ plt.axhline(y = 0, color='k')
 fig2.tight_layout(pad = 0.1)
 
 
-fig2.savefig(BASE_DIR + FILENAME + str(NFFT+ZEROPAD) + '_Xf' + FMT)
+#fig2.savefig(BASE_DIR + FILENAME + str(NFFT+ZEROPAD) + '_Xf' + FMT)
 
 plt.show()
