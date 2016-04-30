@@ -57,6 +57,7 @@ plot(t, a, label = r'$a(t)$')
 plt.step(t, aq, where = 'post', label = r'$a_Q(t)$')
 plot(t, a-aq, label = r'$a(t) - a_Q(t)$')
 plt.legend(fontsize = 14)
+plt.grid(True)
 xlabel(r'$t \rightarrow$'); ylabel(r'$a \rightarrow$')
 #
 figure(2)
