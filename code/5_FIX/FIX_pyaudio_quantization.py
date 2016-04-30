@@ -30,10 +30,13 @@ import dsp_fpga_fix_lib as fx
 # Ende der gemeinsamen Import-Anweisungen
 import pyaudio
 import wave
+import os
 np_type = np.int16
-wf = wave.open(r'C:\Windows\Media\chord.wav', 'rb') # open WAV-File in read mode
+path = '/home/muenker/Daten/share/Musi/wav/'
+
+#wf = wave.open(r'C:\Windows\Media\chord.wav', 'rb') # open WAV-File in read mode
 #wf = wave.open(r'D:\Musik\wav\Jazz\07 - Duet.wav')
-wf = wave.open(r'D:\Daten\share\Musi\wav\Feist - My Moon My Man.wav')
+wf = wave.open(os.path.join(path, 'Ole.wav'))
 #wf = wave.open(r'D:\Daten\share\Musi\wav\01 - Santogold - L.E.S Artistes.wav')
 
 p = pyaudio.PyAudio() # instantiate PyAudio + setup PortAudio system
