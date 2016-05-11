@@ -28,14 +28,56 @@ import dsp_fpga_lib as dsp
 import dsp_fpga_fix_lib as fx
 #------------------------------------------------------------------ v3line30
 # Ende der gemeinsamen Import-Anweisungen
+import os
+#import _portaudio
 import pyaudio
 import wave
+
+def setupAudio(p):
+    """
+    Create and manage selection box for audio interfaces
+    """
+    deviceList = []
+    device_out_list = []
+    device_in_list = []
+    print("Device count", p.get_device_count())
+
+#    p = pyaudio.PyAudio() # instantiate PyAudio, start PortAudio system + list devices
+    defaultInIdx = 1# p.get_default_input_device_info()['index']
+    defaultOutIdx = 1# p.get_default_output_device_info()['index']
+
+    print("Defaultin", defaultInIdx)
+    for i in range(p.get_device_count()):
+         deviceList.append(p.get_device_info_by_index(i))
+
+         print (deviceList[i])
+         if deviceList[i]['maxInputChannels'] > 0:
+             if i == defaultInIdx:
+                 device_in_list.append(('* '+ deviceList[i]['name'], str(i)))                 
+             else:
+                 device_in_list.append((deviceList[i]['name'], str(i)))
+         else:
+             if i == defaultOutIdx:
+                 device_out_list.append(('* '+ deviceList[i]['name'], str(i)) )                
+             else:
+                 device_out_list.append((deviceList[i]['name'], str(i)))
+#        print("Default Output Device : %s" % self.p.get_default_output_device_info()['name'])
+#        self.comboBoxAudioOut.addItems(deviceList)
+
+
+
 np_type = np.int16
-wf = wave.open(r'C:\Windows\Media\chord.wav', 'rb') # open WAV-File in read mode
+path = '/home/muenker/Daten/share/Musi/wav/'
+
+p = pyaudio.PyAudio() # instantiate PyAudio + setup PortAudio system
+setupAudio(p)
+
+wf = wave.open(os.path.join(path, 'Ole.wav'))
+
+#wf = wave.open(r'C:\Windows\Media\chord.wav', 'rb') # open WAV-File in read mode
 #wf = wave.open(r'D:\Musik\wav\Jazz\07 - Duet.wav')
 #wf = wave.open(r'D:\Daten\share\Musi\wav\Feist - My Moon My Man.wav')
-wf = wave.open(r'D:\Daten\share\Musi\wav\01 - Santogold - L.E.S Artistes.wav')
-p = pyaudio.PyAudio() # instantiate PyAudio + setup PortAudio system
+#wf = wave.open(r'D:\Daten\share\Musi\wav\01 - Santogold - L.E.S Artistes.wav')
 
 # open a stream on the desired device with the desired audio parameters 
 # for reading or writing

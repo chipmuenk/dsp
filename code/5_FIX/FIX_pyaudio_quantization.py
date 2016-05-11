@@ -33,12 +33,13 @@ import wave
 import os
 np_type = np.int16
 path = '/home/muenker/Daten/share/Musi/wav/'
+#filename = 'chord.wav'
+#filename = '07 - Danny Gottlieb with John McLaughlin - Duet.wav'
+#filename = 'Ole.wav'
+filename = '01 - Santogold - L.E.S Artistes.wav'
 
-#wf = wave.open(r'C:\Windows\Media\chord.wav', 'rb') # open WAV-File in read mode
-#wf = wave.open(r'D:\Musik\wav\Jazz\07 - Duet.wav')
-wf = wave.open(os.path.join(path, 'Ole.wav'))
-#wf = wave.open(r'D:\Daten\share\Musi\wav\01 - Santogold - L.E.S Artistes.wav')
 
+wf = wave.open(os.path.join(path, filename))
 p = pyaudio.PyAudio() # instantiate PyAudio + setup PortAudio system
 
 # open a stream on the desired device with the desired audio parameters 
@@ -51,7 +52,7 @@ CHUNK = 1024 # number of stereo samples per frame
 
 # Define quantization mode and create a quantization instance for each channel
 # quantize with just a few bits:
-q_obj = {'Q':0.4,'quant':'fix','ovfl':'wrap'} # try 'quant':'round', 'ovfl':'sat'
+q_obj = {'Q':0.8,'quant':'round','ovfl':'sat'} # try 'quant':'round', 'ovfl':'sat'
 
 # Overflows QI = -1 means the MSB is 2^{-1} = 0.5
 #q_obj = {'Q':-1.15,'quant':'fix','ovfl':'wrap'} # try  'ovfl':'sat'
