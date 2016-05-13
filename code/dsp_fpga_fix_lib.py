@@ -53,11 +53,12 @@ class Fixed(object):
       - 'sat' : saturate at minimum / maximum value
       - 'none': no overflow; the integer word length is ignored
 
-    * **'format'** : Output format, optional; default = 'frac'
+    * **'frmt'** : Output format, optional; default = 'frac'
 
       - 'frac' : (default) return result as a fraction
       - 'dec'  : return result in decimal form, scaled by :math:`2^{WF}`
       - 'bin'  : return result as binary string, scaled by :math:`2^{WF}`
+      - 'hex'  : return result as hex string, scaled by :math:`2^{WF}`
         
 
     Instance Attributes
@@ -223,34 +224,28 @@ class Fixed(object):
                 yq = np.where(over_neg, -self.MSB, yq)
             # Replace overflows by two's complement wraparound (wrap)
             elif self.ovfl == 'wrap':
-                yq = np.where(over_pos or over_neg,
+                yq = np.where(over_pos | over_neg,
                     yq - 2. * self.MSB*np.fix((np.sign(yq)* self.MSB+ yq)/(2*self.MSB)),
                     yq)
-#                yq = yq - 2. * self.MSB*np.fix((np.sign(yq)* self.MSB+ yq)/(2*self.MSB))
             else:
                 raise Exception('Unknown overflow type "%s"!'%(self.overfl))
                 return None
 
         if self.frmt in {'dec', 'hex', 'bin'}:
             yq = (np.round(yq * 2. ** self.QF)).astype(int) # shift left by QF bits
-#        if self.frmt == 'hex': # doesn't work yet
-#            return self.int2hex(np.int(yq))
+        if self.frmt == 'hex':
+            vhex = np.vectorize(hex) # vectorize python hex function for use with numpy array
+ # TODO           not quite: neg. hex numbers should be written as twos complemente
+            # http://stackoverflow.com/questions/16427073/signed-integer-to-twos-complement-hexadecimal
+
+            return vhex(yq)
         elif self.frmt == 'bin':
             return np.binary_repr(yq, width=(self.QF + self.QI + 1))
         elif self.frmt in {'frac', 'dec'}:
             return yq
         else:
-            # float.hex() ?
             raise Exception('Unknown output format "%s"!'%(self.format))
             return None
-
-    def int2hex(self, x):
-        h = ""
-        x = np.atleast_1d(x)
-        for i in xrange(len(x)):
-            h += str('{0:X}'.format(x))
-        return h
-            
         
         
     def resetN(self):
