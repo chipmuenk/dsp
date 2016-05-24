@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #===========================================================================
 # FIX_pyaudio_basics.py
@@ -11,7 +10,7 @@
 #
 # 
 #===========================================================================
-#from __future__ import division, print_function, unicode_literals # v3line15
+from __future__ import division, print_function, unicode_literals # v3line15
 import numpy as np
 import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
@@ -67,24 +66,32 @@ def setupAudio(p):
 
 
 np_type = np.int16
+
+
 path = '/home/muenker/Daten/share/Musi/wav/'
+filename = 'Ole_16bit.wav'
+filename = 'SpaceRipple.wav'
 
 p = pyaudio.PyAudio() # instantiate PyAudio + setup PortAudio system
 setupAudio(p)
 
-wf = wave.open(os.path.join(path, 'Ole.wav'))
+wf = wave.open(os.path.join(path, filename))
+n_chan = wf.getnchannels() # number of channels in wav-file
+w_samp = wf.getsampwidth() # wordlength of samples
+rate_in = wf.getframerate() # samplerate in wav-file
 
-#wf = wave.open(r'C:\Windows\Media\chord.wav', 'rb') # open WAV-File in read mode
-#wf = wave.open(r'D:\Musik\wav\Jazz\07 - Duet.wav')
-#wf = wave.open(r'D:\Daten\share\Musi\wav\Feist - My Moon My Man.wav')
-#wf = wave.open(r'D:\Daten\share\Musi\wav\01 - Santogold - L.E.S Artistes.wav')
+print("Channels:", n_chan, "\nSample width:",w_samp,"bytes\nSample rate:",rate_in)
+
+p = pyaudio.PyAudio() # instantiate PyAudio + setup PortAudio system
 
 # open a stream on the desired device with the desired audio parameters 
 # for reading or writing
-stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
-                channels=wf.getnchannels(),
-                rate=wf.getframerate(),
+stream = p.open(format=p.get_format_from_width(w_samp),
+                channels=n_chan,
+                rate=rate_in,
                 output=True) 
+
+MONO = n_chan == 1
 CHUNK = 1024 # number of samples in one frame
 
 
@@ -121,14 +128,17 @@ while data_out:
 ## dtype = np.int16 (16 bits): 1 ndarray element = 1 sample :
     samples_l = samples_in[0::2]
     samples_r = samples_in[1::2]
-    if len(samples_r) < CHUNK: # check whether frame has full length
+    if len(samples_in) < 2 * CHUNK: # check whether frame has full length
         samples_out = samples_np = zeros(len(samples_in), dtype=np_type)
-        samples_l = samples_l = zeros(len(samples_in)/2, dtype=np_type)
+        samples_l = samples_r = zeros(len(samples_in)/2, dtype=np_type)
 
 # ---- Numpy Magic happens here (swap L and R channel) ------------------------
-    
-    samples_out[0::2] = samples_in[1::2]
-    samples_out[1::2] = samples_in[0::2]
+    if MONO:
+        samples_out = samples_in
+    else:
+        samples_out[0::2] = samples_in[1::2]
+        samples_out[1::2] = samples_in[0::2]
+#    samples_out = samples_in
       
 ## Stereo signal processing: This only works for sample-by-sample operations,
 ## not e.g. for filtering where consecutive samples are combined
@@ -146,6 +156,7 @@ stream.stop_stream() # pause audio stream
 stream.close() # close audio stream
 
 p.terminate() # close PyAudio & terminate PortAudio system
+print("closed audio stream!")
 
 # see: http://stackoverflow.com/questions/23370556/recording-24-bit-audio-with-pyaudio
 # http://stackoverflow.com/questions/16767248/how-do-i-write-a-24-bit-wav-file-in-python?

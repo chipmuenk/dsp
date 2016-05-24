@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #===========================================================================
 # FIX_pyaudio_quantization.py
@@ -24,7 +23,7 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-import dsp_fpga_lib as dsp
+#import dsp_fpga_lib as dsp
 import dsp_fpga_fix_lib as fx
 #------------------------------------------------------------------ v3line30
 # Ende der gemeinsamen Import-Anweisungen
@@ -33,26 +32,33 @@ import wave
 import os
 np_type = np.int16
 path = '/home/muenker/Daten/share/Musi/wav/'
+
 #filename = 'chord.wav'
 #filename = '07 - Danny Gottlieb with John McLaughlin - Duet.wav'
-#filename = 'Ole.wav'
-filename = '01 - Santogold - L.E.S Artistes.wav'
-
+filename = 'Ole_16bit.wav'
+#filename = '01 - Santogold - L.E.S Artistes.wav'
+filename = 'SpaceRipple.wav'
 
 wf = wave.open(os.path.join(path, filename))
+n_chan = wf.getnchannels() # number of channels in wav-file
+w_samp = wf.getsampwidth() # wordlength of samples
+rate_in = wf.getframerate() # samplerate in wav-file
+
+print("Channels:", n_chan, "\nSample width:",w_samp,"bytes\nSample rate:",rate_in)
+
 p = pyaudio.PyAudio() # instantiate PyAudio + setup PortAudio system
 
 # open a stream on the desired device with the desired audio parameters 
 # for reading or writing
-stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
-                channels=wf.getnchannels(),
-                rate=wf.getframerate(),
+stream = p.open(format=p.get_format_from_width(w_samp),
+                channels=n_chan,
+                rate=rate_in,
                 output=True) 
 CHUNK = 1024 # number of stereo samples per frame
 
 # Define quantization mode and create a quantization instance for each channel
 # quantize with just a few bits:
-q_obj = {'Q':0.8,'quant':'round','ovfl':'sat'} # try 'quant':'round', 'ovfl':'sat'
+q_obj = {'Q':0.9,'quant':'round','ovfl':'wrap'} # try 'quant':'round', 'ovfl':'sat'
 
 # Overflows QI = -1 means the MSB is 2^{-1} = 0.5
 #q_obj = {'Q':-1.15,'quant':'fix','ovfl':'wrap'} # try  'ovfl':'sat'
@@ -79,7 +85,7 @@ while data_out:
     # Check whether there was enough data for a full frame
     if len(samples_r) < CHUNK: # check whether frame has full length
         samples_out = samples_np = zeros(len(samples_in), dtype=float)
-        samples_l = samples_l = zeros(len(samples_in)/2, dtype=np_type)
+#        samples_l = samples_r = zeros(len(samples_in)/2, dtype=np_type)
 
 # - Convert from 16 bit integer to floating point in the range -1 ... 1
 # - Quantize 
@@ -102,3 +108,4 @@ stream.stop_stream() # pause audio stream
 stream.close() # close audio stream
 
 p.terminate() # close PyAudio & terminate PortAudio system
+print("Closed audio stream!")
