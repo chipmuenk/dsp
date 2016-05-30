@@ -1,16 +1,15 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
+# -*- coding: utf-8 -*-
 #===========================================================================
 # DFT_MA_Filt_py.py
 #
-# Python Musterlösung zu "DFT des MA-Filters"
+# Python MusterlÃ¶sung zu "DFT des MA-Filters"
 #
 # Berechnung und Darstellung der DFT in Python
 #
 #
 #
 #
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 

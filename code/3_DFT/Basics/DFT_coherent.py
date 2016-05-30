@@ -1,16 +1,15 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
+# -*- coding: utf-8 -*-
 #===========================================================================
 # DFT_coherent.py
 #
-# # Kohärente Abtastung und DFT von CT - Signalen zum Kapitel "DFT"
+# # KohÃ¤rente Abtastung und DFT von CT - Signalen zum Kapitel "DFT"
 # ToDos:
 # - Legend()
 # - Koordinaten umstellen auf Figure fraction
 # - Tickspacing auf 1 setzen bei diskreten Folgen
 #
 #
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 
@@ -43,6 +42,11 @@ def lim_eps(a,eps):
 
 #Initialize variables
 #------------------------------------------------
+EXPORT = False # export plot
+BASE_DIR = "/home/muenker/Daten/"
+#BASE_DIR = "D:/Daten/"
+FILENAME = "DFT_coherent" # "DFT" #
+FMT = "svg"
 fs = 260.0    # sampling frequency
 Ts = 1.0/fs      # sampling period
 N_man  = 0     # manual selection of N if N_man > 0
@@ -97,12 +101,12 @@ xn = DC + A1 * cos(2.0*pi*fsig*n*Ts + phi1) + A2 * cos(2.0*pi*fsig2*n*Ts + phi2)
 # and return a reference to it:
 fig = figure(1); clf()
 ax1 = fig.add_subplot(111)
-# Plotte x über L Perioden mit blauer Linie
+# Plotte x Ã¼ber L Perioden mit blauer Linie
 ax1.plot(t[0:L*50+1], xt[0:L*50+1], 'b-', label = '$x(t)$')
 ax1.plot(t[L*50:], xt[L*50:], color='grey', linestyle='-')   # plot rest of x
 ax1.set_xlabel(r'$t$ / s $\rightarrow$')
 ylabel(r'$x(t), \, x[n]$ / V $\rightarrow$')
-grid(axis='x') # y-gridlines für beide x-Achsen
+grid(axis='x') # y-gridlines fÃ¼r beide x-Achsen
 xlim([0,Tmax])
 ax2 = ax1.twiny() # Zwei Plots mit gemeinsamer y- aber verschiedenen x-Achsen
 markerline, stemlines, baseline = ax2.stem(n[0:N], xn[0:N], label = '$x[n]$')
@@ -115,8 +119,8 @@ if disp_L==True:
     plt.setp(stemlines, 'color','grey', 'linewidth', 1, linestyle='-')
     plt.setp(baseline, 'linewidth', 0) # turn off baseline
 ax2.set_xlabel(r'$n \, \rightarrow$')
-ax2.grid(True) # x-Gitterlinien für zweite x-Achse
-ax2.set_xlim([0,N_Ts]) # Anpassen des Bereichs für zweite x-Achse an erste
+ax2.grid(True) # x-Gitterlinien fÃ¼r zweite x-Achse
+ax2.set_xlim([0,N_Ts]) # Anpassen des Bereichs fÃ¼r zweite x-Achse an erste
 ylbl = min(xt) + (max(xt) - min(xt)) * 0.3 # position for label
 ax2.text(0.97, 0.04, '$f_S = %.1f$ Hz, $f_{sig} = %.1f$ Hz' %(fs,fsig),
          fontsize=18, ha="right", va="bottom",linespacing=1.5,
@@ -129,28 +133,29 @@ if disp_L==True:
         #see matplotlib.patches.ArrowStyle
     plt.axvline(x=N, linewidth=2, color='k', linestyle='--')
     #
-# Textbox mit Werten für N, L
+# Textbox mit Werten fÃ¼r N, L
 ax2.text((N)/2.0,ylbl,'$N = %s, \, L = %s$' %(Nmax, Lmax), fontsize=18,ha="center",
          va="center", linespacing=1.5, bbox=dict(boxstyle="square", fc='white'))
               #    xycoords="figure fraction", textcoords="figure fraction")
 ylim(lim_eps(xt,0.05))    # set ylim to min/max of xt
 # Horizontale Linie bei y=0 von xmin bis xmax (rel. Koordinaten):
 plt.axhline()
-plt.text(0.5, 1.14, 'Kohärente Abtastung mit $N$ Samples über $L$ Perioden',
+plt.text(0.5, 1.14, 'KohÃ¤rente Abtastung mit $N$ Samples Ã¼ber $L$ Perioden',
          horizontalalignment='center',
          fontsize=20,
          transform = ax2.transAxes)
 plt.subplots_adjust(top=0.85,right=0.95)
-plt.savefig('D:/Daten/pueb_LTIML-Sampling_%sHz.png' %int(fs))
+if EXPORT:
+    plt.savefig('D:/Daten/pueb_LTIML-Sampling_%sHz.png' %int(fs))
 
 #-------------------------------------------------------------
-#               BERECHNE UND PLOTTE DFT
+#               BERECHNE UND PLOTTE DFT - Figure 2
 #-------------------------------------------------------------
-xn = xn[0:N] # Array auf Elemente 0 ... N-1 kürzen
+xn = xn[0:N] # Array auf Elemente 0 ... N-1 kÃ¼rzen
 Xn = fft(xn)/ N # Berechne DFT und skaliere mit 1/N
 Xn = fftshift(Xn) # schiebe DFT um -fs/2 zum Zentrieren um f = 0
 for i in range(0,N):
-# Setze Phase = 0 bei sehr kleinen Amplituden (unterdrücke numerisches Rauschen):
+# Setze Phase = 0 bei sehr kleinen Amplituden (unterdrÃ¼cke numerisches Rauschen):
     if abs(Xn[i]/max(abs(Xn))) < 1.0e-10: Xn[i] = 0
 xf = fftshift(fftfreq(len(xn),d=1.0/len(xn)))
 #xf= fftshift(range(0,len(xn)))
@@ -176,7 +181,7 @@ subplot(212); grid(True)
 ml, sl, bl = plt.stem(xf,angle(Xn)/pi)
 plt.setp(ml, 'markerfacecolor', 'r', 'markersize', 8)
 plt.setp(sl, 'color','r', 'linewidth', 2)
-plt.setp(bl, 'linewidth', 0) # Grundlinie unterdrücken
+plt.setp(bl, 'linewidth', 0) # Grundlinie unterdrÃ¼cken
 xlabel(r'$k \rightarrow$')
 ylabel(r'$ \angle S[k]$ / rad / $\pi \rightarrow$' )
 xlim(my_xlim)
@@ -184,5 +189,7 @@ plt.axhline(linewidth=1, color='k') # horizontale Linie bei 0
 plt.axvline(linewidth=1, color='k') # vertikale Linie bei 0
 # Plot abspeichern:
 #plt.savefig('D:/Daten/ueb-DFT_Basics_1-ML_DFT%s.png' %int(N))
+if EXPORT:
+    fig.savefig(BASE_DIR + FILENAME + '%s.'+FMT %int(N))
 
 plt.show()

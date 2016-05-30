@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
+# -*- coding: utf-8 -*-
 #===========================================================================
 # DFT_Windows_py.py
 #
@@ -10,7 +9,7 @@
 # influence the displayed spectrum
 # 
 #
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 
@@ -288,14 +287,14 @@ if SHOW_FIG3:
     #
     # Calculate Xn in dBs with a fixed minimum
     Xn_dB = np.maximum(20*log10(abs(Xn)),Xn_dB_min)
-    Xn1 = 2.*abs(Xn[:M_FFT/2]); Xn1[0] = Xn1[0] / 2
+    Xn1 = 2.*abs(Xn[:M_FFT//2]); Xn1[0] = Xn1[0] / 2
     Xn1_dB = np.maximum(20*log10(abs(Xn1)),Xn_dB_min)
     #==========================================================================
     ax31 = fig3.add_subplot(211)
     ax31.grid('on')
     plt.title('Einseitige DFT $S[k]$') # Overall title
-    ml, sl, bl = ax31.stem(xf[:M_FFT/2],Xn1) # plot vs freq.
-    ml, sl, bl = ax31.stem(xfn[:M_FFT/2],Xn1) # plot vs. n
+    ml, sl, bl = ax31.stem(xf[:M_FFT//2],Xn1) # plot vs freq.
+    ml, sl, bl = ax31.stem(xfn[:M_FFT//2],Xn1) # plot vs. n
     plt.setp(ml, 'markerfacecolor', 'r', 'markersize', mk_lg) # markerline
     plt.setp(sl, 'color','r', 'linewidth', 2) # stemline
     plt.setp(bl, 'linewidth',0) # turn off baseline
@@ -307,7 +306,7 @@ if SHOW_FIG3:
     ax31.set_xlabel(r'$f \; \mathrm{[Hz]} \;\rightarrow $')
     #
     ax32 = fig3.add_subplot(212)
-    ml, sl, bl = ax32.stem(xfn[:M_FFT/2],Xn1_dB[:M_FFT/2],bottom=Xn_dB_min)
+    ml, sl, bl = ax32.stem(xfn[:M_FFT//2],Xn1_dB[:M_FFT//2],bottom=Xn_dB_min)
     plt.setp(ml, 'markerfacecolor', 'r', 'markersize', mk_lg) # markerline
     plt.setp(sl, 'color','r', 'linewidth', 2) # stemline
     plt.setp(bl, 'color','k') # black baseline
@@ -326,8 +325,8 @@ fig6 = plt.figure(6)
 fig6.clf()
 ax61 = fig6.add_subplot(111)
 #plt.title('Einseitige DFT $S[k]$') # Overall title
-ml, sl, bl = ax61.stem(xf[:M_FFT/2],Xn1) # plot vs freq.
-ml, sl, bl = ax61.stem(xfn[:M_FFT/2],Xn1) # plot vs. n
+ml, sl, bl = ax61.stem(xf[:M_FFT//2],Xn1) # plot vs freq.
+ml, sl, bl = ax61.stem(xfn[:M_FFT//2],Xn1) # plot vs. n
 plt.setp(ml, 'markerfacecolor', 'k', 'markersize', mk_lg) # markerline
 plt.setp(sl, 'color','k', 'linewidth', 2) # stemline
 plt.setp(bl, 'linewidth',0) # turn off baseline
