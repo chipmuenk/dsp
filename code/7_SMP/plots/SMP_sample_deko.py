@@ -30,21 +30,25 @@ OSR = 1.5  # Oversampling Ratio in Bezug auf f_1
 
 t_min = 0; t_max = t_min + Np / f_1 
 N = 120; # Anzahl Datenpunkte pro Periode von f_1
+
+NMax = int(Np*N)
+
 # Erzeuge Vektor mit Np*N aequidistanten Zeitpunkten (Np Perioden von f_1):
-t  = linspace(t_min, t_max, Np*N+1)
+t  = linspace(t_min, t_max, NMax+1)
 #
 
-NS = np.floor(N / (2 * OSR)) # Abtastung alle NS Zeitpunkte
-t_S = t[0:Np*N:NS] # Vektor mit Sampling-Zeitpunkten
+NS = int(np.floor(N / (2 * OSR))) # Abtastung alle NS Zeitpunkte
+t_S = t[0:NMax:NS] # Vektor mit Sampling-Zeitpunkten
 f_S = 2 * f_1 * OSR # Abtastfrequenz
 #t_P =  t(1 : NS/8 : 2*N); 
 x1 = A1 * cos(f_1*2*pi*t + phi_1)
 x2 = A2 * cos(f_2*2*pi*t + phi_2)
 x3 = A3 * cos(f_3*2*pi*t + phi_3)
 # Abtasten der drei Funktionen
-x1_S = x1[0:Np*N:NS]
-x2_S = x2[0:Np*N:NS]
-x3_S = x3[0:Np*N:NS]
+
+x1_S = x1[0:NMax:NS]
+x2_S = x2[0:NMax:NS]
+x3_S = x3[0:NMax:NS]
 #%% Figure 1: Zeitbereich
 fig1 = plt.figure(1) # neue Grafik
 plt.clf()
