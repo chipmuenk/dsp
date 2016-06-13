@@ -10,7 +10,7 @@
 #
 #
 #
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 
@@ -32,17 +32,41 @@ import dsp_fpga_lib as dsp
 
 from mpl_toolkits.mplot3d import Axes3D # needed for 'projection3d'
 from matplotlib import cm # Colormap
+from  matplotlib import patches
+import mpl_toolkits.mplot3d.art3d as art3d
 #import mayavi.mlab as mlab
 import scipy.special
 
+#BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
+BASE_DIR = "D:/Daten/HM/AACD/1_2_Filters/Folien/img/"
+FILENAME = "butterworth_filter"
+FMT = ".png"
 
+##======== 3D - Plots ========================
+OPT_3D_FORCE_ZMAX = False # False: use absolut value zmax for limits
+                            # True: use zmax_rel * max(H)
+OPT_3D_PLOT_TYPE = 'MESH'#'SURF_MLAB'#'SURF_MLAB' # MESH, MESH_MLAB, SURF, CONTOUR
+#OPT_3D_PLOT_TYPE = 'SURF_MLAB'
+OPT_3D_ALPHA = 0.9 # transparency from 0 ... 1
+ELEV = 20 # elevation
+PHI = -30 # angle in x,y - plane
+
+steps = 100;               # number of steps for x, y, z
+
+zmin =  0.0; zmax = 1.0; # zmax-setting is only used when OPT_3D_FORCE_ZMAX = True
+zmin_dB = -70
+zmax_rel = 3 # Max. displayed z - value relative to max|H(f)|
+#
+plevel_rel = 1.1; # height of plotted pole position relative to zmax
+zlevel_rel = 0.05; # height of plotted zero position relative to zmax
+PN_SIZE = 10; # size of P/N symbols
 #================================
 
 W_c = 1; A_PB_log = 1; A_SB_log = 40.; L = 4
 zeta = sqrt(3)/2 # damping factor for Bessel
 zeta = 0.25
-[bb,aa] = sig.bessel(L, W_c, analog=True)
-#[bb,aa] = sig.butter(L, W_c, analog=True)
+#[bb,aa] = sig.bessel(L, W_c, analog=True)
+[bb,aa] = sig.butter(L, W_c, analog=True)
 #[bb,aa] = sig.cheby1(L, A_PB_log, W_c, analog=True)
 #[bb,aa] = sig.cheby2(L, A_SB_log, W_c, analog=True)
 #[bb,aa] = sig.ellip(L, A_PB_log, A_SB_log, W_c, analog=True)
@@ -150,25 +174,10 @@ xlabel(r'$t \; \rightarrow$')
 #===============================================================
 ## 3D-Plots
 #===============================================================
-#
-OPT_3D_FORCE_ZMAX = False # False: use absolut value zmax for limits
-                            # True: use zmax_rel * max(H)
-OPT_3D_PLOT_TYPE = 'MESH'#'SURF_MLAB'#'SURF_MLAB' # MESH, MESH_MLAB, SURF, CONTOUR
-#OPT_3D_PLOT_TYPE = 'SURF_MLAB'
-OPT_3D_ALPHA = 0.9 # transparency from 0 ... 1
-
-steps = 100;               # number of steps for x, y, z
 xmin = -max(f); xmax = 1e-6;  # cartesian range definition
 ymin = 0 #-max(f); 
 ymax = max(f);
 #
-zmin =  0.0; zmax = 1.0; # zmax-setting is only used when OPT_3D_FORCE_ZMAX = True
-zmin_dB = -70
-zmax_rel = 3 # Max. displayed z - value relative to max|H(f)|
-#
-plevel_rel = 1.1; # height of plotted pole position relative to zmax
-zlevel_rel = 0.05; # height of plotted zero position relative to zmax
-PN_SIZE = 10; # size of P/N symbols
 
 if OPT_3D_FORCE_ZMAX == True:
     thresh = zmax
@@ -180,8 +189,8 @@ zlevel = zlevel_rel * thresh; # height of displayed zero position
 z_scale = 1.0
 
 # Calculate limits etc. for 3D-Plots
-x1 = np.linspace(xmin,xmax,steps,endpoint=True) # z-coordinates
-y1 = np.linspace(ymin,ymax,steps,endpoint=True) # z-coordinates
+x1 = np.linspace(xmin,xmax,steps,endpoint=True) # x-coordinates
+y1 = np.linspace(ymin,ymax,steps,endpoint=True) # y-coordinates
 zc = np.linspace(zmin,thresh,steps,endpoint=True) # z-coordinates
 
 xm, ym = np.meshgrid(x1,y1); # cartesian grid
@@ -194,8 +203,8 @@ yc = y[0,:]
 
 s = x + 1j*y # complex coordinate grid
 
-fig12 = plt.figure(5)
-ax12 = fig12.add_subplot(111,projection='3d')
+fig5 = plt.figure(5)
+ax12 = fig5.add_subplot(111,projection='3d')
 
 #colormap gray;  #hsv / gray / default / colorcube / bone / summer / autumn
 #extents=(-1,1, -1,1, -1,1)
@@ -264,17 +273,32 @@ for k in range(len(poles)):
         ax12.plot([poles[k].real, poles[k].real],[poles[k].imag, poles[k].imag],
                     plevel, 'x', markersize = PN_SIZE, mew=2.0, mec='red')
 
+i = arange(steps)
+uc = exp(1j*pi*(1 - i/(2*steps))) # plot unit circle between pi / 2 and pi
+ax12.plot(uc.real, uc.imag, 0, color = 'grey')
+
+#uc = patches.Circle((0,0), radius=1, fill=False, color='grey', ls='solid', zorder=1)
+#ax12.add_patch(uc)
+#art3d.pathpatch_2d_to_3d(uc, z=0, zdir="z")
+
+
 #ax12.set_title( r'3D-Darstellung von $|H(s)|$',fontsize=20);
+#ax12.xaxis._axinfo['label']['space_factor'] = 50
+ax12.xaxis.labelpad=15
+ax12.yaxis.labelpad=15
+ax12.zaxis.labelpad=-30
 ax12.set_xlabel(r'$\sigma \, / \,\omega_n \;  \rightarrow$',fontsize=18)
 ax12.set_ylabel(r'$j\omega \, / \,\omega_n \; \rightarrow$',fontsize=18)
 #ax12.set_zlabel(r'$|{H(s)|} \; \rightarrow$')
-ax12.set_zlabel(r'$|{A(s = \sigma + j \omega)|} \; \rightarrow$')
+ax12.set_zlabel(r'    $|{A(s = \sigma + j \omega)|} \; \rightarrow$')
 #ax12.set_title(r'$|H(s = \sigma + j \omega)| $')
 ax12.set_xlim3d(xmin, xmax)
 ax12.set_ylim3d(ymin, ymax)
 ax12.set_zlim3d(zmin, thresh*plevel_rel)
 ax12.locator_params(axis = 'both', tight = True, nbins=4)
 ax12.locator_params(axis = 'z', tight = True, nbins=8)
+ax12.view_init(ELEV, PHI)
 
-
+plt.tight_layout()
+fig5.savefig(BASE_DIR + FILENAME + '3d' + FMT)
 plt.show()
