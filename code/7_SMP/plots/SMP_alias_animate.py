@@ -13,13 +13,18 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 #
-
-plt.rcParams['animation.ffmpeg_path'] = 'D:/Programme/ffmpeg/bin/ffmpeg.exe'
+#plt.rcParams['animation.ffmpeg_path'] = 'D:/Programme/ffmpeg/bin/ffmpeg.exe'
+plt.rcParams['animation.ffmpeg_path'] = '/opt/ffmpeg-3.02/ffmpeg'
 #plt.rcParams['savefig.bbox'] = 'tight' # tight - this garbles the video!!!
+
+#movie_file = 'D:/Daten/basic_animation.mp4'
+movie_file = '/home/muenker/Daten/basic_animation.mp4'
+
+
 
 dpi = 100
 fps = 30
-movie_file = 'D:/Daten/basic_animation.mp4'
+
 ffmpeg_writer = animation.FFMpegWriter(fps = fps, extra_args=['-vcodec', 'libx264'])
 
 
@@ -31,7 +36,7 @@ fig.set_size_inches(4, 5, True)
 ax = plt.axes(xlim=(0, 2), ylim=(-2, 2))
 line, = ax.plot([], [], lw=2)
 
-# initialization function: plot the background of each frame
+# initialization function: plot the background for each frame
 def init():
     line.set_data([], [])
     return line,
