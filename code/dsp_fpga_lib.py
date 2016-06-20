@@ -290,12 +290,15 @@ def zplane(b, a=1, pn_eps=1e-2, zpk=False, analog=False, pltLib='matplotlib',
 
     Returns
     -------
-    tau_g : ndarray
-        The group delay
+    z : ndarray
+        The zeroes
 
 
-    w : ndarray
-        The angular frequency points where the group delay was computed
+    p : ndarray
+        The poles
+        
+    k : real
+        The gain factor
 
     Notes
     -----
