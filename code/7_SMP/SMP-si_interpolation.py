@@ -1,37 +1,36 @@
-# -*- coding: iso-8859-15 -*-
-# DFT_plot_signals.py ====================================================
-# 
-#
-# Plots zum Kapitel "FIL":
-#    Darstellung der Phase eines Sinussignals in Abhängigkeit der Verzögerung
-# 
-#
-#
-#
-# 
-# (c) 2016-Apr-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals, absolute_import # v3line15
+# -*- coding: utf-8 -*-
+"""
+SMP-si_interpolation.py ====================================================
+
+Plots zum Kapitel "SMP:
+   Darstellung der Phase eines Sinussignals in Abhängigkeit der Verzögerung 
+   für Folien
+
+(c) 2016-Apr-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+
+from __future__ import division, print_function, unicode_literals, absolute_import
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, sqrt, exp, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
+
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-from matplotlib.patches import FancyArrow, Circle
-import matplotlib.gridspec as gridspec
+#from matplotlib.patches import FancyArrow, Circle
+#import matplotlib.gridspec as gridspec
 
-#import dsp_fpga_lib as dsp
-#-------- ----------------------------------------------------------------
-# ... Ende der gem. import-Anweisungen
+PRINT = False           
+#BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
+BASE_DIR = "D:/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
+FILENAME = "SMP-si_interpolate" 
+FMT = ".svg"
 
 #mpl.rcParams['xtick.labelsize'] = 'small'
 mpl.rc('xtick', labelsize=16, direction='in')#, major.size = 4)
@@ -47,11 +46,6 @@ def scale_axis(val, scale = 0.1):
     delta = abs(max(val) - min(val))
     return [min(val) - delta * scale, max(val) + delta * scale]
 
-PRINT = True           
-#BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
-BASE_DIR = "D:/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
-FILENAME = "SMP-si_interpolate" 
-FMT = ".svg"
 figsize = (7,3.5)
 
 fsig = 0.1 # signal frequency in kHz

@@ -17,6 +17,8 @@ from numpy import pi, exp, sin, cos
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
+import sys
+sys.path.append('..')
 from dsp_fpga_lib import zplane
 
 #
@@ -47,6 +49,7 @@ Z = 1/P
 
 # First set up the figure, the axis, and the plot element we want to animate
 fig = plt.figure(1)
+#fig.clf()
 fig.set_size_inches(10, 5, True)
 ax1 = fig.add_subplot(121, autoscale_on=False, xlim=(-2, 2), ylim=(-2, 2),  aspect=1)
 ax1.grid(True)

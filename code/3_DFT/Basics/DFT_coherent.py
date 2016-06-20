@@ -1,33 +1,29 @@
 # -*- coding: utf-8 -*-
-#===========================================================================
-# DFT_coherent.py
-#
-# # Kohärente Abtastung und DFT von CT - Signalen zum Kapitel "DFT"
-# ToDos:
-# - Legend()
-# - Koordinaten umstellen auf Figure fraction
-# - Tickspacing auf 1 setzen bei diskreten Folgen
-#
-#
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
+"""
+===========================================================================
+DFT_coherent.py
+
+Kohärente Abtastung und DFT von CT - Signalen zum Kapitel "DFT"
+ToDos:
+- Legend()
+- Koordinaten umstellen auf Figure fraction
+- Tickspacing auf 1 setzen bei diskreten Folgen
+
+
+(c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
 from __future__ import division, print_function, unicode_literals # v3line15
 
-import numpy as np
-import numpy.random as rnd
+import numpy as npnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, zeros, ones)
 from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
-import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-import dsp_fpga_lib as dsp
-#------------------------------------------------------------------------
-# ... Ende der Import-Anweisungen
 
 # This Greatest Common FRACTION function also works with fractions
 def gcf(a, b):
@@ -45,8 +41,9 @@ def lim_eps(a,eps):
 EXPORT = False # export plot
 BASE_DIR = "/home/muenker/Daten/"
 #BASE_DIR = "D:/Daten/"
-FILENAME = "DFT_coherent" # "DFT" #
-FMT = "svg"
+FILENAME = "DFT_coherent"
+FMT = ".svg"
+
 fs = 260.0    # sampling frequency
 Ts = 1.0/fs      # sampling period
 N_man  = 0     # manual selection of N if N_man > 0
@@ -190,6 +187,6 @@ plt.axvline(linewidth=1, color='k') # vertikale Linie bei 0
 # Plot abspeichern:
 #plt.savefig('D:/Daten/ueb-DFT_Basics_1-ML_DFT%s.png' %int(N))
 if EXPORT:
-    fig.savefig(BASE_DIR + FILENAME + '%s.'+FMT %int(N))
+    fig.savefig(BASE_DIR + FILENAME + '%s'+ FMT %int(N))
 
 plt.show()

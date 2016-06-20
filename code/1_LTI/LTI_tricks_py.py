@@ -1,24 +1,21 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-#===========================================================================
-# LTI_tricks_py.py
-#
-# Tricks zu Grafik und LTI-Systemen:
-# - Anlegen von Subplots
-# - Definition eines IIR-Filters über seine Koeffizienten
-# - Impulsantwort impz(), linear und logarithmisch
-# - filtere (= falte) Eingangssequenz mit Impulsantwort des IIR-Filters
-#   (unendlich ausgedehnt!) mit scipy.signal.lfilter()
-# - interpoliere Sequenz mit scipy.interpolate.interp1d 
-# (c) 2013-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+# -*- coding: utf-8 -*-
+"""
+LTI_tricks_py.py
+
+Tricks zu Grafik und LTI-Systemen:
+- Anlegen von Subplots
+- Definition eines IIR-Filters Ã¼ber seine Koeffizienten
+- Impulsantwort impz(), linear und logarithmisch
+- filtere (= falte) Eingangssequenz mit Impulsantwort des IIR-Filters
+  (unendlich ausgedehnt!) mit scipy.signal.lfilter()
+- interpoliere Sequenz mit scipy.interpolate.interp1d 
+(c) 2013-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
+"""
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
+
 import scipy.signal as sig
 import scipy.interpolate as intp
 
@@ -26,13 +23,15 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
+import sys
+sys.path.append('..')
 import dsp_fpga_lib as dsp
 #------------------------------------------------------------------------
 # ... Ende der Import-Anweisungen
 # -- Impulse response (lin / log) ---
 f1 = 50; Ts = 5e-3 
 n = arange(0, 50) # sample n
-t = arange(0, 49., 0.1) # feiner aufgelöst
+t = arange(0, 49., 0.1) # feiner aufgelÃ¶st
 xn = 1.5 + 0.5*cos(2.0*pi*f1*n*Ts) # x[n]
 b = [0.1, 0]; a = [1, -0.9] # Koeffizienten
 #   H(z) = (0.1 z + 0) / (z - 0.9)

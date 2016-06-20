@@ -1,6 +1,5 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-# LTF_sensor_py.py =================================================
+# -*- coding: utf-8 -*-
+# LTF_sensor_simple_py.py =================================================
 # 
 # Kapitel "LTF", "Abgetastete Signale im Frequenzbereich" (LTF)
 # Abgetastetes und gefiltertes "Sensorsignal" im Frequenzbereich
@@ -10,22 +9,21 @@
 # 
 # 
 # 
-# (c) 2014-Feb-10 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Feb-10 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
+import sys
+sys.path.append('..')
 import dsp_fpga_lib as dsp
 #------------------------------------------------------------------------
 # ... Ende der Import-Anweisungen

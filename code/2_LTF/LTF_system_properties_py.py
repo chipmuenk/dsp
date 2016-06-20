@@ -1,32 +1,30 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
+# -*- coding: utf-8 -*-
 # LTF_system_properties_py.py ==========================================
 # 
 #
 # Kapitel "LTI-Systeme im Frequenzbereich"
 #
 # Pol-Nullstellenplan, Amplitudengang, Phasengang, 
-# 3D-Übertragungsfunktion etc. eines zeitdiskreten Systems,
-# definiert über:
-#			- Zähler- und Nennerkoeffizienten (Polynomform)
+# 3D-Ãœbertragungsfunktion etc. eines zeitdiskreten Systems,
+# definiert Ã¼ber:
+#			- ZÃ¤hler- und Nennerkoeffizienten (Polynomform)
 
 # 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange, 
                    linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
+import sys
+sys.path.append("..") 
 import dsp_fpga_lib as dsp
 #------------------------------------------------------------------------
 # ... Ende der gem. import-Anweisungen
@@ -34,9 +32,7 @@ import dsp_fpga_lib as dsp
 from mpl_toolkits.mplot3d import Axes3D # needed for 'projection3d'
 from matplotlib import cm # Colormap
 
-import sys
-sys.path.append("../") 
-print(sys.path)
+
 
 font = {'family' : 'serif', 'weight' : 'normal', 'size'   : 16}
 font_math = {'size'   : 16}
@@ -92,7 +88,7 @@ OPT_3D_POLAR_SPEC = False # Plot circular range in 3D-Plot
 OPT_3D_FORCE_ZMAX = True # Enforce absolute limit for 3D-Plot
 OPT_3D_PLOT_TYPE = 'MESH' # options: 'MESH', 'SURF', 'TRI_SURF' 'CONT3D'
 OPT_3D_CONTOUR = True # plot 2D Contour "wallpapers"
-OPT_3D_MSTRIDE = 1 # Schrittweite für MESH und CONT3D
+OPT_3D_MSTRIDE = 1 # Schrittweite fÃ¼r MESH und CONT3D
 #OPT_3D_PLOT_MESH = False  # 3D plot of |H(z)| as mesh instead of surface
 OPT_3D_ALPHA = 1 # Transparency for surface plot
 #
@@ -118,7 +114,7 @@ PN_SIZE = 8 # size of P/N symbols
 F_sig = f_sig / f_S
 
 #==========================================================================
-# Frequenzachse skalieren und Label wählen
+# Frequenzachse skalieren und Label wÃ¤hlen
 #==========================================================================
 whole = False
 if DEF_F_RANGE == 'f_S/2':
@@ -133,7 +129,7 @@ elif DEF_F_RANGE == '1':
     f_S = 1.
     f_range = (0, 1)
     whole = True
-else: sys.exit("Ungültiges Format für DEF_F_RANGE!")  
+else: sys.exit("UngÃ¼ltiges Format fÃ¼r DEF_F_RANGE!")  
 T_S = 1/f_S
 #
 # Define x-axis labels depending on the sampling frequency
@@ -247,7 +243,7 @@ print('\n')
 #################################################################
 
 plt.close('all') # close all "old" figures
-#mlab.close(all=True) # alle Mayavi (3D) Fenster schließen
+#mlab.close(all=True) # alle Mayavi (3D) Fenster schlieÃŸen
 
 #=========================================
 ## Pol/Nullstellenplan

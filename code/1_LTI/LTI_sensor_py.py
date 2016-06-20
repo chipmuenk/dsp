@@ -1,34 +1,30 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-# LTI_sensor_py.py ====================================================
-#
-#
-# Einfaches Code-Beispiel zum Kapitel "LTI-Systeme im Zeitbereich"
-#
-# Thema: Abtastung und Filterung eines Sensorsignals
-#
-# Python-Musterlösung zur Übungsaufgabe "Filterung abgetasteter Signale"
-#
-# 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
+# -*- coding: utf-8 -*-
+"""
+LTI_sensor_py.py ====================================================
+
+Einfaches Code-Beispiel zum Kapitel "LTI-Systeme im Zeitbereich"
+
+Thema: Abtastung und Filterung eines Sensorsignals
+
+Python-MusterlÃ¶sung zur Ãœbungsaufgabe "Filterung abgetasteter Signale"
+
+(c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
+=====================================================================
+"""
+
 from __future__ import division, print_function, unicode_literals # v3line15
 
 import numpy as np
-import numpy.random as rnd
+
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange, 
                    linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
+
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-#import dsp_fpga_lib as dsp
-#------------------------------------------------------------------------
-# ... Ende der gem. import-Anweisungen
 # ------------ Define variables ----------------
 Ts = 1/240     # sampling period
 f1 = 50.0        # signal frequency
@@ -41,7 +37,7 @@ t = arange(0,Tmax,tstep)  # (start,stop,step)
 n = arange(0,round(N_Ts)) # sample n, step = 1 
 xt = 1.5 + 0.5*cos(2.0*pi*f1*t + phi0) # x(t).
 xn = 1.5 + 0.5*cos(2.0*pi*f1*n*Ts + phi0) # x[n]
-#xn = zeros(len(xn)); xn[0] = 1 # Dirac-Stoß
+#xn = zeros(len(xn)); xn[0] = 1 # Dirac-StoÃŸ
 # ----- Plot "analog" and sampled signals -----
 figure(1); grid(True)    # Turn on grid
 xlabel(r'$t$ / s $\rightarrow$')

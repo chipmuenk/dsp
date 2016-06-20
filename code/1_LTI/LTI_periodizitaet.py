@@ -1,34 +1,37 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-#===========================================================================
-# sampling_FFT_v1.py
-#
-# # Kohärente Abtastung von CT - signalen zum Kapitel "DFT",
-# ToDos:
-# - Legend()
-# - Koordinaten umstellen auf Figure fraction
-# - Tickspacing auf 1 setzen bei diskreten Folgen
-# - Periodizitaet von Spektrum darstellen?
-# 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+# -*- coding: utf-8 -*-
+"""
+===========================================================================
+LTI_periodizitaet.py
+
+Zeige Periodizitaet von abgetasteten Signalen
+
+ToDo:
+- Legend()
+- Koordinaten umstellen auf Figure fraction
+- Tickspacing auf 1 setzen bei diskreten Folgen
+- Periodizitaet von Spektrum darstellen?
+
+(c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
+
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
-
-import dsp_fpga_lib as dsp
-#------------------------------------------------------------------------
-# ... Ende der Import-Anweisungen
+    
+PRINT = True          
+BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
+# BASE_DIR = "D:/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
+FILENAME = "LTI_periodizitaet" 
+FMT = ".svg"
 
 # This Greatest Common FRACTION function also works with fractions
 def gcf(a, b):
@@ -134,12 +137,13 @@ ax2.text((N)/2.0,ylbl,'$N = %s, \, L = %s$' %(Nmax, Lmax), fontsize=18,ha="cente
 ylim(lim_eps(xt,0.05))    # set ylim to min/max of xt
 # Draw a horizontal line at y=0 from xmin to xmax (rel. coordinates):
 plt.axhline() 
-plt.text(0.5, 1.14, 'Kohärente Abtastung mit $N$ Samples über $L$ Perioden',
+plt.text(0.5, 1.14, 'KohÃ¤rente Abtastung mit $N$ Samples Ã¼ber $L$ Perioden',
          horizontalalignment='center',
          fontsize=20,
          transform = ax2.transAxes)
 plt.subplots_adjust(top=0.85,right=0.95)
-plt.savefig('D:/Daten/pueb_LTIML-Sampling_%sHz.png' %int(fs))
+if PRINT:
+    plt.savefig(BASE_DIR + FILENAME +"_%sHz" %int(fs) + FMT)
 
 
 plt.show()
