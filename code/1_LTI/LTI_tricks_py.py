@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-LTI_tricks_py.py
+LTI_tricks_py.py ===========================================================
 
 Tricks zu Grafik und LTI-Systemen:
 - Anlegen von Subplots
@@ -8,9 +8,12 @@ Tricks zu Grafik und LTI-Systemen:
 - Impulsantwort impz(), linear und logarithmisch
 - filtere (= falte) Eingangssequenz mit Impulsantwort des IIR-Filters
   (unendlich ausgedehnt!) mit scipy.signal.lfilter()
-- interpoliere Sequenz mit scipy.interpolate.interp1d 
+- interpoliere Sequenz mit scipy.interpolate.interp1
+
 (c) 2013-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+============================================================================
 """
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
@@ -26,8 +29,7 @@ from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
 import sys
 sys.path.append('..')
 import dsp_fpga_lib as dsp
-#------------------------------------------------------------------------
-# ... Ende der Import-Anweisungen
+
 # -- Impulse response (lin / log) ---
 f1 = 50; Ts = 5e-3 
 n = arange(0, 50) # sample n

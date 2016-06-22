@@ -3,13 +3,8 @@
 ===========================================================================
 LTI_periodizitaet.py
 
-Zeige Periodizitaet von abgetasteten Signalen
+Zeige und berechne Periodizitaet von abgetasteten Signalen
 
-ToDo:
-- Legend()
-- Koordinaten umstellen auf Figure fraction
-- Tickspacing auf 1 setzen bei diskreten Folgen
-- Periodizitaet von Spektrum darstellen?
 
 (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 ===========================================================================
@@ -21,13 +16,11 @@ import numpy as np
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, zeros, ones)
 
-import scipy.signal as sig
-
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
     
-PRINT = True          
+EXPORT = True          
 BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
 # BASE_DIR = "D:/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
 FILENAME = "LTI_periodizitaet" 
@@ -142,7 +135,7 @@ plt.text(0.5, 1.14, 'Kohärente Abtastung mit $N$ Samples über $L$ Perioden',
          fontsize=20,
          transform = ax2.transAxes)
 plt.subplots_adjust(top=0.85,right=0.95)
-if PRINT:
+if EXPORT:
     plt.savefig(BASE_DIR + FILENAME +"_%sHz" %int(fs) + FMT)
 
 

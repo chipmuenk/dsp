@@ -1,36 +1,35 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-#===========================================================================
-# FIX_intro_py.py
-#
-# Einfaches Code-Beispiel zum Thema Fixpoint-Quantisierung
-#
-# Demonstriere:
-# - Quantisierungskennlinie
-# - Wellenform eines quantisierten Signals
-# bei verschiedenen Arten der Quantisierung und der Sättigung
-# 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+# -*- coding: utf-8 -*-
+"""
+FIX_intro_py.py =========================================================
+
+Einfaches Code-Beispiel zum Thema Fixpoint-Quantisierung
+
+Demonstriere:
+- Quantisierungskennlinie
+- Wellenform eines quantisierten Signals
+
+bei verschiedenen Arten der Quantisierung und der SÃ¤ttigung
+
+(c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
+=========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
+
+import time
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
-import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-import dsp_fpga_lib as dsp
-#------------------------------------------------------------------------
-# Ende der gemeinsamen Import-Anweisungen
+import sys
+sys.path.append('..')
 import dsp_fpga_fix_lib as fx
-import time
+
+
 N = 10000; f_a = 1
 t = linspace(0, 1, N, endpoint=False)
 a = 1.1 * sin(2 * pi * f_a * t)
@@ -46,8 +45,7 @@ t_cpu = time.clock()
 
 aq = fx_a.fix(a) # quantize a
 xq = fx_x.fix(x) # quantize x
-print('Anzahl der Überläufe = ', fx_x.N_over) 
-
+print('Anzahl der ÃœberlÃ¤ufe = ', fx_x.N_over) 
 print ('Total CPU time: %.5g ms' %((time.clock()-t_cpu)*1000))
 
 #

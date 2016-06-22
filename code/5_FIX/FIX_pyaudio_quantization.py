@@ -1,35 +1,33 @@
 # -*- coding: utf-8 -*-
-#===========================================================================
-# FIX_pyaudio_quantization.py
-#
-# Demonstrate quantization effects with audio signals:
-#
-# Read an audio file frame by frame, quantize the samples and stream the data
-# to an audio device via pyaudio.
-#
-# 
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+"""
+FIX_pyaudio_quantization.py ===============================================
+
+Demonstrate quantization effects with audio signals:
+
+Read an audio file frame by frame, quantize the samples and stream the data
+to an audio device via pyaudio.
+ 
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
 from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
-import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-#import dsp_fpga_lib as dsp
+import sys
+sys.path.append('..')
 import dsp_fpga_fix_lib as fx
-#------------------------------------------------------------------ v3line30
-# Ende der gemeinsamen Import-Anweisungen
+
 import pyaudio
 import wave
 import os
+
 np_type = np.int16
 path = '/home/muenker/Daten/share/Musi/wav/'
 
