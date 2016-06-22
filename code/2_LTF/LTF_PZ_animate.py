@@ -17,9 +17,6 @@ from numpy import pi, exp, sin, cos
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-import sys
-sys.path.append('..')
-from dsp_fpga_lib import zplane
 
 #
 # 
@@ -84,16 +81,16 @@ print(len(zl), len(mag))
 
 line_p, = ax1.plot([],[], 'r', lw = 0.5) # line between poles and frequency point
 line_z, = ax1.plot([],[], 'b', lw = 0.5) # line(s) between zeros and frequency point
-point1, = ax1.plot([],[], 'o', ms = 10, mec = 'grey',  mfc = 'yellow', alpha = 0.5)
+point1, = ax1.plot([],[], 'o', ms = 10, mec = 'black',  mfc = 'yellow', alpha = 0.5)
 text = ax1.text(-1.5,-1.5, "", ha = 'left', va = 'center')
-line2, = ax2.plot([],[], 'o', ms = 10, mec = 'grey',  mfc = 'green', alpha = 0.5)
+line2, = ax2.plot([],[], 'o', ms = 10, mec = 'black',  mfc = 'yellow', alpha = 0.5)
 
 # initialization function: plot the background for all frames
 # this function is called at the beginning of each animation cycle
 def init():
     ax1.plot(x_uc, y_uc, "grey") # plot unit circle
-    ax1.scatter(P.real, P.imag, marker = "x", color = 'red', s = 20) # plot poles
-    ax1.scatter(Z.real, Z.imag, marker = "o", color = 'blue', s = 20) # plot zeros
+    ax1.scatter(P.real, P.imag, marker = "x", color = 'red', s = 50) # plot poles
+    ax1.scatter(Z.real, Z.imag, marker = "o", color = 'blue', s = 50) # plot zeros
     ax2.plot(phi, mag, 'k', lw = 2)
     line_p.set_data([], []) # dlear data for 
     line_z.set_data([], [])
