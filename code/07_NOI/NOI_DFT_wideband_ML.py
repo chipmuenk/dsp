@@ -1,45 +1,39 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-#===========================================================================
-# DFT_wideband_ML_py.py
-#
-# Python Code zu "DFT von Breitbandsignalen mit Python / Matlab"
-#
-# noch keine Aufgabe dazu!
-#
-# Interpretieren Sie das Ergebnis / die Leistungen in Zeit- und Frequenz-
-# ebene
-#
-# (c) 2014-Mar-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+# -*- coding: utf-8 -*-
+"""
+== DFT_wideband_ML_py.py ====================================================
+
+
+Python Code zu "DFT von Breitbandsignalen"
+
+
+Interpretieren Sie das Ergebnis / die Leistungen in Zeit- und Frequenz-
+ebene
+
+(c) 2014-Mar-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
 from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
-import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-#import dsp_fpga_lib as dsp
-#------------------------------------------------------------------ v3line30
-# ... Ende der Import-Anweisungen
 f_S = 5e3; T_S = 1. / f_S
 N_FFT = 2000; N_FFT_2 = N_FFT / 2
 t_max = N_FFT * T_S
 f_1 = 1e3; a_1 = 1
-NQ = 0.1
 
 k_1 = N_FFT * f_1 / f_S # Index Frequenz 1
 
 t = arange(0, t_max, T_S)
 f_a = 1e3; f_b = 1e2; 
-A_a = 5; A_b = 1; NQ = 0.1
+A_a = 5; A_b = 1; NQ = 0.01
 t = arange(0, t_max, T_S)
 y = 1 + A_a * sin(2*pi*t*f_a) + A_b * cos(2*pi*t*f_b)
 n = np.sqrt(NQ) * rnd.randn(len(t))
@@ -48,7 +42,7 @@ N_t = sum(n*n)/len(t) # Rauschleistung, berechnet im Zeitbereich
 print ('N =', N_t, 'W =', 10*log10(N_t), 'dBW')
 print("N' =" , N_t / N_FFT_2, 'W/Bin =', 10*log10(N_t / N_FFT_2), 'dBW/Bin')
 print ('S1 =', a_1*a_1/2, 'W =', 10*log10(a_1*a_1/2), 'dBW')
-# DFT mit korrekten AMPLITUDEN für EINSEITIGES Spektrum
+# DFT mit korrekten AMPLITUDEN fÃ¼r EINSEITIGES Spektrum
 Syn = abs(fft(yn,N_FFT))[0:N_FFT_2]/ N_FFT_2
 Nn = Syn.copy()
 Nn[k_1] = Nn[k_1] - a_1
@@ -74,7 +68,7 @@ ylim21 = ax21.get_ylim()
 ax22 = ax21.twinx()
 ax22.set_ylim(ylim21 + 10*log10(N_FFT_2))
 ax22.set_ylabel(r"$N \, \mathrm{[dBW]} \rightarrow$")
-ax22.text(0.98,0.9,r'$N_{FFT}/2\, = \, %s \, (%.2f \, {dB})$'
+ax22.text(0.98,0.9,r'$N_{FFT}/2\, = \, %s \, (%.2f \, \mathrm{dB})$'
                             %(N_FFT_2, 10*log10(N_FFT_2)),
          fontsize=16, ha="right", va="center", linespacing=1.5,
          transform = ax22.transAxes,

@@ -159,31 +159,31 @@ xf = fftshift(fftfreq(len(xn),d=1.0/len(xn)))
 print('xf = ', xf); print('xn = ', xn); print(Xn)
 my_xlim = lim_eps(xf, 0.05)
 #plt.xkcd() # XKCD-Style Plots (wie von Hand gezeichnet ...)
-plt.subplots(nrows=2, ncols=1, sharex=True, sharey=False, squeeze=False)
+fig2 = figure(2)
 plt.suptitle(r'DFT $S[k]$', fontsize = 18) # Overall title
 #
-subplot(211); grid(True)
-ml, sl, bl = plt.stem(xf,abs(Xn))
+ax21 = fig2.add_subplot(211); grid(True)
+ml, sl, bl = ax21.stem(xf,abs(Xn))
 plt.setp(ml, 'markerfacecolor', 'r', 'markersize', 8) # marker
 plt.setp(sl, 'color','r', 'linewidth', 2) # stemline
 plt.setp(bl, 'linewidth', 0) # turn off baseline
-ylabel(r'$|S[k]|$ / V $\rightarrow$' )
-xlim(my_xlim)
-ylim(lim_eps(abs(Xn), 0.1))
-plt.axhline(y=0, xmin = 0, xmax = 1, linewidth=1, color='k')
-plt.axvline(x=0, ymin = 0, ymax = 1, linewidth=1, color='k')
+ax21.set_ylabel(r'$|S[k]|$ / V $\rightarrow$' )
+ax21.set_xlim(my_xlim)
+ax21.set_ylim(lim_eps(abs(Xn), 0.1))
+ax21.axhline(y=0, xmin = 0, xmax = 1, linewidth=1, color='k')
+ax21.axvline(x=0, ymin = 0, ymax = 1, linewidth=1, color='k')
 
 #
-subplot(212); grid(True)
-ml, sl, bl = plt.stem(xf,angle(Xn)/pi)
+ax22 = fig2.add_subplot(212); grid(True)
+ml, sl, bl = ax22.stem(xf,angle(Xn)/pi)
 plt.setp(ml, 'markerfacecolor', 'r', 'markersize', 8)
 plt.setp(sl, 'color','r', 'linewidth', 2)
 plt.setp(bl, 'linewidth', 0) # Grundlinie unterdrücken
-xlabel(r'$k \rightarrow$')
-ylabel(r'$ \angle S[k]$ / rad / $\pi \rightarrow$' )
-xlim(my_xlim)
-plt.axhline(linewidth=1, color='k') # horizontale Linie bei 0
-plt.axvline(linewidth=1, color='k') # vertikale Linie bei 0
+ax22.set_xlabel(r'$k \rightarrow$')
+ax22.set_ylabel(r'$ \angle S[k]$ / rad / $\pi \rightarrow$' )
+ax22.set_xlim(my_xlim)
+ax22.axhline(linewidth=1, color='k') # horizontale Linie bei 0
+ax22.axvline(linewidth=1, color='k') # vertikale Linie bei 0
 # Plot abspeichern:
 #plt.savefig('D:/Daten/ueb-DFT_Basics_1-ML_DFT%s.png' %int(N))
 if EXPORT:
