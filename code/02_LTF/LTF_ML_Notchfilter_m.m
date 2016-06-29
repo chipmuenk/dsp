@@ -1,4 +1,4 @@
-% uebML_LTI_F_Notchfilter_m.m ====================================================
+% LTF_ML_Notchfilter_m.m ====================================================
 %
 % Matlab Musterlösung zur Aufgabe "Notchfilter"
 %

@@ -7,10 +7,10 @@
 # 
 # STFT wird dargestellt mit Spectrogram und Wasserfall-Diagramm
 #
-# Testen Sie den Einfluss verschiedener Fensterlängen und Fenstertypen
+# Testen Sie den Einfluss verschiedener FensterlÃ¤ngen und Fenstertypen
 #
 #
-# (c) 2014-Okt-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Okt-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 
@@ -46,7 +46,7 @@ fmod = 0.5  # Modulationsfrequenz
 Amod = 5000 # Modulation gain in Hz / V
 tmax = 5 # Simulationzeit in s
 
-dbmin = -100; dbmax = 0 # Limits für log. Darstellung
+dbmin = -100; dbmax = 0 # Limits fÃ¼r log. Darstellung
 
 win = sig.windows.kaiser(NFFT,12, sym = False) # needs NFFT and shape parameter beta 
 #win = sig.windows.hann(NFFT, sym = False)
@@ -68,7 +68,7 @@ x = Asig*sig.chirp(t, 100, tmax, 1e5) # Chirp-Impuls
 #x = Asig*(sin(t* 2* pi * fsig) + 1) # Reiner Sinus
 x = Asig*sin(t* 2* pi * fsig + Amod *sin(t* 2* pi * fmod)) # FM-Signal
 #x = Asig *sin(t* 2* pi * (fsig + Amod * np.sign(sin(t * 2 * pi * fmod)))) # FSK-Signal
-x += Asig2 * sin(t* 2* pi * fsig2) # Zusätzlicher Sinuston
+x += Asig2 * sin(t* 2* pi * fsig2) # ZusÃ¤tzlicher Sinuston
 #x = A*np.sign(x) # Rechteckfunktion
 
 #figure(1)

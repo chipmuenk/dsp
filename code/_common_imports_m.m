@@ -3,7 +3,7 @@
 % Common Matlab header for "DSV auf FPGA" Code
 %
 % 
-% (c) 2013 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+% (c) 2013 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 %================================================================
 set(0,'DefaultAxesColorOrder', [0.8 0 0.2; 0 1 0; 0 0 1], ...
       'DefaultAxesLineStyleOrder','-|--|:|-.');
@@ -15,6 +15,6 @@ set(0,'defaultLineMarkerSize', 6);
 
 set(0,'defaultaxeslinewidth',2);
 set(0,'defaultlinelinewidth',2);
-close all; % alle Plot-Fenster schließen
-clear all; % alle Variablen aus Workspace löschen
+close all; % alle Plot-Fenster schlieÃŸen
+clear all; % alle Variablen aus Workspace lÃ¶schen
 %

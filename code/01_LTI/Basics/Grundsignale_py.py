@@ -5,12 +5,12 @@
 #
 # Einfaches Code-Beispiel zum Kapitel "LTI-Systeme im Zeitbereich"
 #
-# Thema: Beispiele für Darstellung von einfachen Funktionen in Python
+# Thema: Beispiele fÃ¼r Darstellung von einfachen Funktionen in Python
 #
 # 
 #
 # 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 
@@ -29,7 +29,7 @@ from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
 import dsp_fpga_lib as dsp
 #------------------------------------------------------------------------
 # ... Ende der gem. import-Anweisungen
-from mpl_toolkits.mplot3d import Axes3D # für 'projection3d'
+from mpl_toolkits.mplot3d import Axes3D # fÃ¼r 'projection3d'
 
 ## Komplexe Exponentialschwingung y = exp( j \omega t)
 fig1 = figure(1)
@@ -69,7 +69,7 @@ title('sin(x)/x - Funktion')
 ## Dirac-Puls (-Kamm)
 figure(4)
 t = arange(-3,4) # Das letzte Element ist nicht dabei!
-x = ones(len(t)) # 1 - Vektor / Matrix der Größe 1 x 7 [ vgl. x=zeros(a,b) ];
+x = ones(len(t)) # 1 - Vektor / Matrix der GrÃ¶ÃŸe 1 x 7 [ vgl. x=zeros(a,b) ];
 
 stem(t, x) # "stem" = Stamm, Stengel
 plt.axis([-3.6, 3.6, -.2, 1.2])
@@ -77,8 +77,8 @@ title('Periodische Diracfunktion')
 xlabel(r'$t/T_0 \rightarrow$')
 ylabel(r'$x(t) \rightarrow$')
 # Formatierung:
-plt.text(-3.4,0.5,'...',fontsize=16, color='b') # Pünktchen links
-plt.text(3.2,0.5,'...',fontsize=16, color='b') # Pünktchen rechts
+plt.text(-3.4,0.5,'...',fontsize=16, color='b') # PÃ¼nktchen links
+plt.text(3.2,0.5,'...',fontsize=16, color='b') # PÃ¼nktchen rechts
 plt.text(0.15,1.0 ,'(1)',fontsize=16, color='b') # Dirac - Gewicht
 #=========================================================================
 ## Periodische Wellenformen

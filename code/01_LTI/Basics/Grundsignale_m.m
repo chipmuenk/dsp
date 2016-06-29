@@ -1,9 +1,9 @@
 %===============================================
 % ueb_LTI_Grundsignale_m.m
 %
-% Beispiele für Darstellung von einfachen Funktionen in Matlab
+% Beispiele fÃ¼r Darstellung von einfachen Funktionen in Matlab
 % 
-% (c) 2013 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+% (c) 2013 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 %===============================================
 set(0,'DefaultAxesColorOrder', [0.8 0 0.2; 0 1 0; 0 0 1], ...
       'DefaultAxesLineStyleOrder','-|--|:|-.');
@@ -15,8 +15,8 @@ set(0,'defaultLineMarkerSize', 6);
 
 set(0,'defaultaxeslinewidth',2);
 set(0,'defaultlinelinewidth',2);
-close all; % alle Plot-Fenster schließen
-clear all; % alle Variablen aus Workspace löschen
+close all; % alle Plot-Fenster schlieÃŸen
+clear all; % alle Variablen aus Workspace lÃ¶schen
 
 %% Komplexe Exponentialschwingung y = exp( j \omega t)
 t=0:0.01:2;
@@ -59,7 +59,7 @@ title('sin(x)/x - Funktion');
 
 %% Dirac-Puls (-Kamm)
 t=-3:3;
-x=ones(1,length(t)); % 1 - Vektor der Größe 1 x 7 [ vgl. x=zeros(a,b) ];
+x=ones(1,length(t)); % 1 - Vektor der GrÃ¶ÃŸe 1 x 7 [ vgl. x=zeros(a,b) ];
 figure;
 stem(t,x,'^'); % "stem" = Stamm, Stengel
 axis([-3.6 3.6 -.2 1.2]);
@@ -67,6 +67,6 @@ title('Periodische Diracfunktion');
 xlabel('t/T_0 \rightarrow');
 ylabel('x(t) \rightarrow');
 % Formatierung:
-text(-3.4,0.5,'...','Fontsize',18,'color','b'); % Pünktchen links
-text(3.2,0.5,'...','Fontsize',18,'color','b'); % Pünktchen rechts
+text(-3.4,0.5,'...','Fontsize',18,'color','b'); % PÃ¼nktchen links
+text(3.2,0.5,'...','Fontsize',18,'color','b'); % PÃ¼nktchen rechts
 text(0.15,1.0 ,'(1)','Fontsize',14); % Dirac - Gewicht

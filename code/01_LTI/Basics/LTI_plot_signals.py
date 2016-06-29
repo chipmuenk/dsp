@@ -10,7 +10,7 @@
 #
 #
 # 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals, absolute_import # v3line15
 
@@ -118,7 +118,7 @@ fig3 = figure(num=3)
 ax3 = fig3.add_subplot(111)
 dsp.zplane(h, zpk=False, plt_ax = ax3)
 ax3.set_xlabel(r'reell $\rightarrow$')
-ax3.set_ylabel(r'imaginär $ \rightarrow$')
+ax3.set_ylabel(r'imaginÃ¤r $ \rightarrow$')
 fig3.savefig('D:/Daten/HM/dsvFPGA/Uebungen/HM/2016/img/LTF-FIR_filter_PN.pdf')
 
 ax3.set_ylim([-1.1,1.1])

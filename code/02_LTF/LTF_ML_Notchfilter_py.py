@@ -1,17 +1,14 @@
 # -*- coding: utf-8 -*-
-# LTF_ML_Notchfilter_py.py ==========================================
-# 
-#
-# Kapitel "LTI-Systeme im Frequenzbereich"
-#
-# Musterloesung zur Aufgabe "Notchfilter" 
-#
-# 
-#
-# 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+"""
+LTF_ML_Notchfilter_py.py ==========================================
+
+Kapitel "LTI-Systeme im Frequenzbereich"
+Musterloesung zur Aufgabe "Notchfilter" 
+ 
+(c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+=======================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange, 
@@ -25,8 +22,7 @@ from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
 import sys
 sys.path.append('..')
 import dsp_fpga_lib as dsp
-#------------------------------------------------------------------------
-# ... Ende der gem. import-Anweisungen
+
 # Definiere Nullstellen auf EK:
 N = np.asarray([np.exp(1j*0.3*2*pi), 
                 np.exp(-1j*0.3*2*pi)])

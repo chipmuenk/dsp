@@ -10,7 +10,7 @@
 # 
 #
 #
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 
@@ -31,7 +31,7 @@ from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
 time_i = linspace(0,1,50) # 50 Zeitpunkte im Intervall [0, 1[
 time_o = linspace(time_i[0], time_i[-1], 500) # 500 Punkte im gleichen Zeitraum
 data_i = np.sin(2 * pi * 100 * time_i) # generiere Sinussignal
-data_inoi = data_i + rnd.randn(50) * 0.2 # füge Störung hinzu
+data_inoi = data_i + rnd.randn(50) * 0.2 # fÃ¼ge StÃ¶rung hinzu
 
 f = intp.UnivariateSpline(time_i, data_i, k = 3, s = 0.2)
 # k: spline order, must be <= 5
@@ -40,7 +40,7 @@ f = intp.UnivariateSpline(time_i, data_i, k = 3, s = 0.2)
 data_o = f(time_o)
 
 figure(1)
-plot(time_i, data_inoi, 'ro', markersize = 12, label = 'Daten (gestört)')
+plot(time_i, data_inoi, 'ro', markersize = 12, label = 'Daten (gestÃ¶rt)')
 plot(time_i, data_i, 'r--', label = 'Daten (ideal)')
 plot(time_o, data_o, 'o', linestyle = ':', label = 'Daten (interpoliert)',
              color = (0.,0.,1,0.5), markerfacecolor=(0.,0.,1,0.5))

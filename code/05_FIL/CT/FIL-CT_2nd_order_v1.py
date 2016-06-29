@@ -3,14 +3,14 @@
 #===========================================================================
 # sampling_FFT_v1.py
 #
-# # Kohärente Abtastung von CT - signalen zum Kapitel "DFT",
+# # KohÃ¤rente Abtastung von CT - signalen zum Kapitel "DFT",
 # ToDos:
 # - Legend()
 # - Koordinaten umstellen auf Figure fraction
 # - Tickspacing auf 1 setzen bei diskreten Folgen
 # - Periodizitaet von Spektrum darstellen?
 # 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 

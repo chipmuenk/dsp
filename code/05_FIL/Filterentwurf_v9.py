@@ -5,7 +5,7 @@
 # Demonstrate different filter design methods and compare results
 # to specifications 
 # 
-# (c) 2012-Jul-14 Christian M¸nker
+# (c) 2012-Jul-14 Christian M√ºnker
 #=========================================================================
 from __future__ import division
 import numpy as np
@@ -73,7 +73,7 @@ f_DB = 40.0 #Grenzfrequenz Durchlassband
 f_SB = 50.0 # Grenzfrequenz Stopband
 f_sig = 12.0 # Testsignalfrequenz
 #
-f_notch = 1000.0 # Centerfrequenz f¸r Notchfilter
+f_notch = 1000.0 # Centerfrequenz f√ºr Notchfilter
 notch_eps = 0.1 # relative Breite des Notchs
 
 
@@ -85,9 +85,9 @@ if FILT_TYPE == 'IIR':
     del_DB = 1 - 10**(-A_DB/20.0) 
 else:
     del_DB = (10**(A_DB/20)-1) / (10**(A_DB/20)+1)
-#    del_DB = 1 - 10**(-A_DB/40.0) # N‰herung
+#    del_DB = 1 - 10**(-A_DB/40.0) # N√§herung
 
-A_SB = 60 # min. Sperrd‰mpfung im Stoppband in dB
+A_SB = 60 # min. Sperrd√§mpfung im Stoppband in dB
 del_SB = 10**(-A_SB/20.0) # und linear
 W_DB = 1 # default passband weight for filter calculation
 W_SB = 1 # default stop band weight for filter calculation
@@ -167,7 +167,7 @@ F_notch_u = F_notch / notch_eps
 F_sig = f_sig / f_S
 
 #==========================================================================
-# Frequenzachse skalieren und Label w‰hlen
+# Frequenzachse skalieren und Label w√§hlen
 #==========================================================================
 whole = False
 if DEF_F_RANGE == 'f_S/2':
@@ -182,7 +182,7 @@ elif DEF_F_RANGE == '1':
     f_S = 1.
     f_range = (0, 1)
     whole = True
-else: sys.exit("Ung¸ltiges Format f¸r DEF_F_RANGE!")  
+else: sys.exit("Ung√ºltiges Format f√ºr DEF_F_RANGE!")  
 T_S = 1/f_S
 #
 # Define x-axis labels depending on the sampling frequency
@@ -217,7 +217,7 @@ else:
 #
 # FIR-Filterentwurf
 #
-# Ergebnis ist jeweils Spaltenvektor mit Z‰hlerkoeffizienten
+# Ergebnis ist jeweils Spaltenvektor mit Z√§hlerkoeffizienten
 # bzw. Impulsantwort des FIR-Filters 
 if FILT_TYPE == 'FIR':
 
@@ -232,27 +232,27 @@ if FILT_TYPE == 'FIR':
     if FILT_FIR_METHOD == 'WIN': 
     #
     # Hier wird die -6 dB Grenzfrequenz ( bezogen auf f_S/2 ) spezifiziert, 
-    # kein ‹bergangsbereich wie bei firls -> ung¸nstig, da ein don't care - 
+    # kein √úbergangsbereich wie bei firls -> ung√ºnstig, da ein don't care - 
     # Bereich zwischen f_DB und f_SB nicht gezielt ausgenutzt werden kann! 
-    # Daf¸r kann ¸ber die Auswahl des Fenstertyps "Finetuning" betrieben werden.
+    # Daf√ºr kann √ºber die Auswahl des Fenstertyps "Finetuning" betrieben werden.
     # Mit pass_zero = True wird |H(f=0)| = 1 (Tiefpass, BP), 
     # mit pass_zero = False wird |H(f=f_S/2| = 1 (Hochpass, BS) erzwungen.
-    # F¸r alle Filtertypen definiert der Frequenzvektor F die Eckfrequenzen
-    # der Durchlassb‰nder. F=[0.35 0.55] und pass_zero = 1 erzeugt Bandpass
+    # F√ºr alle Filtertypen definiert der Frequenzvektor F die Eckfrequenzen
+    # der Durchlassb√§nder. F=[0.35 0.55] und pass_zero = 1 erzeugt Bandpass
         bb = sig.firwin( L, F_DB*2.0, window=FILT_FIR_WINDOW )
  
  
     elif FILT_FIR_METHOD == 'WIN2': 
     #=======================================================================
     ## FIRWIN2: Frequency Sampling FIR-Filterentwurf: Es wird ein linearphas.
-    #           Filter erzeugt, das bei den Frequenzen 'freq' die Verst‰rkung 
+    #           Filter erzeugt, das bei den Frequenzen 'freq' die Verst√§rkung 
     #           'gain' hat (entsprechend fir2 bei Matlab / Octave)
     # scipy.signal.firwin2(numtaps, freq, gain, nfreqs=None, window='hamming',
     #                           nyq=1.0, antisymmetric=False)
     #
-    # Mit antisymmetric = True werden Filter mit ungerader Symmetrie gew‰hlt 
+    # Mit antisymmetric = True werden Filter mit ungerader Symmetrie gew√§hlt 
     # (Typ III oder IV), je nachdem ob numtaps gerade oder ungerade ist, wird 
-    # der Typ weiter eingeschr‰nkt.
+    # der Typ weiter eingeschr√§nkt.
         bb = sig.firwin2( L, [0, F_DB, F_SB, 1], [1, 1, 0, 0], 
                          window=FILT_FIR_WINDOW )
     # Example for Multi-band Hilbert Filter taken from Matlab firls reference
@@ -297,14 +297,14 @@ else: # FILT = 'IIR'
 #
 # Hinweise: 
 #- Toleranzband im DB ist bei IIR-Entwurf definiert zwischen 0 ... -A_DB
-#- Filterentwurf ¸ber [bb,aa] = ... f¸hrt zu numerischen Problemen bei Filtern
-#   hˆherer Ordnung (ca. L > 10, selbst Ausprobieren!) Alternative Form:
+#- Filterentwurf √ºber [bb,aa] = ... f√ºhrt zu numerischen Problemen bei Filtern
+#   h√∂herer Ordnung (ca. L > 10, selbst Ausprobieren!) Alternative Form:
 #   [z,p,g] = ... liefert Nullstellen, Pole und Gain
 #
 #===================================================
 # Butterworth-Filter
 # Grenzfrequenz definiert -3dB Frequenz und muss ggf. manuell angepasst werden!
-# -> ausprobieren f¸r optimales Ergebnis oder Funktion buttord verwenden!
+# -> ausprobieren f√ºr optimales Ergebnis oder Funktion buttord verwenden!
 # Ergebnis ist Ordnung L und normierte -3dB Grenzfrequenz F_c
 #L = 9 # manuelle Wahl
 #[bb,aa] = butter(L, F_DB * 1.07) # manuelle Wahl
@@ -313,13 +313,13 @@ else: # FILT = 'IIR'
 #===================================================
 # Bessel-Filter
 # Grenzfrequenz definiert -3dB Frequenz und muss ggf. manuell angepasst werden!
-# -> ausprobieren f¸r optimales Ergebnis!
+# -> ausprobieren f√ºr optimales Ergebnis!
 #[bb,aa] = maxflat(L, F_DB * 1.07)
 #===================================================
 # Elliptisches Filter:
 # Spezifikation sind hier maximaler Ripple im Durchlass- und Sperrband
 #L = 4 # manuelle Wahl
-# Funktion ellipord liefert Absch‰tzung f¸r Ordnung sowie die Eckfrequenz des DB
+# Funktion ellipord liefert Absch√§tzung f√ºr Ordnung sowie die Eckfrequenz des DB
     if FILT_IIR_METHOD == 'PY_DESIGN':       
         [bb, aa] = sig.iirdesign(F_DB*2, F_SB*2, A_DB, A_SB, 
             ftype=FILT_IIR_TYPE)
@@ -405,7 +405,7 @@ print '\n'
 #################################################################
 
 plt.close('all') # close all "old" figures
-#mlab.close(all=True) # alle Mayavi (3D) Fenster schlieﬂen
+#mlab.close(all=True) # alle Mayavi (3D) Fenster schlie√üen
 
 #=========================================
 ## Pol/Nullstellenplan

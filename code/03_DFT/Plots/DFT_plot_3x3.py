@@ -3,14 +3,14 @@
 # DFT_plot_signals.py ====================================================
 # 
 #
-# Plots zum Kapitel "DFT": 3 x 3 Plot für die ersten 8 Schwingungen einer DFT
+# Plots zum Kapitel "DFT": 3 x 3 Plot fÃ¼r die ersten 8 Schwingungen einer DFT
 #
 # 
 #
 #
 #
 # 
-# (c) 2016-Apr-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2016-Apr-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals, absolute_import # v3line15
 

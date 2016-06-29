@@ -5,7 +5,7 @@
 #
 # # Compare different continuous time second-order filters
 # 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "AACD"
+# (c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "AACD"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 

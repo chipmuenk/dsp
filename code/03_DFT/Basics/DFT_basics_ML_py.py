@@ -1,34 +1,28 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-#===========================================================================
-# uebML_DFT_basics_py.py
-#
-# Python Musterlösung zu "Fourierreihe und synchrone DFT"
-#
-# Berechnung und Darstellung der DFT in Python
-# 
-# 
-#
-# 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+# -*- coding: utf-8 -*-
+"""
+=== DFT_basics_ML_py.py =====================================================
+ 
 
-import numpy as np
-import numpy.random as rnd
+ Python MusterlÃ¶sung zu "Fourierreihe und synchrone DFT"
+
+ Berechnung und Darstellung der DFT in Python
+ 
+ 
+
+ 
+ (c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
+
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
 from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
-import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-import dsp_fpga_lib as dsp
-#------------------------------------------------------------------ v3line30
-# ... Ende der Import-Anweisungen
 N_FFT = 3; 
 f_a = 1e3; T_mess = 1. / f_a
 t = linspace(0,T_mess,N_FFT)

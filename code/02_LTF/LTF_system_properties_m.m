@@ -2,13 +2,13 @@
 % ueb_LTI_F_system_properties.m
 %
 % Pol-Nullstellenplan, Amplitudengang, Phasengang, 
-% 3D-�bertragungsfunktion etc. eines zeitdiskreten Systems,
-% definiert �ber:
-%			- Z�hler- und Nennerkoeffizienten (Polynomform)
-%			- oder Nullstellen ("Wurzeln") von Z�hler und Nenner (Produktform)
+% 3D-Übertragungsfunktion etc. eines zeitdiskreten Systems,
+% definiert über:
+%			- Zähler- und Nennerkoeffizienten (Polynomform)
+%			- oder Nullstellen ("Wurzeln") von Zähler und Nenner (Produktform)
 % Getestet mit Octave 3.2.4 und Matlab R2011 und 2012b
 % 
-% (c) 2013 Christian M�nker - Files zur Vorlesung "DSV f�r FPGAs"
+% (c) 2013 Christian Münker - Files zur Vorlesung "DSV für FPGAs"
 %===============================================
 
 close all; % close all plot windows
@@ -201,7 +201,7 @@ a = [1 0 -0.64]
 %[b,a] = ellip(4, 1, 40, 0.5); % Elliptic / Cauer Filter: Stopband / passband ripple
 %
 % BP-filter with two distinct peaks (bad design)
-%b = [0.032 -0.053 0.047 -0.053 0.032]; % Zählerpolynom-Koeffizienten
+%b = [0.032 -0.053 0.047 -0.053 0.032]; % ZÃ¤hlerpolynom-Koeffizienten
 %a = [1.0 -2.742 +3.735 -2.578 0.885]; % Nennerpolynom-Koeffizienten
 %
 % Allpass:
@@ -376,7 +376,7 @@ min_dB = floor(max(zmin_dB,H_min_dB)/10)*10;
 if SHOW_LIN_H_f
     figure(2);
     plot(F,abs(H)); grid on;
-    title('Frequenzgang von H (lin. Ma�stab)');
+    title('Frequenzgang von H (lin. Maßstab)');
     xlabel(my_x_axis_f); 
     ylabel('|H(f)|');
     axis ([f_range 0 10]); axis autoy;
@@ -391,7 +391,7 @@ end
 if SHOW_LOG_H_f
     figure(3);
     plot(F,20*log10(abs(H))); grid on;
-    title('Frequenzgang von H (log. Ma�stab)');
+    title('Frequenzgang von H (log. Maßstab)');
     xlabel(my_x_axis_f );
     ylabel('20 log |H(f)|');
     axis ([f_range min_dB H_max_dB]); %axis autox;
@@ -630,7 +630,7 @@ if SHOW_LIN_H_F_REP
     [H,F]=freqz(b,a,N_FFT,'whole', f_S); 
     N_rep = 3; % Anzahl der Wiederholungen
     f_range_rep = f_range * N_rep;
-    N_rep = ceil(N_rep / 2) * 2; % Nächste gerade Zahl, sonst wird
+    N_rep = ceil(N_rep / 2) * 2; % NÃ¤chste gerade Zahl, sonst wird
 	                         % Spektrum bei shift_F = 1 um F = 1/2 verschoben
     f_rep = f_S*linspace(0,N_rep,N_rep*length(H)); % 
      if shift_F 
@@ -640,12 +640,12 @@ if SHOW_LIN_H_F_REP
      end
      H_rep = repmat(H,N_rep,1); % Repeat spectrum N_rep times
 	 
-% Das Spektrum jenseits von f_S muss für die Darstellung künstlich wiederholt 
+% Das Spektrum jenseits von f_S muss fÃ¼r die Darstellung kÃ¼nstlich wiederholt 
 % die DFT, freqz etc. liefern nur Spektrumspunkte bis f_S
     plot(f_rep,abs(H_rep),'color',[.5 .5 .5]); grid on; hold on;
 	plot((F(1:length(H)* half_range)), abs(H(1:length(H)*half_range)),'linewidth',3);
 
-    title('Frequenzgang von H (lin. Maßstab)');
+    title('Frequenzgang von H (lin. MaÃŸstab)');
     xlabel(my_x_axis_f); 
     ylabel('|H(f)|');
     axis ([f_range_rep 0 10]); axis autoy;

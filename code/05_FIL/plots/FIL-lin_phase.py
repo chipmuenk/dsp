@@ -3,14 +3,14 @@
 # DFT_plot_signals.py ====================================================
 # 
 #
-# Plots zum Kapitel "DFT": Betrags- und Phasengang des Diracstoßes mit unter-
-#  schiedlichen Verzögerungen
+# Plots zum Kapitel "DFT": Betrags- und Phasengang des DiracstoÃŸes mit unter-
+#  schiedlichen VerzÃ¶gerungen
 # 
 #
 #
 #
 # 
-# (c) 2016-Apr-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2016-Apr-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals, absolute_import # v3line15
 

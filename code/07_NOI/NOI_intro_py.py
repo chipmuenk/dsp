@@ -10,7 +10,7 @@
 # 
 # Passt die Formel SQNR = (6.02 w + 1.76) dB ? 
 # Wie kann man den angezeigten mittleren Rauschpegel umrechnen in die Rauschleistung?
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 
@@ -39,7 +39,7 @@ q_obj = {'QI':1, 'QF': 3, 'quant':'round', 'ovfl': 'wrap'} # versuchen Sie auch 
 fx_a = fx.Fixed(q_obj)
 aq = fx_a.fix(a)
 
-print('Anzahl der Überläufe = ', fx_a.N_over) 
+print('Anzahl der ÃœberlÃ¤ufe = ', fx_a.N_over) 
 #
 figure(1)
 title('Quantisiertes Sinussignal und Quantisierungsfehler')
@@ -52,10 +52,10 @@ A_max = 2**q_obj['QI'] - 2**-q_obj['QF']
 plt.axhline(y = A_max, linestyle = '--', color = 'k')
 plt.axhline(y = -A_max, linestyle = '--', color = 'k')
 #
-Amin = -100 # Unteres Limit in dB für die Darstellung
+Amin = -100 # Unteres Limit in dB fÃ¼r die Darstellung
 A =  abs(2 / sqrt(2) * fft(a) / NFFT)[0:NFFT / 2. - 1]  # einseitiges Spektrum,
 AQ = abs(2 / sqrt(2) * fft(aq) / NFFT)[0:NFFT / 2. - 1] #    Effektivwert !
-A[0] = A[0] * sqrt(2)/2; AQ[0] = AQ[0] * sqrt(2)/2  # korrigiere DC-Wert zurück
+A[0] = A[0] * sqrt(2)/2; AQ[0] = AQ[0] * sqrt(2)/2  # korrigiere DC-Wert zurÃ¼ck
 f = fftfreq(NFFT, T_S)[0:NFFT/2. - 1]      # Frequenzen f. einseitiges Spektrum
 #
 fig2 = figure(2)

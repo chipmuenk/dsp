@@ -1,18 +1,18 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-#===========================================================================
-# _common_imports_v3_py.py
-#
-# Einfaches Code-Beispiel zum Kapitel "xxx", Übungsaufgabe yyy
-#
-# Importiere Module zur 
-# - Erzeugung von Zufallszahlen:    numpy.rnd
-# - (Inverse) FFT:                  numpy.fft
-# - Signalverarbeitung              scipy.signal
-# - Interpolation                   scipy.interp
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+# -*- coding: utf-8 -*-
+"""
+== _common_imports_v3_py.py =============================================
+
+ Einfaches Code-Beispiel zum Kapitel "xxx", Ãœbungsaufgabe yyy
+
+ Importiere Module zur 
+ - Erzeugung von Zufallszahlen:    numpy.rnd
+ - (Inverse) FFT:                  numpy.fft
+ - Signalverarbeitung              scipy.signal
+ - Interpolation                   scipy.interp
+ (c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 import numpy.random as rnd

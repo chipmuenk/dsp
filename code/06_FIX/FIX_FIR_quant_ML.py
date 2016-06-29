@@ -8,9 +8,9 @@
 # Demonstriere:
 # - Quantisierungskennlinie
 # - Wellenform eines quantisierten Signals
-# bei verschiedenen Arten der Quantisierung und der Sättigung
+# bei verschiedenen Arten der Quantisierung und der SÃ¤ttigung
 # 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 

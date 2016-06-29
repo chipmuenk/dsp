@@ -10,7 +10,7 @@
 # Interpretieren Sie das Ergebnis / die Leistungen in Zeit- und Frequenz-
 # ebene
 #
-# (c) 2014-Mar-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Mar-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 
@@ -48,7 +48,7 @@ N_t = sum(n*n)/len(t) # Rauschleistung, berechnet im Zeitbereich
 print ('N =', N_t, 'W =', 10*log10(N_t), 'dBW')
 print("N' =" , N_t / N_FFT_2, 'W/Bin =', 10*log10(N_t / N_FFT_2), 'dBW/Bin')
 print ('S1 =', a_1*a_1/2, 'W =', 10*log10(a_1*a_1/2), 'dBW')
-# DFT mit korrekten AMPLITUDEN für EINSEITIGES Spektrum
+# DFT mit korrekten AMPLITUDEN fÃ¼r EINSEITIGES Spektrum
 Syn = abs(fft(yn,N_FFT))[0:N_FFT_2]/ N_FFT_2
 Nn = Syn.copy()
 Nn[k_1] = Nn[k_1] - a_1

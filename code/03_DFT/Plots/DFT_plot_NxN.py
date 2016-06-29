@@ -10,7 +10,7 @@
 #
 #
 # 
-# (c) 2016-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2016-Feb-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals, absolute_import # v3line15
 

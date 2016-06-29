@@ -10,7 +10,7 @@
 # Interpretieren Sie das Ergebnis / die Leistungen in Zeit- und Frequenz-
 # ebene
 #
-# (c) 2014-Mar-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+# (c) 2014-Mar-04 Christian MÃ¼nker - Files zur Vorlesung "DSV auf FPGAs"
 #===========================================================================
 from __future__ import division, print_function, unicode_literals # v3line15
 
