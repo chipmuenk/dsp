@@ -1,0 +1,10 @@
+# Author: Christian Münker
+# Style file with large labels for presentation slides
+
+axes.titlesize : 16
+axes.labelsize : 14
+lines.linewidth : 2
+lines.markersize : 6
+xtick.labelsize : 11
+ytick.labelsize : 11
+legend.fontsize : 12
