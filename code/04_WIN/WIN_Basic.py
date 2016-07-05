@@ -1,34 +1,30 @@
 # -*- coding: utf-8 -*-
-#===========================================================================
-# DFT_Windows_py.py
-#
-# Demonstrate how various parameters of the DFT like
-# - window length
-# - window type
-# - sample rate
-# influence the displayed spectrum
-# 
-#
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+"""
+=== WIN_Basic.py =====================================================
+
+Demonstrate how various parameters of the DFT like
+ - window length
+ - window type
+ - sample rate
+ influence the displayed spectrum
+
+TODO: Code Cleanup
+
+(c) 2016-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
 from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
-
-#import dsp_fpga_lib as dsp
-#------------------------------------------------------------------ v3line30
-# ... Ende der Import-Anweisungen
 
 mpl.rcParams['xtick.major.size'] = 5
 mpl.rcParams['xtick.major.width'] = 2
@@ -37,16 +33,12 @@ mpl.rcParams['xtick.minor.width'] = 1
 mpl.rcParams['ytick.major.size'] = 5
 mpl.rcParams['ytick.major.width'] = 2
 
-def lim_eps(a,eps):
-    """
-    Return min / max of an array a, increased by eps*(max(a) - min(a)). 
-    Handy for nice looking axes labeling.
-    """
-    mylim = (min(a) - (max(a)-min(a))*eps, max(a) + (max(a)-min(a))*eps)
-    return mylim
-      
+EXPORT =  False # exportiere Grafiken im Format FMT
+BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
+#BASE_DIR = "D:/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
+#FILENAME = "INP_si" # "DFT" #
+FMT = ".svg"
 
-      
 SHOW_CFT = True # show continuous signal
 SHOW_SAMPLED = False # show sampled signal
 SHOW_ZERO = True # show zeros outside the window
@@ -62,14 +54,12 @@ SHOW_FIG4 = True # two-sided DFT
 SHOW_FIG4_SLIDE = False #two-sided DFT for slides
 
 TWINY = True
-PRINT = False # export plots to ...
-PRINT_PATH = 'D:/Daten/' # ... this path
 
 #------------------------------------------------
 #Initialize sampling / DFT related variables
 #------------------------------------------------
 #fs = 5500, fsig = 550, NFFT = 50
-#fs = 12000, fsig = 1000 + 2000, NFFT = 36   
+#fs = 12000, fsig = 1000 + 2000, NFFT = 36
 fs = 44000.0   # sampling frequency
 Ts = 1.0/fs    # sampling period
 OSR = 500      # "Oversampling Ratio" for displaying pseudo-analog signal
@@ -108,14 +98,14 @@ CGain = np.sum(wn)/len(wn)
 print('ENBW = ', ENBW)
 print('CGain = ', CGain)
 #------------------------------------------------
-tw = linspace(0,Tmeas,M_FFT * OSR) # "analog" time 
-t = linspace(0,Tmeas*L, M_FFT * OSR *L) 
-#t = arange(0,Tmeas*L,tstep) 
+tw = linspace(0,Tmeas,M_FFT * OSR) # "analog" time
+t = linspace(0,Tmeas*L, M_FFT * OSR *L)
+#t = arange(0,Tmeas*L,tstep)
 nw = arange(0,M_FFT)  # discrete samples
 n = arange(0,M_FFT*L)
 #---------------------------------------------
 # Calculate "analog" signals - select one
-noise_t = Anoi * (np.random.rand(len(t)) - 0.5)                      
+noise_t = Anoi * (np.random.rand(len(t)) - 0.5)
 xt = DC + A1 * cos(2.0*pi*fsig1*t + phi1) \
     + A2 * cos(2.0*pi*fsig2*t + phi2) + noise_t
 #xt = np.sign(xt) # create rectangular function
@@ -131,10 +121,10 @@ xn = xtw[::OSR] # sample data by picking every OSR sample
 #-------------------------------------------------------------
 #    Figure 1: Plot windowed "analog" and sampled signal
 #-------------------------------------------------------------
-# create new figure(1) if it does not exist, else make it active 
-# clear it and return a reference to it. 
+# create new figure(1) if it does not exist, else make it active
+# clear it and return a reference to it.
 fig1 = figure(1)#, figsize = (9.5,2), dpi = 300)
-fig1.clf() # 
+fig1.clf() #
 ax11 = fig1.add_subplot(111) # use object oriented matplotlib API
                              # for more flexibility
 # original signal x as black line
@@ -153,14 +143,14 @@ if SHOW_DFT:
     #    ax12.set_xlabel(r'$n \rightarrow$')
     ax12.grid('off') # dont plot x-gridlines for second x-axis
     ax12.set_xticks([]) # turn off ticks
-    
+
     if SHOW_LABEL:
         ax12.text(0.5,0.07,
-             r'$f_S = %.1f$ Hz, $N_{FFT} = %d$, $f_{sig1} = %.1f$ Hz' 
+             r'$f_S = %.1f$ Hz, $N_{FFT} = %d$, $f_{sig1} = %.1f$ Hz'
                %(fs,M_FFT, fsig1), fontsize=16,
              ha="center", va="center",linespacing=1.5, transform = ax12.transAxes,
              bbox=dict(alpha=0.9,boxstyle="round,pad=0.2", fc='0.9'))
-    
+
     ax12.set_xlim([M_FFT/2, (L-0.5) * M_FFT]) # match range for second x-axis with first one
     ax12.set_ylim(-0.2 * max(xt), 1.15 * max(xt))    # set ylim to min/max of xtw
     # Draw x-Axis:
@@ -170,19 +160,19 @@ if SHOW_DFT:
 # sampled signal x as blue stems
 if SHOW_SAMPLED:
     ax11.stem(t[0:M_FFT*OSR*L:OSR], xt[0:M_FFT*OSR*L:OSR], 'b-', lw = 2)
-    
-# sampled and zeroed signal x outside window 
+
+# sampled and zeroed signal x outside window
 if SHOW_ZERO:
-    ax11.stem(t[0:M_FFT*OSR:OSR], zeros(M_FFT), 'r-', lw = 2)    
+    ax11.stem(t[0:M_FFT*OSR:OSR], zeros(M_FFT), 'r-', lw = 2)
     ax11.stem(t[2*M_FFT*OSR:M_FFT*OSR*L:OSR], zeros(M_FFT*(L-2)), 'r-', lw = 2)
-    
+
 
 # show repeated measurement windows in grey before and after actual plot
-if L > 1 and SHOW_REP: 
-    ax11.plot(t[0:M_FFT*OSR], xtw[0:M_FFT*OSR], 
-              t[(2*M_FFT-1)*OSR:], xtw[(2*M_FFT-1)*OSR:], color='grey', linestyle='--') 
+if L > 1 and SHOW_REP:
+    ax11.plot(t[0:M_FFT*OSR], xtw[0:M_FFT*OSR],
+              t[(2*M_FFT-1)*OSR:], xtw[(2*M_FFT-1)*OSR:], color='grey', linestyle='--')
     ml_g1, sl_g1, bl_g1 = ax12.stem(n[0:M_FFT], xn[0:M_FFT])
-    ml_g2, sl_g2, bl_g2 = ax12.stem(n[2*M_FFT:], xn[2*M_FFT:]) 
+    ml_g2, sl_g2, bl_g2 = ax12.stem(n[2*M_FFT:], xn[2*M_FFT:])
     plt.setp(ml_g1, 'markerfacecolor', 'grey', 'markersize', mk_sm)
     plt.setp(sl_g1, 'color','grey', 'linewidth', 1, linestyle='-')
     plt.setp(bl_g1, 'linewidth',0) # turn off baseline
@@ -193,9 +183,9 @@ if L > 1 and SHOW_REP:
 
 if SHOW_WINDOW:
     # Plot window function as a semi-transparent area
-    ax11.fill_between(t[M_FFT*OSR:(2*M_FFT - 1)*OSR], wn[:-OSR]*np.max(xt)*1.1, color = (0,0,0,0.2), 
+    ax11.fill_between(t[M_FFT*OSR:(2*M_FFT - 1)*OSR], wn[:-OSR]*np.max(xt)*1.1, color = (0,0,0,0.2),
                   lw = 1.5, edgecolor = 'black', linestyle = '-')
-                  
+
 ax11.set_xlabel(r'Zeit / s $\rightarrow$')
 ax11.set_ylabel(r'Amplitude / V $\rightarrow$')
 ax11.set_xlim([Tmeas/2, (L-0.5) * Tmeas])
@@ -205,7 +195,8 @@ fig1.tight_layout(pad = 0.5, rect=[0, 0, 0.99, 0.99]) # make room for title: rec
 #fig1.text(0.5, 0.99, "Gefensterte Zeitfunktion", ha='center', va = 'top',
 #         fontsize=18, transform = fig1.transFigure) # create title
 
-if PRINT: fig1.savefig(PRINT_PATH + 'DFT_Windowing-Time_%s.png' %int(M_FFT))
+if EXPORT:
+    fig1.savefig(BASE_DIR + 'WIN_Basic-Time_%s' %int(M_FFT) + FMT)
 #-------------------------------------------------------------
 #     Figure 2: Plot Window Function and its DFT
 #-------------------------------------------------------------
@@ -227,7 +218,7 @@ if SHOW_FIG_WINDOW:
     ax21.set_xlim(-0.5, M_FFT - 0.5)
     ax21.set_ylim(-0.1, 1.1)
     plt.axhline(0, xmin = 0, xmax = 1, linewidth=1, color='k')
-    
+
     ax22 = fig2.add_subplot(212); plt.grid(True)
     # Window with log scale
 #    ax22.plot(wf, np.maximum(20 * log10(abs(Wn)), Xn_dB_min), lw = 2)
@@ -243,7 +234,7 @@ if SHOW_FIG_WINDOW:
     ax22.set_xlabel(r'$F \; \rightarrow $')
     ax22.text(0.97, 0.95, '$CGain = %0.3f$\n$ENBW = %0.3f$'%(CGain, ENBW), fontsize=16,
              ha="right", va="top", transform = ax22.transAxes,
-             bbox=dict(alpha=0.9,boxstyle="round,pad=0.1", fc='0.9', lw = 0) )   
+             bbox=dict(alpha=0.9,boxstyle="round,pad=0.1", fc='0.9', lw = 0) )
     fig2.tight_layout()
 
 #-------------------------------------------------------------
@@ -264,7 +255,7 @@ if SHOW_FIG_SLIDE:
     ax5.set_xlabel(r'$F \; \rightarrow $')
 #    ax5.text(0.97, 0.95, '$CGain = %0.3f$\n$ENBW = %0.3f$'%(CGain, ENBW), fontsize=16,
 #             ha="right", va="top", transform = ax22.transAxes,
-#             bbox=dict(alpha=0.9,boxstyle="round,pad=0.1", fc='0.9', lw = 0) )   
+#             bbox=dict(alpha=0.9,boxstyle="round,pad=0.1", fc='0.9', lw = 0) )
 #    fig5.tight_layout()
     fig5.tight_layout(pad = 0.3, rect=[0.03, 0, 1, 1])
 
@@ -278,7 +269,7 @@ if SHOW_FIG3:
     Xn = fft(xn, n=M_FFT)/ (M_FFT * CGain)
     # zero-padded DFT with OSR * M_FFT samples as an approximation for DTFT:
     X_DTFT = fft(xn[0:M_FFT], n = M_FFT * OSR) / (M_FFT * CGain)
-    
+
     # f = [0 ... f_S[ = [0... f_S/2[, [-f_S/2 ... 0[
     xf  = fftfreq(M_FFT, Ts)
     xf_DTFT = fftfreq(M_FFT*OSR, Ts)
@@ -310,17 +301,17 @@ if SHOW_FIG3:
     plt.setp(ml, 'markerfacecolor', 'r', 'markersize', mk_lg) # markerline
     plt.setp(sl, 'color','r', 'linewidth', 2) # stemline
     plt.setp(bl, 'color','k') # black baseline
-    
+
     plt.axhline(0, xmin = 0, xmax = 1, linewidth=1, color='k')
     plt.axvline(x=0, ymin = 0, ymax = 1, linewidth=1, color='k')
-    
+
     ax32.set_xlabel(r'$k \; \rightarrow $')
     ax32.set_ylabel(r'$20 \log |S[k]| / \mathrm{V} \, \rightarrow$' )
     #==============================================================================
-    
+
     plt.tight_layout()
     plt.grid(True)
-    
+
 fig6 = plt.figure(6)
 fig6.clf()
 ax61 = fig6.add_subplot(111)
@@ -338,7 +329,7 @@ plt.axhline(0, xmin = 0, xmax = 1, linewidth=1, color='k')
 plt.axvline(x=0, ymin = 0, ymax = 1, linewidth=1, color='k')
 ax61.set_xlabel(r'$k \;\rightarrow $')
 ax61.text(0.5,0.9,
-     r'$f_S = %.1f$ kHz, $N_{FFT} = %d$, $f_{sig1} = %.1f$ kHz, $f_{sig2} = %.1f$ kHz' 
+     r'$f_S = %.1f$ kHz, $N_{FFT} = %d$, $f_{sig1} = %.1f$ kHz, $f_{sig2} = %.1f$ kHz'
        %(fs/1000,M_FFT, fsig1/1000, fsig2/1000), fontsize=16,
      ha="center", va="center",linespacing=1.5, transform = ax61.transAxes,
      bbox=dict(alpha=0.9,boxstyle="round,pad=0.2", fc='0.9'))
@@ -346,14 +337,12 @@ ax61.grid(which='both')
 ax61.tick_params(which = 'both', direction = 'out')
 minor_ticksx = np.arange(0, M_FFT/2, 5)
 major_ticksx = np.arange(0, M_FFT/2,10)
-ax61.set_xticks(major_ticksx)                                                       
-ax61.set_xticks(minor_ticksx, minor=True)    
-ax61.grid(which='minor', alpha=0.5)                                                
+ax61.set_xticks(major_ticksx)
+ax61.set_xticks(minor_ticksx, minor=True)
+ax61.grid(which='minor', alpha=0.5)
 ax61.grid(which='major', alpha=1)
 
-
 plt.tight_layout()
-
 
 #-------------------------------------------------------------
 #    Figure 4: CALCULATE AND PLOT TWO-SIDED DFT
@@ -363,31 +352,31 @@ if SHOW_FIG4:
         fig4 = figure(4, figsize = (5,4), dpi = 300)
     else:
         fig4 = figure(4)
-    fig4.clf() # 
+    fig4.clf() #
 
     # fftshift centers freq. vector to f = [-f_S/2... f_S/2[
     Xn = fftshift(Xn)
     X_DTFT = fftshift(X_DTFT)
-    # set Xn = 0 for very small magnitudes to eliminate 
+    # set Xn = 0 for very small magnitudes to eliminate
     # numeric errors in phase calculation:
     #Xn = np.real((abs(Xn/max(abs(Xn))) > 1.0e-10)) * Xn
     # - doesn't work - result is 0j instead of 0!
-    
+
     for i in range(len(Xn)): #Xn = Xn * (abs(Xn[i]/max(abs(Xn))) < 1.0e-8)
         # set phase = 0 for very small magnitudes (numeric errors)
         if abs(Xn[i]/max(abs(Xn))) < 1.0e-8: Xn[i] = 0
-    
-    xf = fftshift(xf) # Center frequency vector 
+
+    xf = fftshift(xf) # Center frequency vector
     xfn = fftshift(xfn) # Center frequency vector
     xf_DTFT = fftshift(xf_DTFT)
-    
+
     ax41 = fig4.add_subplot(111)
     ax42 = ax41.twiny()  # two plots with same y- but different x-axes
     ax42.grid(False) # plot x-gridlines for second x-axis
     # Draw x- and y-Axis:
     ax42.axhline(0, linewidth=2, color='k')
     ax42.axvline(0, linewidth=1, color='k')
-    
+
     cft = [[-fsig2, -fsig1, 0, fsig1, fsig2], [A2/2, A1/2, DC, A1/2, A2/2]]
 #    cft = [[-fsig1, 0, fsig1], [A1/2, DC, A1/2]]
     m_cft,s_cft,b_cft = ax41.stem(cft[0], cft[1], markerfmt = 'k^', label = 'CFT')
@@ -400,23 +389,23 @@ if SHOW_FIG4:
     plt.setp(sl, 'color','r', 'linewidth', 2) # stemline
     plt.setp(bl, 'linewidth',0) # turn off baseline
     ax41.plot(xf_DTFT, abs(X_DTFT), 'b', lw = 2, label = 'DTFT')
-    
+
 #  Pfeile (= Annotation ohne Text) mit den erwarteten Frequenzen und Amplituden:
 #    sigs = ((fsig1, A1/2), (-fsig1, A1/2), (fsig2, A2/2), (-fsig2, A2/2), (0, DC))
 #    for vec in sigs:
-#        ax41.annotate('', xy=(vec[0], vec[1]), xytext=(vec[0], 0), 
+#        ax41.annotate('', xy=(vec[0], vec[1]), xytext=(vec[0], 0),
 #    #    arrowprops=dict(facecolor='black',arrowstyle = '->', alpha = 0.4))
 #        arrowprops=dict(facecolor='black', headwidth=15, frac = 0.2, alpha = 0.4))
     #ax41.grid('on')
    # min(lim_eps(xf,-0.05))
 #    ax41.text(0, -0.1,
-#        ('$f_S = %.1f\, \mathrm{Hz},\, N_{FFT} = %d, \, \Delta f = %.1f \, \mathrm{Hz},\, f_{sig1} = %.1f \, \mathrm{Hz}$' %(fs, M_FFT,fs/M_FFT, fsig1)), 
+#        ('$f_S = %.1f\, \mathrm{Hz},\, N_{FFT} = %d, \, \Delta f = %.1f \, \mathrm{Hz},\, f_{sig1} = %.1f \, \mathrm{Hz}$' %(fs, M_FFT,fs/M_FFT, fsig1)),
 #        fontsize=16, ha="center", va="center",linespacing=1.5,
-#        bbox=dict(alpha=1,boxstyle="round,pad=0.1", fc='0.9'))       
+#        bbox=dict(alpha=1,boxstyle="round,pad=0.1", fc='0.9'))
     ax41.text(0, -0.1,
-        ('$f_S = %.0f\, \mathrm{Hz},\, N_{FFT} = %d, \, \Delta f = %.0f \, \mathrm{Hz}$' %(fs, M_FFT,fs/M_FFT)), 
+        ('$f_S = %.0f\, \mathrm{Hz},\, N_{FFT} = %d, \, \Delta f = %.0f \, \mathrm{Hz}$' %(fs, M_FFT,fs/M_FFT)),
         fontsize=16, ha="center", va="center",linespacing=1.5,
-        bbox=dict(alpha=1,boxstyle="round,pad=0.1", fc='0.9'))       
+        bbox=dict(alpha=1,boxstyle="round,pad=0.1", fc='0.9'))
     ax41.set_xlim(-fs/2, fs/2)
     ax42.set_xlim(-M_FFT/2, M_FFT/2) # match range for second x-axis with first one
     ax42.set_ylim(-0.2, 1.2)
@@ -426,32 +415,26 @@ if SHOW_FIG4:
     ax42.set_xlabel(r'$k \rightarrow$')
     ax41.grid(True)
     ax41.legend(fontsize=16)
-    
+
     fig4.tight_layout(pad = 0.5, rect=[0,0, 1, 1]) # make room for title
 #    fig4.text(0.5, 0.99, 'Zweiseitige CFT, DTFT und DFT von $S[k]$',ha='center', va = 'top',
 #             fontsize=18, transform = fig4.transFigure)
-    if PRINT: fig4.savefig('D:/Daten/ueb-DFT_Windowing-Noi_DFT%s.png' %int(M_FFT))
+    if EXPORT:
+        fig4.savefig(BASE_DIR + 'WIN_Basic-Noi_DFT%s' %int(M_FFT) + FMT)
     #ax41.set_title('Zweiseitige DFT $S[k]$') # Overall title
     #
     #ax42 = fig4.add_subplot(212)
     #ax42.stem(xf,angle(Xn)/pi)
     #ax42.set_ylabel(r'$\angle S[k] / \mathrm{rad} /\pi \rightarrow$' )
     ##ax42.set_ylim(lim_eps(Xn_dB, 0.1))
-    
+
     ##ax42.set_xlim(lim_eps(xfn, 0.05))
     #ax42.set_xlabel(r'$n \; \rightarrow$')
-    
+
     #plt.tight_layout()
-    
+
     #plt.grid('on')
     #plt.savefig('D:/Daten/ueb-DFT_Basics_1-ML_DFT%s.png' %int(M_FFT))
     #==============================================================================
 
 plt.show()
-
-
-#------ not needed here but useful ---------
-#ttl = plt.title('Sampling') # print title and get handle
-#ttl.set_y(1.1) # increase y-position (rel. coordinates)
-#plt.subplots_adjust(top=0.86)
-# --- annotation box
