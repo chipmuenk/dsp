@@ -358,8 +358,8 @@ def zplane(b, a=1, pn_eps=1e-2, zpk=False, analog=False, plt_ax = None, pltLib='
 
 #    print p,z
     if not plt_ax:
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
+#        fig = plt.figure()
+        ax = plt.gca()# fig.add_subplot(111)
     else:
         ax = plt_ax
     if analog == False:
