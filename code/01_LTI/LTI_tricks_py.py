@@ -15,7 +15,6 @@ Tricks zu Grafik und LTI-Systemen:
 """
 from __future__ import division, print_function, unicode_literals
 
-import numpy as np
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, zeros, ones)
 

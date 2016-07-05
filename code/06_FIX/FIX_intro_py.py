@@ -17,7 +17,6 @@ from __future__ import division, print_function, unicode_literals
 
 import time
 
-import numpy as np
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
 
@@ -28,6 +27,7 @@ from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
 import sys
 sys.path.append('..')
 import dsp_fpga_fix_lib as fx
+plt.style.use('../script.mplstyle')
 
 
 N = 10000; f_a = 1

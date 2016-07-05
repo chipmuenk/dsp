@@ -1,17 +1,14 @@
-# -*- coding: iso-8859-15 -*-
-# DFT_plot_signals.py ====================================================
-# 
-#
-# Plots zum Kapitel "FIL":
-#    Darstellung der Phase eines Sinussignals in Abhängigkeit der Verzögerung
-# 
-#
-#
-#
-# 
-# (c) 2016-Apr-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals, absolute_import # v3line15
+# -*- coding: utf-8 -*-
+"""
+=== FIL-phase_sin.py ====================================================
+
+ Plots zum Kapitel "FIL":
+    Darstellung der Phase eines Sinussignals in Abhängigkeit der Verzögerung
+
+(c) 2016 Christian MÃŒnker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 import numpy.random as rnd
@@ -19,19 +16,11 @@ from numpy import (pi, log10, sqrt, exp, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
 from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
-
-from matplotlib.patches import FancyArrow, Circle
-import matplotlib.gridspec as gridspec
-
-#import dsp_fpga_lib as dsp
-#-------- ----------------------------------------------------------------
-# ... Ende der gem. import-Anweisungen
 
 #mpl.rcParams['xtick.labelsize'] = 'small'
 mpl.rc('xtick', labelsize='small', direction='in')#, major.size = 4)
@@ -46,10 +35,10 @@ def scale_axis(val, scale = 0.1):
     delta = abs(max(val) - min(val))
     return [min(val) - delta * scale, max(val) + delta * scale]
 
-PRINT = True            
+EXPORT = False
 #BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
 BASE_DIR = "D:/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
-FILENAME = "FIL_phase_sin_" 
+FILENAME = "FIL_phase_sin_"
 FMT = ".svg"
 
 fsig = 1 # signal frequency in kHz
@@ -81,7 +70,7 @@ ax1.set_xlabel(r'$t / \mathrm{ms} \; \rightarrow$')
 ax1.set_ylabel(r'$h(t) \; \rightarrow$')
 
 ax1.set_ylim([-1.1, 1.1])
-    
+
 #ax1.text(TDel, 0.5, r'$ N = %d$'%(TDel),
 #        horizontalalignment='center',
 #        verticalalignment='bottom',
@@ -107,7 +96,7 @@ ax2.set_ylim(scale_axis(delta_phi))
 
 fig1.tight_layout(pad = 0.1)
 
-if PRINT:
+if EXPORT:
     fig1.savefig(BASE_DIR + FILENAME + str(int(fsig)) + "_kHz" + FMT)
 ###########################################################################
 TDel = 0.25
@@ -130,7 +119,7 @@ ax21.set_xlabel(r'$t / \mathrm{ms} \; \rightarrow$')
 ax21.set_ylabel(r'$h(t) \; \rightarrow$')
 
 ax21.set_ylim([-1.1, 1.1])
-    
+
 
 
 ax22 = fig2.add_subplot(212)
@@ -157,7 +146,7 @@ ax22.text(max(f), max(delta_phi), r'$ \Delta T = %0.2f$ ms'%(TDel),
         bbox = bbox_props)
 
 fig2.tight_layout(pad = 0.1)
-if PRINT:
+if EXPORT:
     fig2.savefig(BASE_DIR + FILENAME + str(int(TDel*1000)) + "_us" + FMT)
 
 plt.show()

@@ -2,11 +2,9 @@
 """
 ==== LTF_IIR_allgemein_py.py =========================================
 
-Kapitel "LTI-Systeme im Frequenzbereich"
-
-Code zu Übung "Allgemeine IIR-Struktur" 
-
-
+Code zu Übung "Allgemeine IIR-Struktur": 
+   Betragsgang, Impulsantwort und P/N-Diagramm eines IIR-Systems 
+      erster Ordnung
 
 (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 ======================================================================
@@ -25,8 +23,7 @@ from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
 import sys
 sys.path.append('..')
 import dsp_fpga_lib as dsp
-#------------------------------------------------------------------------
-# ... Ende der gem. import-Anweisungen
+
 alpha = 0.9; f_S = 1 
 b = [1, 0] # z + 0
 # b = [1 0 0] # z^2 + 0
@@ -34,11 +31,11 @@ a = [1, -alpha] # z - 0.9; Add., 1 Verzögerung
 #a = [1 +alpha] # z + 0.9; Subtr., 1 Verz.
 #a = [1 0 -alpha] # z^2 - 0.9; Add., 2 Verz.
 #a = [1 0 +alpha] # z^2 - 0.9; Subtr., 2 Verz.
-figure(1) 
-dsp.zplane(b,a)  # Plotte P/N Diagramm
+
+dsp.zplane(b,a)#, plt_ax = ax)  # Plotte P/N Diagramm
 # H(f) entlang der oberen Hälfte des EK:
 [W,H] = sig.freqz(b,a,1024, f_S)
-figure(2) 
+fig2 = figure(2)
 plot(W/(2*pi),abs(H),linewidth = 2) # H(F)
 xlabel(r'$F$  bzw. $\Omega / 2 \pi$') 
 ylabel(r'$|H(F)| \; \rightarrow$')

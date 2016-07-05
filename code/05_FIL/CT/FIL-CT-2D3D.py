@@ -1,18 +1,14 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-#===========================================================================
-# FIL-CT-2D3D.py
-#
-#  2D and 3D plots of various curves of Continous-Time filters
-#
-# 
-#
-#
-#
-#
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+# -*- coding: utf-8 -*-
+"""
+===========================================================================
+ FIL-CT-2D3D.py
+
+  2D and 3D plots of various curves of Continous-Time filters
+
+ (c) 2016 Christian Münker - files for the lecture "AACD"
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 import numpy.random as rnd
@@ -26,10 +22,6 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-import dsp_fpga_lib as dsp
-#------------------------------------------------------------------------
-# ... Ende der gemeinsamen Import-Anweisungen
-
 from mpl_toolkits.mplot3d import Axes3D # needed for 'projection3d'
 from matplotlib import cm # Colormap
 from  matplotlib import patches
@@ -37,6 +29,11 @@ import mpl_toolkits.mplot3d.art3d as art3d
 #import mayavi.mlab as mlab
 import scipy.special
 
+import sys
+sys.path.append('../..')
+import dsp_fpga_lib as dsp
+
+EXPORT = False
 #BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
 BASE_DIR = "D:/Daten/HM/AACD/1_2_Filters/Folien/img/"
 FILENAME = "butterworth_filter"
@@ -77,7 +74,7 @@ zeta = 0.25
 ## Second order systems
 #aa = [1, 2 * zeta * W_c, 1] # general 2nd order denominator
 #bb = [W_c * W_c] # lowpass
-#b = 
+#b =
 
 # 1st order LP: H(s) = 1 / (s RC + 1)
 #bb = [1]; aa = [1, 1]
@@ -85,7 +82,7 @@ zeta = 0.25
 #bb = [1, 0]; aa = [1, 1]
 #bb = [1./3, 0]; aa = [1/3, 1] # w_c = 3 / tau
 # 2nd order HP: H(s) = 0.5 (s RC)^2 / (s RC + 1)(s RC/2 + 1)
-#bb = [0.5, 0, 0]; aa = [0.5, 1.5, 1] 
+#bb = [0.5, 0, 0]; aa = [0.5, 1.5, 1]
 #================ Biquad ====================
 #
 #[bb,aa] = np.real([bb,aa])
@@ -102,7 +99,7 @@ poles = np.roots(aa) # poles of H(s)
 #aa = np.poly(poles)
 print("aa, bb =", aa,bb)
 print("P, N =", np.roots(aa), np.roots(bb))
-print("Angle(P) = ", angle(np.roots(aa))/ pi * 180) 
+print("Angle(P) = ", angle(np.roots(aa))/ pi * 180)
 
 
 W_max = 2 # normalized circular frequency; W = 2 pi f tau
@@ -110,9 +107,9 @@ W = np.linspace(0, W_max, 201) # start, stop, step. endpoint is included
 [W,H] = sig.freqs(bb, aa, W) # Calculate H(w) at the frequency points w1
 #[w,H]=sig.freqs(bb,aa)  # calculate H(w) at 200 frequencies "around the
                         # interesting parts of the response curve"
-f = W 
+f = W
 H_abs = abs(H)
-H_max = max(H_abs); H_max_dB = 20*log10(H_max) 
+H_max = max(H_abs); H_max_dB = 20*log10(H_max)
 W_max = W[np.argmax(H_abs)] # frequency where |H(Omega)| is max.
 H_angle = np.unwrap(angle(H))
 
@@ -175,7 +172,7 @@ xlabel(r'$t \; \rightarrow$')
 ## 3D-Plots
 #===============================================================
 xmin = -max(f); xmax = 1e-6;  # cartesian range definition
-ymin = 0 #-max(f); 
+ymin = 0 #-max(f);
 ymax = max(f);
 #
 
@@ -209,9 +206,9 @@ ax12 = fig5.add_subplot(111,projection='3d')
 #colormap gray;  #hsv / gray / default / colorcube / bone / summer / autumn
 #extents=(-1,1, -1,1, -1,1)
 if OPT_3D_PLOT_TYPE == 'MESH':
-    g=ax12.plot_wireframe(x,y,dsp.H_mag(bb,aa,s,thresh),rstride=2, cstride=2, 
-                          linewidth = 1, color = 'gray') 
-                          #plot 3D-mesh of |H(z)| ; limit at |H(z)| = thresh  
+    g=ax12.plot_wireframe(x,y,dsp.H_mag(bb,aa,s,thresh),rstride=2, cstride=2,
+                          linewidth = 1, color = 'gray')
+                          #plot 3D-mesh of |H(z)| ; limit at |H(z)| = thresh
 elif OPT_3D_PLOT_TYPE == 'MESH_MLAB':
     mlab.mesh(x, y, dsp.H_mag(bb,aa,s,thresh), colormap="bone")
 elif OPT_3D_PLOT_TYPE == 'SURF_MLAB':
@@ -219,24 +216,24 @@ elif OPT_3D_PLOT_TYPE == 'SURF_MLAB':
 #    s = np.sin(x+y) + np.sin(2*x - y) + np.cos(3*x+4*y)
     fm1 = mlab.figure()
 
-    p1 = mlab.plot3d(zeros(len(yc)), yc, 
+    p1 = mlab.plot3d(zeros(len(yc)), yc,
             dsp.H_mag(bb,aa,1j*yc*2*pi,thresh)*z_scale, color = (0,0,0))
             #extent = (0, 0,ymin, ymax,0,thresh)
     s = mlab.surf(x, y, dsp.H_mag(bb,aa,s,thresh), warp_scale = z_scale)
     #extent = (xmin, xmax,ymin, ymax,0,thresh)
     mlab.axes(z_axis_visibility = False)
-    
+
     #mlab.outline()
     #mlab.xlabel('x ->')
-    mlab.colorbar(object=s, title=None, orientation='vertical', nb_labels=None, 
+    mlab.colorbar(object=s, title=None, orientation='vertical', nb_labels=None,
                   nb_colors=None, label_fmt=None)
     mlab.title('3D-Darstellung von |H(s)| |', height = 0.95, size = 0.25)
 
-#plot 3D-surface of |H(z)| ; limit at |H(z)| = thresh:    
+#plot 3D-surface of |H(z)| ; limit at |H(z)| = thresh:
 elif OPT_3D_PLOT_TYPE == 'SURF':
-    g=ax12.plot_surface(x,y,dsp.H_mag(bb,aa,s,thresh), alpha = OPT_3D_ALPHA, 
+    g=ax12.plot_surface(x,y,dsp.H_mag(bb,aa,s,thresh), alpha = OPT_3D_ALPHA,
                       rstride=2, cstride=2, cmap = cm.jet,
-    linewidth=0, antialiased=False, edgecolor = 'k') 
+    linewidth=0, antialiased=False, edgecolor = 'k')
     # try cm.hot, gray, hsv
 
 else:
@@ -254,15 +251,15 @@ ax12.plot([0,0],[1,1],[0,1],'r--', lw = 1)
 ax12.plot([0,0],[0,ymax],[1/sqrt(2), 1/sqrt(2)],'r--', lw = 1)
 
 # Plot |H(j omega)| along the j omega axis:
-ax12.plot(zeros(len(yc)), yc, dsp.H_mag(bb,aa,1j*yc,thresh), 
-          linewidth=3, color = 'r'); 
+ax12.plot(zeros(len(yc)), yc, dsp.H_mag(bb,aa,1j*yc,thresh),
+          linewidth=3, color = 'r');
 
 # Plot the zeros at (x,y,0) with "stems":
 for k in range(len(nulls)):
     if xmax >= nulls[k].real >= xmin and ymax >= nulls[k].imag >= ymin:
         ax12.plot([nulls[k].real, nulls[k].real],[nulls[k].imag, nulls[k].imag],
           [0, zlevel],linewidth=1,color='b')
-        ax12.plot([nulls[k].real, nulls[k].real],[nulls[k].imag, nulls[k].imag], zlevel, 
+        ax12.plot([nulls[k].real, nulls[k].real],[nulls[k].imag, nulls[k].imag], zlevel,
         'o', markersize = PN_SIZE, mec='blue', mew=2.0, markerfacecolor='none'); # plot nulls
 
 # Plot the poles at |H(s_p)| = plevel with "stems"
@@ -300,5 +297,6 @@ ax12.locator_params(axis = 'z', tight = True, nbins=8)
 ax12.view_init(ELEV, PHI)
 
 plt.tight_layout()
-fig5.savefig(BASE_DIR + FILENAME + '3d' + FMT)
+if EXPORT:
+    fig5.savefig(BASE_DIR + FILENAME + '3d' + FMT)
 plt.show()

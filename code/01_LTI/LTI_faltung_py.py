@@ -1,16 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-LTI_faltung_py.py ====================================================
+=== LTI_faltung_py.py =================================================
 
-Einfaches Code-Beispiel zum Kapitel "LTI-Systeme im Zeitbereich"
+Faltung und Darstellung von zeitdiskreten Signalen
 
-Thema: Zeitdiskrete Faltung
-
- (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+(c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 ======================================================================
 """
-
-from __future__ import division, print_function, unicode_literals, absolute_import
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 from numpy import (pi, log10, sqrt, exp, sin, cos, tan, angle, arange,

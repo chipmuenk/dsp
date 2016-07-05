@@ -2,30 +2,32 @@
 """
 == _common_imports_v3_py.py =============================================
 
- Einfaches Code-Beispiel zum Kapitel "xxx", Übungsaufgabe yyy
+ Header mit import Anweisungen für im Kurs benötigte Python-Module
 
- Importiere Module zur 
- - Erzeugung von Zufallszahlen:    numpy.rnd
- - (Inverse) FFT:                  numpy.fft
- - Signalverarbeitung              scipy.signal
- - Interpolation                   scipy.interp
- (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+ (c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 ===========================================================================
 """
+# Rüste python 3.x features auch für python 2.x nach
 from __future__ import division, print_function, unicode_literals
 
-import numpy as np
-import numpy.random as rnd
+import numpy as np               # schnelle Array-Mathematik
+import numpy.random as rnd       # Zufallszahlen/prozesse
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
-                    linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
-import scipy.signal as sig
-import scipy.interpolate as intp
+                    linspace, array, zeros, ones) # Häufig benötigte Funktionen
+from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq # FFT-Untermodul
 
-import matplotlib.pyplot as plt
+import scipy.signal as sig        # Signalverarbeitung
+import scipy.interpolate as intp  # Interpolationsverfahren
+
+import matplotlib.pyplot as plt   # Grafik-Bibliothek
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
-    subplot, title, clf, xlim, ylim)
+    subplot, title, clf, xlim, ylim) # Häufig benötigte Funktionen
+# Lade Stylefiles (Fontgrößen, Linienstärken, Farben) ...
+plt.style.use('seaborn-talk')             # ... aus Matplotlib stylelib Directories
+plt.style.use('../presentation.mplstyle') # ... sucht stylefile im angegebenen Pfad
+print(plt.style.available())     # Zeige verfügbare Matplotlib-Styles
 
-import dsp_fpga_lib as dsp
-#------------------------------------------------------------------ v3line30
-# Ende der gemeinsamen Import-Anweisungen
+import sys                       # Füge Parent Directory zum Suchpfad hinzu für
+sys.path.append('..')            #    eigene Bibliotheken
+import dsp_fpga_lib as dsp       # Bibliothek mit zusätzlichen DSP-Funktionen
+import dsp_fpga_fix_lib as fx    # Bibliothek mit schneller Fixpoint-Arithmetik

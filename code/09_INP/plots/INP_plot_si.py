@@ -1,33 +1,22 @@
 # -*- coding: utf-8 -*-
-# INP_plot_si.py ====================================================
-# 
-#
-# Einfache Plots zum Kapitel "INP": Verlauf der si-Funktion
-#
-# 
-#
-#
-#
-# 
-# (c) 2016-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals, absolute_import # v3line15
+"""
+=== INP_plot_si.py ====================================================
+ 
+ Einfache Plots zum Kapitel "INP": Verlauf der si-Funktion
+ 
+ (c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+ =======================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, sqrt, exp, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
-import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-#import dsp_fpga_lib as dsp
-#-------- ----------------------------------------------------------------
-# ... Ende der gem. import-Anweisungen
 from scipy.special import diric
 EXPORT =  True
 BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
