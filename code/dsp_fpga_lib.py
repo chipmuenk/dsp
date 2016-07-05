@@ -237,7 +237,7 @@ uniq, mult = sp.signal.unique_roots(vals, rtype='avg')
 
 
 
-def zplane(b, a=1, pn_eps=1e-2, zpk=False, analog=False, pltLib='matplotlib',
+def zplane(b, a=1, pn_eps=1e-2, zpk=False, analog=False, plt_ax = None, pltLib='matplotlib',
           verbose=False, style='square', anaCircleRad=0, lw=2,
           mps = 10, mzs = 10, mpc = 'r', mzc = 'b', plabel = '', zlabel = ''):
     """
@@ -357,68 +357,71 @@ def zplane(b, a=1, pn_eps=1e-2, zpk=False, analog=False, pltLib='matplotlib',
         num_z = []
 
 #    print p,z
-    if pltLib == 'matplotlib':
-        ax = plt.subplot(111)
-        if analog == False:
-            # create the unit circle for the z-plane
-            uc = patches.Circle((0,0), radius=1, fill=False,
+    if not plt_ax:
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+    else:
+        ax = plt_ax
+    if analog == False:
+        # create the unit circle for the z-plane
+        uc = patches.Circle((0,0), radius=1, fill=False,
+                            color='grey', ls='solid', zorder=1)
+        ax.add_patch(uc)
+    #    ax.spines['left'].set_position('center')
+    #    ax.spines['bottom'].set_position('center')
+    #    ax.spines['right'].set_visible(True)
+    #    ax.spines['top'].set_visible(True)
+
+        r = 1.1
+        plt.axis('equal'); plt.axis([-r, r, -r, r], aspect='equal')
+
+    else: # s-plane
+        if anaCircleRad > 0:
+            # plot a circle with radius = anaCircleRad
+            uc = patches.Circle((0,0), radius=anaCircleRad, fill=False,
                                 color='grey', ls='solid', zorder=1)
             ax.add_patch(uc)
-        #    ax.spines['left'].set_position('center')
-        #    ax.spines['bottom'].set_position('center')
-        #    ax.spines['right'].set_visible(True)
-        #    ax.spines['top'].set_visible(True)
+        # plot real and imaginary axis
+        ax.axhline(lw=2, color = 'k', zorder=1)
+        ax.axvline(lw=2, color = 'k', zorder=1)
 
-            r = 1.1
-            plt.axis('equal'); plt.axis([-r, r, -r, r], aspect='equal')
-
-        else: # s-plane
-            if anaCircleRad > 0:
-                # plot a circle with radius = anaCircleRad
-                uc = patches.Circle((0,0), radius=anaCircleRad, fill=False,
-                                    color='grey', ls='solid', zorder=1)
-                ax.add_patch(uc)
-            # plot real and imaginary axis
-            ax.axhline(lw=2, color = 'k', zorder=1)
-            ax.axvline(lw=2, color = 'k', zorder=1)
-
-        # Plot the zeros
-        ax.scatter(z.real, z.imag, s=mzs*mzs, zorder=2, marker = 'o',
-                   facecolor = 'none', edgecolor = mzc, lw = lw, label=zlabel)
+    # Plot the zeros
+    ax.scatter(z.real, z.imag, s=mzs*mzs, zorder=2, marker = 'o',
+               facecolor = 'none', edgecolor = mzc, lw = lw, label=zlabel)
 #        t1 = plt.plot(z.real, z.imag, 'go', ms=10, label=label)
 #        plt.setp( t1, markersize=mzs, markeredgewidth=2.0,
 #                  markeredgecolor=mzc, markerfacecolor='none')
-        # Plot the poles
-        ax.scatter(p.real, p.imag, s=mps*mps, zorder=2, marker = 'x',
-                   edgecolor = mpc, lw = lw, label=plabel)
+    # Plot the poles
+    ax.scatter(p.real, p.imag, s=mps*mps, zorder=2, marker = 'x',
+               edgecolor = mpc, lw = lw, label=plabel)
 
-         # Print multiplicity of poles / zeros
-        for i in range(len(z)):
-            if verbose == True: print('z', i, z[i], num_z[i])
-            if num_z[i] > 1:
-                plt.text(np.real(z[i]), np.imag(z[i]),'  (' + str(num_z[i]) +')',va = 'bottom')
+     # Print multiplicity of poles / zeros
+    for i in range(len(z)):
+        if verbose == True: print('z', i, z[i], num_z[i])
+        if num_z[i] > 1:
+            plt.text(np.real(z[i]), np.imag(z[i]),'  (' + str(num_z[i]) +')',va = 'bottom')
 
-        for i in range(len(p)):
-            if verbose == True: print('p', i, p[i], num_p[i])
-            if num_p[i] > 1:
-                plt.text(np.real(p[i]), np.imag(p[i]), '  (' + str(num_p[i]) +')',va = 'bottom')
+    for i in range(len(p)):
+        if verbose == True: print('p', i, p[i], num_p[i])
+        if num_p[i] > 1:
+            plt.text(np.real(p[i]), np.imag(p[i]), '  (' + str(num_p[i]) +')',va = 'bottom')
 
-            # increase distance between ticks and labels
-            # to give some room for poles and zeros
-        for tick in ax.get_xaxis().get_major_ticks():
-            tick.set_pad(12.)
-            tick.label1 = tick._get_text1()
-        for tick in ax.get_yaxis().get_major_ticks():
-            tick.set_pad(12.)
-            tick.label1 = tick._get_text1()
+        # increase distance between ticks and labels
+        # to give some room for poles and zeros
+    for tick in ax.get_xaxis().get_major_ticks():
+        tick.set_pad(12.)
+        tick.label1 = tick._get_text1()
+    for tick in ax.get_yaxis().get_major_ticks():
+        tick.set_pad(12.)
+        tick.label1 = tick._get_text1()
 
-        if style == 'square':
-             plt.axis('equal')
+    if style == 'square':
+         plt.axis('equal')
 
-        xl = ax.get_xlim(); Dx = max(abs(xl[1]-xl[0]), 0.05)
-        yl = ax.get_ylim(); Dy = max(abs(yl[1]-yl[0]), 0.05)
-        ax.set_xlim((xl[0]-Dx*0.05, max(xl[1]+Dx*0.05,0)))
-        ax.set_ylim((yl[0]-Dy*0.05, yl[1] + Dy*0.05))
+    xl = ax.get_xlim(); Dx = max(abs(xl[1]-xl[0]), 0.05)
+    yl = ax.get_ylim(); Dy = max(abs(yl[1]-yl[0]), 0.05)
+    ax.set_xlim((xl[0]-Dx*0.05, max(xl[1]+Dx*0.05,0)))
+    ax.set_ylim((yl[0]-Dy*0.05, yl[1] + Dy*0.05))
     #    print(ax.get_xlim(),ax.get_ylim())
 
     return z, p, k
@@ -652,6 +655,7 @@ def grpdelay(b, a=1, nfft=512, whole='none', analog=False, Fs=2.*pi):
 ## is converted to the FIR filter conv(b,fliplr(conj(a))).
     if whole !='whole':
         nfft = 2*nfft
+    nfft = int(nfft)
 #
     w = Fs * np.arange(0, nfft)/nfft # create frequency vector
 
@@ -703,7 +707,7 @@ def grpdelay(b, a=1, nfft=512, whole='none', analog=False, Fs=2.*pi):
         tau_g = np.real(num / den) - oa
 #
     if whole !='whole':
-        nfft = nfft/2
+        nfft = nfft//2
         tau_g = tau_g[0:nfft]
         w = w[0:nfft]
 
@@ -754,6 +758,18 @@ def format_ticks(xy, scale, format="%.1f"):
     if xy == 'y' or xy == 'xy':
         locy,labely = plt.yticks() # get location and content of xticks
         plt.yticks(locy, map(lambda y: format % y, locy*scale))
+        
+#==================================================================
+def lim_eps(a, eps):
+#==================================================================
+    """
+    Return min / max of an array a, increased by eps*(max(a) - min(a)). 
+    Handy for nice looking axes labeling.
+    """
+    mylim = (min(a) - (max(a)-min(a))*eps, max(a) + (max(a)-min(a))*eps)
+    return mylim
+      
+
 
 #========================================================
 
