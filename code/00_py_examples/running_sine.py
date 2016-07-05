@@ -3,8 +3,6 @@
 Created on Wed Feb 15 16:42:48 2012
 
 Show an animated sine function and measure frames per second (FPS)
-
-@author: Muenker_2
 """
 
 import numpy as np
@@ -15,9 +13,9 @@ plt.ion() # interactive mode on
 
 tstart = time.time()               # for profiling
 x = np.arange(0, 2 * np.pi, 0.01)  # create x-array
-line, = plt.plot(x, np.sin(x))
+line, = plt.plot(x, np.sin(x))	   # create an artist
 for i in np.arange(1, 200):
-    line.set_ydata(np.sin(x + i / 10.0))  # update the data
+    line.set_ydata(np.sin(x + i / 10.0))  # update the data without re-creating canvas & axes
     plt.draw()                         # redraw the canvas
 
 print('FPS:' , 200 / (time.time() - tstart))
