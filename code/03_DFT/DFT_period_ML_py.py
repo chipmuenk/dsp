@@ -9,23 +9,17 @@
  (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 ===========================================================================
 """
-from __future__ import division, print_function, unicode_literals # v3line15
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
 from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
-import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-#import dsp_fpga_lib as dsp
-#------------------------------------------------------------------ v3line30
-# ... Ende der Import-Anweisungen
 f_S = 1e4; T_S = 1/f_S
 N_FFT = 128; T_mess = N_FFT * T_S
 f_a = 1e3; f_b = 1.1e3; DC = 1.
@@ -48,7 +42,7 @@ subplot(222) # one-sided spectrum [0 ... f_S/2[
 Sy = 2 * fft(y, N_FFT) / N_FFT # ... needs x2
 Sy[0] = Sy[0] / 2. # adjust DC scaling
 f = linspace(0, f_S, N_FFT) # f = 0 ... f_S[
-stem(f[0:N_FFT/2],abs(Sy[0:N_FFT/2])) #... f_S/2[
+stem(f[0:N_FFT//2],abs(Sy[0:N_FFT//2])) #.. f_S/2[
 xlabel('f [Hz]->'); plt.ylabel('Y(f) ->')
 plt.axis([-100,2000,-0.1, 1.1])
 title('Einseitige DFT')
