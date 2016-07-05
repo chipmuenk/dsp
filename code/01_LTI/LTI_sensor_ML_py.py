@@ -1,20 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-LTI_sensor_py.py ====================================================
+=== LTI_sensor_ML_py.py ==============================================
 
-Einfaches Code-Beispiel zum Kapitel "LTI-Systeme im Zeitbereich"
-
-Thema: Abtastung und Filterung eines Sensorsignals
+Abtastung und Filterung eines Sensorsignals
 
 Python-Musterlösung zur Übungsaufgabe "Filterung abgetasteter Signale"
 
-(c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+(c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 =====================================================================
 """
-
-from __future__ import division, print_function, unicode_literals # v3line15
-
-import numpy as np
+from __future__ import division, print_function, unicode_literals
 
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange, 
                    linspace, array, zeros, ones)
