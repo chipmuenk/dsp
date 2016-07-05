@@ -20,10 +20,6 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-from matplotlib.patches import FancyArrow
-import matplotlib.gridspec as gridspec
-
-
 #mpl.rcParams['xtick.labelsize'] = 'small'
 mpl.rc('xtick', labelsize='small', direction='in')#, major.size = 4)
 mpl.rc('xtick.major', size = 4)
