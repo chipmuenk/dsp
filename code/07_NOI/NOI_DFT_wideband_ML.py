@@ -24,12 +24,14 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-f_S = 5e3; T_S = 1. / f_S
-N_FFT = 2000; N_FFT_2 = N_FFT / 2
+f_S = 5e3
+T_S = 1. / f_S
+N_FFT = 2000
+N_FFT_2 = N_FFT // 2
 t_max = N_FFT * T_S
 f_1 = 1e3; a_1 = 1
 
-k_1 = N_FFT * f_1 / f_S # Index Frequenz 1
+k_1 = int(N_FFT * f_1 / f_S) # Index Frequenz 1
 
 t = arange(0, t_max, T_S)
 f_a = 1e3; f_b = 1e2; 
