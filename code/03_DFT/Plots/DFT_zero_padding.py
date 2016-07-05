@@ -1,26 +1,19 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-# DFT_plot_signals.py ====================================================
-# 
-#
-# Plots zum Kapitel "DFT": Betrags- und Phasengang des Diracstoßes mit unter-
-#  schiedlichen Verzögerungen
-# 
-#
-#
-#
-# 
-# (c) 2016-Apr-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals, absolute_import # v3line15
+# -*- coding: utf-8 -*-
+"""
+=== DFT_zero_padding.py ===================================================
+
+ Plots zum Kapitel "DFT": Effekt von Zero-Padding auf die DFT
+
+ (c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, sqrt, exp, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
 from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -30,9 +23,6 @@ from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
 from matplotlib.patches import FancyArrow
 import matplotlib.gridspec as gridspec
 
-#import dsp_fpga_lib as dsp
-#-------- ----------------------------------------------------------------
-# ... Ende der gem. import-Anweisungen
 
 #mpl.rcParams['xtick.labelsize'] = 'small'
 mpl.rc('xtick', labelsize='small', direction='in')#, major.size = 4)
@@ -43,7 +33,7 @@ mpl.rc('lines', markersize = 6)
 
 mpl.rcParams['ytick.labelsize'] = 'small'
 
-
+EXPORT =  False
 #BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
 BASE_DIR = "D:/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
 FILENAME = "DFT_zero_pad_" # "DFT" #
@@ -83,7 +73,8 @@ ax1.set_ylabel(r'$x[n] \; \rightarrow$')
 #ax1.set_ylim([-1, NFFT+1])
 
 fig1.tight_layout(pad = 0.1)
-#fig1.savefig(BASE_DIR + FILENAME + str(NFFT+ZEROPAD) + '_xn' + FMT)
+if EXPORT:
+    fig1.savefig(BASE_DIR + FILENAME + str(NFFT+ZEROPAD) + '_xn' + FMT)
 
 X = fft(x)/NFFT
 Xt = fft(xt)/NFFT
@@ -91,19 +82,17 @@ f = arange(0, NFFT, 1/OSR)
 
 k = fftfreq(NFFT+ZEROPAD)
 
-
-
 fig2 =figure(figsize=(4,3), num = 2)
 ax_1 = fig2.add_subplot(111)
 
 bbox_props = dict(boxstyle="Round, pad=0.3", fc="white", ec="k", lw=0.5)
 A = 1.1
 
-mlm, slm, blm = ax_1.stem(k[0:(NFFT+ZEROPAD)/2], np.abs(X[0:(NFFT+ZEROPAD)/2]))
+mlm, slm, blm = ax_1.stem(k[0:(NFFT+ZEROPAD)//2], np.abs(X[0:(NFFT+ZEROPAD)//2]))
 plt.setp(mlm, 'markerfacecolor', 'k', 'markersize', 6, 'marker', 's')
 plt.setp(slm, 'color','b', 'linewidth', 0.5)
 plt.setp(blm, 'linewidth', 0, 'color', 'k') # turn off baseline
-plot(k[0:(NFFT+ZEROPAD)/2], np.abs(X[0:(NFFT+ZEROPAD)/2]), lw = 3)
+plot(k[0:(NFFT+ZEROPAD)//2], np.abs(X[0:(NFFT+ZEROPAD)//2]), lw = 3)
 ax_1.set_xlabel(r'$F \; \rightarrow$')
 ax_1.set_ylabel(r'$| X(F) |   \; \rightarrow$')
 #ax_1.plot(f, np.abs(Xt))
@@ -111,7 +100,7 @@ plt.axhline(y = 0, color='k')
 #ax_1.set_ylim([-0.1, A])
 fig2.tight_layout(pad = 0.1)
 
-
-#fig2.savefig(BASE_DIR + FILENAME + str(NFFT+ZEROPAD) + '_Xf' + FMT)
+if EXPORT:
+ fig2.savefig(BASE_DIR + FILENAME + str(NFFT+ZEROPAD) + '_Xf' + FMT)
 
 plt.show()

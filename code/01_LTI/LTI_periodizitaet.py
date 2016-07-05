@@ -5,14 +5,11 @@ LTI_periodizitaet.py
 
 Zeige und berechne Periodizitaet von abgetasteten Signalen
 
-
 (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 ===========================================================================
 """
-
 from __future__ import division, print_function, unicode_literals
 
-import numpy as np
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, zeros, ones)
 
@@ -20,7 +17,7 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
     
-EXPORT = True          
+EXPORT = False          
 BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
 # BASE_DIR = "D:/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
 FILENAME = "LTI_periodizitaet" 

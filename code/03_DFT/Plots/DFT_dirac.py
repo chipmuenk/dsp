@@ -1,26 +1,19 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-# DFT_plot_signals.py ====================================================
-# 
-#
-# Plots zum Kapitel "DFT": Betrags- und Phasengang des Diracstoßes mit unter-
-#  schiedlichen Verzögerungen
-# 
-#
-#
-#
-# 
-# (c) 2016-Apr-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
+# -*- coding: utf-8 -*-
+"""
+=== DFT_dirac.py ==========================================================
+
+ Plots zum Kapitel "DFT": Betrags- und Phasengang des Diracstoßes mit unter-
+  schiedlichen Verzögerungen
+
+ (c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
 from __future__ import division, print_function, unicode_literals, absolute_import # v3line15
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, sqrt, exp, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
 from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
-import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -43,7 +36,7 @@ mpl.rc('lines', markersize = 6)
 
 mpl.rcParams['ytick.labelsize'] = 'small'
 
-
+EXPORT = False
 #BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
 BASE_DIR = "D:/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
 FILENAME = "DFT_dirac_" # "DFT" #
@@ -83,7 +76,8 @@ ax1.set_xlim([-1, NFFT])
 ax1.set_ylim([-1, NFFT+1])
 
 fig1.tight_layout(pad = 0.1)
-fig1.savefig(BASE_DIR + FILENAME + '_'+ str(DEL) + FMT )
+if EXPORT:
+    fig1.savefig(BASE_DIR + FILENAME + '_'+ str(DEL) + FMT )
 
 X = fft(x)/NFFT
 Xt = fft(xt)/NFFT
@@ -92,7 +86,7 @@ f = arange(0, NFFT, 1/OSR)
 #fig1, axes = plt.subplots(nrows=4, ncols=4)
 
 gs33 = gridspec.GridSpec(1,2)
-gs33.update(left = 0.12, wspace=0.45, hspace = 0.1, right = 0.98, top = 0.98, 
+gs33.update(left = 0.12, wspace=0.45, hspace = 0.1, right = 0.98, top = 0.98,
             bottom = 0.18)
 fig2 =figure(figsize=(6,3), num = 2)
 
@@ -122,6 +116,7 @@ ax_2.set_ylabel(r'$\angle X[k] / \pi  \; \rightarrow$')
 plt.axhline(y = 0, color='k')
 ax_2.set_ylim([-A, A])
 
-fig2.savefig(BASE_DIR + FILENAME + 'mag_phi_' + str(DEL) + FMT)
+if EXPORT:
+    fig2.savefig(BASE_DIR + FILENAME + 'mag_phi_' + str(DEL) + FMT)
 
 plt.show()

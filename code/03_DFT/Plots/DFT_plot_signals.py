@@ -1,34 +1,25 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-# DFT_plot_signals.py ====================================================
-# 
-#
-# Einfache Plots zum Kapitel "DFT": Fourierreihe und -integral, DTFT, DFT
-#
-# 
-#
-#
-#
-# 
-# (c) 2016-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals, absolute_import # v3line15
+# -*- coding: utf-8 -*-
+"""
+DFT_plot_signals.py ====================================================
+
+Einfache Plots zum Kapitel "DFT": Fourierreihe und -integral, DTFT, DFT
+
+(c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, sqrt, exp, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
 from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-#import dsp_fpga_lib as dsp
-#-------- ----------------------------------------------------------------
-# ... Ende der gem. import-Anweisungen
+EXPORT =  False
 #BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
 BASE_DIR = "D:/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
 FILENAME = "FReihe" # "DFT" #
@@ -66,11 +57,11 @@ if not PERIODIC_T:
     yt = np.concatenate((np.zeros(len(t)), yt, np.zeros((NPER - 2) * len(t))))
 
 else:
-    yt = sig.waveforms.square(t * 2*pi - pi/4, duty = 0.5) + 1 # shift 
+    yt = sig.waveforms.square(t * 2*pi - pi/4, duty = 0.5) + 1 # shift
     yt = np.tile(yt,NPER)
 
 #xticklabels = n
-b,a = sig.butter(8,0.01) # filter discrete 
+b,a = sig.butter(8,0.01) # filter discrete
 yf = sig.filtfilt(b,a,yt)
 y = yf[0:NFFT*OSR*NPER:OSR] # sample discrete time signal from "anlog signal"
 
@@ -101,7 +92,7 @@ if SCALE:
     #ax1.yaxis.set_ticks_position('none')
     #ax1.spines['left'].set_position(('data',0))
     #ax1.spines['left'].set_linewidth(2)
-    
+
     ax1.xaxis.set_ticks_position('bottom')
     ax1.set_xticklabels([])
     ax1.spines['bottom'].set_position(('data',0))
@@ -121,12 +112,12 @@ if DISCRETE_T:
     plt.setp(stemlines, 'color','b', 'linewidth', 2)
     plt.setp(baseline, 'linewidth', 0) # turn off baseline
     ax1.set_xlabel(r'$n, \; t \; \rightarrow$', size = 24, ha ="right")
-    ax1.xaxis.set_label_coords(1, 0.35)# transform=ax1.transData)   
+    ax1.xaxis.set_label_coords(1, 0.35)# transform=ax1.transData)
     if DEBUG: plot(t, yt,'b')
 else:
     plot(n[0:NDISP*NFFT],y[0:NDISP*NFFT],'r',linewidth=3)
     ax1.set_xlabel(r'$t \; \rightarrow$', size = 24, ha ="right")
-    ax1.xaxis.set_label_coords(1, 0.35)# transform=ax1.transData)   
+    ax1.xaxis.set_label_coords(1, 0.35)# transform=ax1.transData)
     if DEBUG: plot(t, yt, 'b')
 #for label in ax1.get_yticklabels():
 #       label.set_verticalalignment('bottom')
@@ -142,7 +133,8 @@ fig1.tight_layout()
 #ax1.set_title(r'Faltung $y[n] = x[n] \star \{1; 1; 1; 1; 1\}$')
 
 #plt.ticklabel_format(useOffset=False, axis='y') # disable using offset print
-fig1.savefig(BASE_DIR + FILENAME + '_t.'+FMT)
+if EXPORT:
+    fig1.savefig(BASE_DIR + FILENAME + '_t.'+FMT)
 
 #################### Spectrum ################################################
 fig2 = figure(num=2, figsize=FIGSIZE)
@@ -176,7 +168,7 @@ if ZEROPAD:
     yn = np.concatenate((y, np.zeros(NPAD)))
 else:
     yn = y
-    
+
 #Y = fft(yn)[0:len(yn)/2]/len(y)
 NNFFT = len(yn)
 NZOOM = int(NNFFT * 1/3)
@@ -191,7 +183,7 @@ else:
     YM = np.concatenate((np.zeros(len(YM)), YM, np.zeros((NDISP - 2) * len(YM))))
 
 F = fftshift(fftfreq(len(YM)))*NDISP
-    
+
 if DISCRETE_F:
     markerline, stemlines, baseline = ax2.stem(F, YM, 'r')
     plt.setp(markerline, 'markerfacecolor', 'b', 'markersize', 8, 'marker', 'o')
@@ -201,7 +193,7 @@ if DISCRETE_F:
     ax2.set_xlabel(r'$k, \; f \; \rightarrow$', size = 24, ha='right')
 else:
     plot(F, YM,'b',linewidth=2)
-    
+
     ax2.set_xlabel(r'$f \; \rightarrow$', size = 24, ha='right')
 #ax2.set_ylabel(r'$|H(\mathrm{e}^{\mathrm{j} 2 \pi F})| \rightarrow$')
 
@@ -209,7 +201,8 @@ ax2.xaxis.set_label_coords(1, 0.4)
 ax2.set_xlim(-NDISP/2, NDISP/2)
 ax2.set_ylim(0, max(YM)*1.05)
 fig2.tight_layout()
-fig2.savefig(BASE_DIR + FILENAME + '_f.' + FMT)
+if EXPORT:
+    fig2.savefig(BASE_DIR + FILENAME + '_f.' + FMT)
 
 #def resadjust(ax, xres=None, yres=None):
 #    """

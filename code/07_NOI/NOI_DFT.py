@@ -1,25 +1,27 @@
 # -*- coding: utf-8 -*-
-#################################################################
-#
-# NOI_DFT.py
-#
-# Darstellung von Signal und Quantisierungsrauschen mit DFT 
-# Korrekte Skalierung von Signal und Breitbandrauschen
-#
+"""
+### NOI_DFT.py ############################################################
+
+Darstellung von Signal und Quantisierungsrauschen mit DFT 
+Korrekte Skalierung von Signal und Breitbandrauschen
+
 # C. Muenker, 27-5-2015
-#
-#
 ###########################################################################
-from __future__ import division, print_function
+"""
+from __future__ import division, print_function, unicode_literals
 import numpy as np
 from numpy import sin, cos, pi, array, arange, log10, zeros, tan, sqrt
-import scipy.signal as sig
 
 import matplotlib.pyplot as plt
-from matplotlib.pyplot import plot, grid
 
+import sys
+sys.path.append('..')
 import dsp_fpga_fix_lib as fx
-#########################################################################
+
+print(plt.style.available)
+plt.style.use('seaborn-poster') # sucht in stylelib Directories
+#plt.style.use('../presentation.mplstyle') # sucht im Pfad
+
 # Definiere Anzahl Samples, FFT - Länge, Samplingfrequenz etc.
 N_FFT = 2048    # Anzahl Datenpunkte für FFT 
 TWIN_AX = False # Drucke zweite Achse für Rauschleistung
@@ -83,7 +85,7 @@ if fx_adc.N_over: print('Anzahl der Überläufe = ', fx_adc.N_over)
 Yq = 2 * abs(np.fft.fft(xq[0:N_FFT], N_FFT))/ N_FFT # Amplituden
 Yq_eff = Yq / sqrt(2) # Effektivwerte
 
-f = np.fft.fftfreq(N_FFT, d = 1./f_S)[0:N_FFT/2] # DFT Frequenzen 0 ... f_S/2
+f = np.fft.fftfreq(N_FFT, d = 1./f_S)[0:N_FFT//2] # DFT Frequenzen 0 ... f_S/2
 k = np.arange(N_FFT/2) # DFT Index
 #------------------------------------------------------------------
 # 
@@ -98,19 +100,17 @@ Yq_dc = Yq[0]/2.               # DC-Wert des Ausgangssignals (für Debugging)
 Yq_dc_dB = 20 * log10(Yq_dc)   # " in dB
 
 # Überspringe Signalamplitude bei Berechnung der mittleren Rauschleistung / bin
-Pq_avg = (np.sum(Yq_eff[0:N_per] ** 2) + np.sum(Yq_eff[N_per+1:N_FFT/2] ** 2)) / (N_FFT/2-1)
+Pq_avg = (np.sum(Yq_eff[0:N_per] ** 2) + np.sum(Yq_eff[N_per+1:N_FFT//2] ** 2)) / (N_FFT//2-1)
 Pq_avg_dB = 10 * log10(Pq_avg)
 
 Yq_eff[N_per] = np.sqrt(Pq_avg)
 #Yq[N_per] = 0	# oder ersetze einfach durch Null
 
 
-
-
 # Gesamtrauschleistung im Frequenzband von 0 ... f_S/2: e_N = Integral (Yq^2):
 # Diskrete Frequenzbänder: Integral -> Summe P = SUM A_eff^2(i)
 
-e_N = np.inner(Yq_eff[0:N_FFT/2], Yq_eff[0:N_FFT/2])
+e_N = np.inner(Yq_eff[0:N_FFT//2], Yq_eff[0:N_FFT//2])
 #e_N = Pq_avg * (N_FFT/2 -1)
 SNR = 10 * log10(PSig / e_N) 
 ENOB = (SNR - 1.7609)/6.0206
@@ -120,7 +120,6 @@ ENOB = (SNR - 1.7609)/6.0206
 # Grafische Darstellung
 #
 ###############################################################################
-
 
 fig4 = plt.figure(1)
 fig4.clf()
@@ -136,7 +135,7 @@ Yq_eff_dB = np.maximum(20 * log10(Yq_eff), np.ones(len(Yq_eff))*Hmin)
 
 #
 # Quantisierungsrauschen
-ax4.plot(f, Yq_eff_dB[0:N_FFT/2],'k',linewidth = 2, label = r'$N_Q(f)$')
+ax4.plot(f, Yq_eff_dB[0:N_FFT//2],'k',linewidth = 2, label = r'$N_Q(f)$')
 # mittlere Rauschleistung
 ax4.plot([0, f_S/2] , [Pq_avg_dB, Pq_avg_dB], color=(0.8,0.8,0.8), linewidth = 2,
     linestyle = '-')
