@@ -1,34 +1,36 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-# LTI_faltung_py.py ====================================================
-# 
-#
-# Einfaches Code-Beispiel zum Kapitel "LTI-Systeme im Zeitbereich"
-#
-# Thema: Zeitdiskrete Faltung
-#
-#
-#
-# 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals, absolute_import # v3line15
+# -*- coding: utf-8 -*-
+"""
+=== LTF_plot_signals.py ====================================================
 
+Plots zum Kapitel "LTI-Systeme im Frequenzbereich"
+
+Plotte Impulsantwort, P/N-Diagramm und Betragsgang einfacher Systeme
+
+(c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, sqrt, exp, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
 from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
+    
+import sys
+sys.path.append('../..')
+import dsp_fpga_lib as dsp
+    
+EXPORT = False          
+BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
+# BASE_DIR = "D:/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
+FILENAME = "LTF_FIR_filter" 
+FMT = ".svg"
 
-import pyfda_lib as dsp
-#-------- ----------------------------------------------------------------
-# ... Ende der gem. import-Anweisungen
+
 def resadjust(ax, xres=None, yres=None):
     """
     Send in an axis and I fix the resolution as desired.
@@ -94,7 +96,8 @@ plt.margins(0.05) # setting xmargin / ymargin individually doesnt work
 #ax1.set_title(r'Faltung $y[n] = x[n] \star \{1; 1; 1; 1; 1\}$')
 
 #plt.ticklabel_format(useOffset=False, axis='y') # disable using offset print
-fig1.savefig('D:/Daten/HM/dsvFPGA/Uebungen/HM/2016/img/LTF-IIR_Filter_2nd-xn.pdf')
+if EXPORT:
+    fig1.savefig(BASE_DIR + FILENAME +"_xn" + FMT)
 
 fig2 = figure(num=2, figsize=(6,6))
 ax21 = fig2.add_subplot(211)
@@ -112,14 +115,16 @@ ax22 = fig2.add_subplot(212)
 plot(F, angle(H) /pi *180)
 ax22.set_ylabel(r'$\angle H(\mathrm{e}^{\mathrm{j} 2 \pi F})\; \mathrm {in} \; \deg \rightarrow$')
 ax22.set_xlabel(r'$F \rightarrow$')
-fig2.savefig('D:/Daten/HM/dsvFPGA/Uebungen/HM/2016/img/LTF-FIR_filter_H.pdf')
+if EXPORT:
+    fig2.savefig(BASE_DIR + FILENAME +"_Hf" + FMT)
 
 fig3 = figure(num=3)
 ax3 = fig3.add_subplot(111)
 dsp.zplane(h, zpk=False, plt_ax = ax3)
 ax3.set_xlabel(r'reell $\rightarrow$')
-ax3.set_ylabel(r'imaginär $ \rightarrow$')
-fig3.savefig('D:/Daten/HM/dsvFPGA/Uebungen/HM/2016/img/LTF-FIR_filter_PN.pdf')
+ax3.set_ylabel(r'imaginÃ€r $ \rightarrow$')
+if EXPORT:
+    fig3.savefig(BASE_DIR + FILENAME +"_PN" + FMT)
 
 ax3.set_ylim([-1.1,1.1])
 ax3.set_xlim([-2.5,1])
