@@ -1,34 +1,24 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-#===========================================================================
-# ueb_LTI_Grundsignale_py.py
-#
-# Einfaches Code-Beispiel zum Kapitel "LTI-Systeme im Zeitbereich"
-#
-# Thema: Beispiele für Darstellung von einfachen Funktionen in Python
-#
-# 
-#
-# 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
+# -*- coding: utf-8 -*-
+"""
+=== LTI_Grundsignale_py.py =====================================================
+
+ Einfaches Code-Beispiel zum Kapitel "LTI-Systeme im Zeitbereich"
+
+ Thema: Beispiele für Darstellung von einfachen Funktionen in Python
+ 
+ (c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
 from __future__ import division, print_function, unicode_literals # v3line15
 
-import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange, 
                    linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-import dsp_fpga_lib as dsp
-#------------------------------------------------------------------------
-# ... Ende der gem. import-Anweisungen
 from mpl_toolkits.mplot3d import Axes3D # für 'projection3d'
 
 ## Komplexe Exponentialschwingung y = exp( j \omega t)
@@ -69,7 +59,7 @@ title('sin(x)/x - Funktion')
 ## Dirac-Puls (-Kamm)
 figure(4)
 t = arange(-3,4) # Das letzte Element ist nicht dabei!
-x = ones(len(t)) # 1 - Vektor / Matrix der Größe 1 x 7 [ vgl. x=zeros(a,b) ];
+x = ones(len(t)) # 1 - Vektor / Matrix der Größe 1 x 7 [ vgl. x=zeros(a,b) ];
 
 stem(t, x) # "stem" = Stamm, Stengel
 plt.axis([-3.6, 3.6, -.2, 1.2])
@@ -77,8 +67,8 @@ title('Periodische Diracfunktion')
 xlabel(r'$t/T_0 \rightarrow$')
 ylabel(r'$x(t) \rightarrow$')
 # Formatierung:
-plt.text(-3.4,0.5,'...',fontsize=16, color='b') # Pünktchen links
-plt.text(3.2,0.5,'...',fontsize=16, color='b') # Pünktchen rechts
+plt.text(-3.4,0.5,'...',fontsize=16, color='b') # PÃŒnktchen links
+plt.text(3.2,0.5,'...',fontsize=16, color='b') # PÃŒnktchen rechts
 plt.text(0.15,1.0 ,'(1)',fontsize=16, color='b') # Dirac - Gewicht
 #=========================================================================
 ## Periodische Wellenformen
