@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-===========================================================================
-LTI_periodizitaet.py
+==== LTI_periodizitaet.py =================================================
 
 Zeige und berechne Periodizitaet von abgetasteten Signalen
 
-(c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+(c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 ===========================================================================
 """
 from __future__ import division, print_function, unicode_literals
