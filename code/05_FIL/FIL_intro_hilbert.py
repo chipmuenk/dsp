@@ -1,34 +1,28 @@
-#!/usr/bin/env python
-# -*- coding: iso-8859-15 -*-
-#===========================================================================
-# ueb_FIL_intro_py.py
-#
-# Demonstrate filter design methods and specifications for 
-# differentiators and hilbert filter 
-#
-#
-# 
-#
-#
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+# -*- coding: utf-8 -*-
+"""
+=== FIL_intro_hilbert.py ==================================================
+
+Design methods and specifications for differentiators and hilbert filter 
+
+(c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
+
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
+import sys
+sys.path.append('..')
 import dsp_fpga_lib as dsp
-#------------------------------------------------------------------------
-# Ende der gemeinsamen Import-Anweisungen       
+
 f_S = 200 # Samplingfrequenz 
 f_DB = 40 # Grenzfreq. Durchlassband (DB)
 f_SB = 50 # Grenzfrequenz Sperrband (SB)
@@ -38,7 +32,7 @@ F_SB = f_SB/(f_S/2) # auf HALBE Abtastfreq.
 A_DB = 0.1 # max. Ripple im DB in dB
 A_DB_lin = (10**(A_DB/20.0)-1) / \
   (10**(A_DB/20.0)+1)*2 # und linear
-A_SB = 40 # min. Dämpfung im SB in dB
+A_SB = 40 # min. DÃ€mpfung im SB in dB
 A_SB_lin = 10**(-A_SB/20.0) # und linear
 #
 L = 31 # Manuelle Vorgabe der Tap-Zahl
@@ -56,8 +50,8 @@ a = [1] # Nennerpolynom = 1 bei FIR-Filtern
 #=======================================================1
 # Hilbert-Transformer: zero at f = 0  and f = fS/2
 # -> antisymmetric, odd numtaps
-#b = sig.firwin2(L, [0,0.01, 0.5, 0.99, 1], [0,1, 1, 1,0], antisymmetric = True)
-b = sig.remez(L, [0, 0.1, 0.11, 0.4, 0.41, 0.5], [0,1,0], [0.1,10,0.1],type = 'hilbert')
+b = sig.firwin2(L, [0,0.01, 0.5, 0.99, 1], [0,1, 1, 1,0], antisymmetric = True)
+#b = sig.remez(L, [0, 0.1, 0.11, 0.4, 0.41, 0.5], [0,1,0], [0.1,10,0.1],type = 'hilbert')
 
 b = b / sum(abs(b))
 print (b)
