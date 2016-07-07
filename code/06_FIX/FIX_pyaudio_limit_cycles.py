@@ -106,7 +106,8 @@ while data_out:
     samples_l = samples_in[0::2]
     samples_r = samples_in[1::2]
     if len(samples_r) < 2:
-        break # break out of the while loop when (nearly) out of data
+        break # break out of the while loop when out of data
+    # Check whether there was enough data for a full frame
     if len(samples_r) < CHUNK: # check whether frame has full length
         samples_out = samples_np = zeros(len(samples_in), dtype=np_type)
         samples_l = samples_l = zeros(len(samples_in)/2, dtype=np_type)

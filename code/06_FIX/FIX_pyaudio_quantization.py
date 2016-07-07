@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-FIX_pyaudio_quantization.py ===============================================
+=== FIX_pyaudio_quantization.py ============================================
 
 Demonstrate quantization effects with audio signals:
 
@@ -14,7 +14,6 @@ from __future__ import division, print_function, unicode_literals
 import numpy as np
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
@@ -28,8 +27,11 @@ import pyaudio
 import wave
 import os
 
-np_type = np.int16
+np_type = np.int16 # format of audio samples
+CHUNK = 1024 # number of stereo samples per frame
+
 path = '/home/muenker/Daten/share/Musi/wav/'
+path = '../_media/'
 
 #filename = 'chord.wav'
 #filename = '07 - Danny Gottlieb with John McLaughlin - Duet.wav'
@@ -52,7 +54,6 @@ stream = p.open(format=p.get_format_from_width(w_samp),
                 channels=n_chan,
                 rate=rate_in,
                 output=True) 
-CHUNK = 1024 # number of stereo samples per frame
 
 # Define quantization mode and create a quantization instance for each channel
 # quantize with just a few bits:
@@ -80,6 +81,8 @@ while data_out:
     # split interleaved data stream into R and L channel:
     samples_l = samples_in[0::2]
     samples_r = samples_in[1::2]
+    if len(samples_r) < 2:
+        break # break out of the while loop when out of data
     # Check whether there was enough data for a full frame
     if len(samples_r) < CHUNK: # check whether frame has full length
         samples_out = samples_np = zeros(len(samples_in), dtype=float)
@@ -106,4 +109,5 @@ stream.stop_stream() # pause audio stream
 stream.close() # close audio stream
 
 p.terminate() # close PyAudio & terminate PortAudio system
+print("Overflows: ", fx_Q_r.N_over)
 print("Closed audio stream!")

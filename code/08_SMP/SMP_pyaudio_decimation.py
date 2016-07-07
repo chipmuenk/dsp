@@ -1,45 +1,42 @@
 # -*- coding: utf-8 -*-
-#===========================================================================
-# SMP_pyaudio_decimation.py
-#
-# Code-Beispiel zur Dezimation (mit / ohne Filterung) von Audio-Signalen
-#
-# Eine Audio-Datei wird blockweise eingelesen, in numpy-Arrays umgewandelt 
-# dann werden Samples entnommen und die Datei wird auf
-# ein Audio-Device ausgegeben.
-#
-# 
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+"""
+=== SMP_pyaudio_decimation.py =============================================
+
+
+ Code-Beispiel zur Dezimation (mit / ohne Filterung) von Audio-Signalen
+
+ Eine Audio-Datei wird blockweise eingelesen, in numpy-Arrays umgewandelt 
+ dann werden Samples entnommen und die Datei wird auf
+ ein Audio-Device ausgegeben.
+ 
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
 from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-import dsp_fpga_lib as dsp
-#------------------------------------------------------------------ v3line30
-# Ende der gemeinsamen Import-Anweisungen
 import pyaudio
 import wave
 import os
 
 np_type = np.int16
+
 path = '/home/muenker/Daten/share/Musi/wav/'
+path = '../_media/'
 #filename = 'chord.wav'
 filename = '07 - Danny Gottlieb with John McLaughlin - Duet.wav'
 filename = 'Ole_16bit.wav' # 
 #filename = '01 - Santogold - L.E.S Artistes.wav'
 #filename = 'ComputerBeeps2.wav'
 filename = 'SpaceRipple.wav'
-
 
 wf = wave.open(os.path.join(path, filename))
 n_chan = wf.getnchannels() # number of channels in wav-file
@@ -67,7 +64,6 @@ stream = p.open(format=p.get_format_from_width(w_samp),
                 output=True)
 
 STEREO = n_chan == 2
-
 
 #print (channels)
 # initialize arrays for samples
@@ -131,7 +127,9 @@ stream.close() # close audio stream
 
 p.terminate() # close PyAudio & terminate PortAudio system
 print("Closed audio stream!")
-dbmin = -100; dbmax = 0 # Limits für log. Darstellung
+
+# ============== Create spectrogram =========================================
+dbmin = -100; dbmax = 0 # Limits for log. display
 win = sig.windows.kaiser(NFFT,12, sym = False) # needs NFFT and shape parameter beta
 figure(2)
 Pxx, freqs, bins, im = plt.specgram(samples / (NFFT * 2**15), NFFT=NFFT, Fs=rate_out, 
