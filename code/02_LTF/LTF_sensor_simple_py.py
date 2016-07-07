@@ -1,17 +1,14 @@
 # -*- coding: utf-8 -*-
-# LTF_sensor_simple_py.py =================================================
-# 
-# Kapitel "LTF", "Abgetastete Signale im Frequenzbereich" (LTF)
-# Abgetastetes und gefiltertes "Sensorsignal" im Frequenzbereich
-#
-#
-# 
-# 
-# 
-# 
-# (c) 2014-Feb-10 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+"""
+=== LTF_sensor_simple_py.py ==============================================
+ 
+ Kapitel "LTF", "Abgetastete Signale im Frequenzbereich" (LTF)
+ Abgetastetes und gefiltertes "Sensorsignal" im Frequenzbereich
+
+ (c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,

@@ -10,7 +10,7 @@ Demonstriere:
 
 bei verschiedenen Arten der Quantisierung und der Sättigung
 
-(c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+(c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 =========================================================================
 """
 from __future__ import division, print_function, unicode_literals
