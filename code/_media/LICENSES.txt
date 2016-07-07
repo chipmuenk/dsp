@@ -1,0 +1,7 @@
+Lizenzen der enthaltenen Media-Files:
+
+Soundfiles aus "Scratch" (https://scratch.mit.edu/)
+Lizensiert unter GPL2 Lizenz
+===================================================
+ComputerBeeps2.wav
+SpaceRipple.wav
