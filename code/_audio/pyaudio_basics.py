@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-FIX_pyaudio_basics.py ======================================================
+=== pyaudio_basics.py =================================================
 
 Demo für die Einbindung von pyAudio
 
@@ -18,8 +18,6 @@ from __future__ import division, print_function, unicode_literals
 import numpy as np
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
-import scipy.signal as sig
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
@@ -36,13 +34,11 @@ def setupAudio(p):
     deviceList = []
     device_out_list = []
     device_in_list = []
-    print("Device count", p.get_device_count())
+    print("No. of available audio devices =", p.get_device_count())
 
-#    p = pyaudio.PyAudio() # instantiate PyAudio, start PortAudio system + list devices
     defaultInIdx = 1# p.get_default_input_device_info()['index']
-    defaultOutIdx = 1# p.get_default_output_device_info()['index']
+    defaultOutIdx = p.get_default_output_device_info()['index']
 
-    print("Defaultin", defaultInIdx)
     for i in range(p.get_device_count()):
          deviceList.append(p.get_device_info_by_index(i))
 
@@ -57,15 +53,15 @@ def setupAudio(p):
                  device_out_list.append(('* '+ deviceList[i]['name'], str(i)) )                
              else:
                  device_out_list.append((deviceList[i]['name'], str(i)))
-#        print("Default Output Device : %s" % self.p.get_default_output_device_info()['name'])
-#        self.comboBoxAudioOut.addItems(deviceList)
+    print("\nDefault Output Device : %s" % p.get_default_output_device_info()['name'])
+    print("\nDefault Input Device : %s\n" % p.get_default_input_device_info()['name'])
 
 
-
-np_type = np.int16
-
+np_type = np.int16 # format of audio samples
+CHUNK = 1024 # number of samples in one frame
 
 path = '/home/muenker/Daten/share/Musi/wav/'
+path = '../_media/'
 filename = 'Ole_16bit.wav'
 filename = 'SpaceRipple.wav'
 
@@ -78,6 +74,7 @@ w_samp = wf.getsampwidth() # wordlength of samples
 rate_in = wf.getframerate() # samplerate in wav-file
 
 print("Channels:", n_chan, "\nSample width:",w_samp,"bytes\nSample rate:",rate_in)
+MONO = n_chan == 1 # test if audio file is mono
 
 p = pyaudio.PyAudio() # instantiate PyAudio + setup PortAudio system
 
@@ -88,8 +85,6 @@ stream = p.open(format=p.get_format_from_width(w_samp),
                 rate=rate_in,
                 output=True) 
 
-MONO = n_chan == 1
-CHUNK = 1024 # number of samples in one frame
 
 
 # initialize arrays for samples
@@ -125,6 +120,8 @@ while data_out:
 ## dtype = np.int16 (16 bits): 1 ndarray element = 1 sample :
     samples_l = samples_in[0::2]
     samples_r = samples_in[1::2]
+    if len(samples_r) < 2:
+        break # break out of the while loop when (nearly) out of data
     if len(samples_in) < 2 * CHUNK: # check whether frame has full length
         samples_out = samples_np = zeros(len(samples_in), dtype=np_type)
         samples_l = samples_r = zeros(len(samples_in)/2, dtype=np_type)
