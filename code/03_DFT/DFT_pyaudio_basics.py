@@ -1,41 +1,47 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#===========================================================================
-# DFT_pyaudio_basics.py
-#
-# Demo für framebasierte DFT
-#
-# Eine Audio-Datei wird blockweise eingelesen, in numpy-Arrays umgewandelt 
-# dann wird die DFT von linkem und rechten Kanal berechnet, ein Teil der 
-# DFT-Bänder wird zu Null gesetzt und davon die inverse DFT berechnet. Das
-# Ergebnis wird wieder als Audiostream ausgegeben.
-#
-# 
-#===========================================================================
-#from __future__ import division, print_function, unicode_literals # v3line15
+"""
+=== DFT_pyaudio_basics.py =================================================
+
+ Demo für framebasierte DFT
+
+ Eine Audio-Datei wird blockweise eingelesen, in numpy-Arrays umgewandelt 
+ dann wird die DFT von linkem und rechten Kanal berechnet, ein Teil der 
+ DFT-Bins wird zu Null gesetzt und davon die inverse DFT berechnet. Das
+ Ergebnis wird wieder als Audiostream ausgegeben.
+
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 import numpy as np
-import numpy.random as rnd
+import os
+
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
 from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
-import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-import dsp_fpga_lib as dsp
-import dsp_fpga_fix_lib as fx
-#------------------------------------------------------------------ v3line30
-# Ende der gemeinsamen Import-Anweisungen
 import pyaudio
 import wave
-np_type = np.int16
-wf = wave.open(r'C:\Windows\Media\chord.wav', 'rb') # open WAV-File in read mode
-wf = wave.open(r'D:\Daten\share\Musi\wav\07 - Danny Gottlieb with John McLaughlin - Duet.wav')
-#wf = wave.open(r'D:\Daten\share\Musi\wav\Feist - My Moon My Man.wav')
-#wf = wave.open(r'D:\Daten\share\Musi\wav\01 - Santogold - L.E.S Artistes.wav')
+
+np_type = np.int16 # data type for audio samples
+CHUNK = 256 # number of samples in one frame
+
+# path = '/home/muenker/Daten/share/Musi/wav/'
+path = '../_media/'
+# filename = 'Ole_16bit.wav'
+filename = 'SpaceRipple.wav'
+
+wf = wave.open(os.path.join(path, filename))
+n_chan = wf.getnchannels() # number of channels in wav-file
+w_samp = wf.getsampwidth() # wordlength of samples
+rate_in = wf.getframerate() # samplerate in wav-file
+
+print("Channels:", n_chan, "\nSample width:",w_samp,"bytes\nSample rate:",rate_in)
+
+wf = wave.open(os.path.join(path, filename))
 p = pyaudio.PyAudio() # instantiate PyAudio + setup PortAudio system
 
 # open a stream on the desired device with the desired audio parameters 
@@ -44,8 +50,6 @@ stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
                 channels=wf.getnchannels(),
                 rate=wf.getframerate(),
                 output=True) 
-CHUNK = 256 # number of samples in one frame
-
 
 # initialize arrays for samples
 samples_in = samples_out = zeros(CHUNK*2, dtype=np_type) # stereo
@@ -80,16 +84,18 @@ while data_out:
 ## dtype = np.int16 (16 bits): 1 ndarray element = 1 sample :
     samples_l = samples_in[0::2]
     samples_r = samples_in[1::2]
+    if len(samples_r) < 2:
+        break # break out of the while loop
     if len(samples_r) < CHUNK: # check whether frame has full length
         samples_out = samples_np = zeros(len(samples_in), dtype=np_type)
         samples_l = samples_l = zeros(len(samples_in)/2, dtype=np_type)
 
-# ---- Numpy Magic happens here (swap L and R channel) ------------------------
+# ---- Numpy Magic happens here (suppress all FFT bins > 63) ---------------
     
     fft_l = fft(samples_in[0::2]) # convert to frequency domain
     fft_r = fft(samples_in[1::2])
-    fft_l[63:-63] = 0 # set NFFT-bins between 63 ... NFFT-63 = 0
-    fft_r[63:-63] = 0 # maintaining  symmetric spectrum -> real-valued time signal
+    fft_l[64:-64] = 0 # set NFFT-bins between 63 ... NFFT-63 = 0
+    fft_r[64:-64] = 0 # maintaining  symmetric spectrum -> real-valued time signal
     
     ifft_l = ifft(fft_l).astype(np_type).real # delete imaginary part, abs() doesn't
     ifft_r = ifft(fft_r).astype(np_type).real #   work with bipolar signals
