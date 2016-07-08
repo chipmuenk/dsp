@@ -9,7 +9,7 @@
  (c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 ===========================================================================
 """
-from __future__ import division, print_function, unicode_literals # v3line15
+from __future__ import division, print_function, unicode_literals
 
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange, 
                    linspace, array, zeros, ones)

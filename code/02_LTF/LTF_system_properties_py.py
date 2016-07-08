@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
-# LTF_system_properties_py.py ==========================================
-# 
-#
-# Kapitel "LTI-Systeme im Frequenzbereich"
-#
-# Pol-Nullstellenplan, Amplitudengang, Phasengang, 
-# 3D-Übertragungsfunktion etc. eines zeitdiskreten Systems,
-# definiert über:
-#			- Zähler- und Nennerkoeffizienten (Polynomform)
-
-# 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+"""
+=== LTF_system_properties_py.py ==========================================
+ 
+ Kapitel "LTI-Systeme im Frequenzbereich"
+ 
+ Definiere zeitdiskretes System durch Zähler- und Nennerkoeffizienten (Polynomform)
+ und plotte
+ - Pol-Nullstellenplan
+ - Amplituden- und Phasengang
+ - 3D-Übertragungsfunktion |H(z)| und |H(e^ĵw)|
+ 
+ (c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+==========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange, 
@@ -26,13 +27,9 @@ from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
 import sys
 sys.path.append("..") 
 import dsp_fpga_lib as dsp
-#------------------------------------------------------------------------
-# ... Ende der gem. import-Anweisungen
 
 from mpl_toolkits.mplot3d import Axes3D # needed for 'projection3d'
 from matplotlib import cm # Colormap
-
-
 
 font = {'family' : 'serif', 'weight' : 'normal', 'size'   : 16}
 font_math = {'size'   : 16}

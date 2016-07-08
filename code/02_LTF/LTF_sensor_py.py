@@ -1,17 +1,14 @@
 # -*- coding: utf-8 -*-
-# LTF_sensor_py.py =================================================
-# 
-# Kapitel "LTF", "Abgetastete Signale im Frequenzbereich" (LTF)
-# Abgetastetes und gefiltertes "Sensorsignal" im Frequenzbereich
-#
-#
-# 
-# 
-# 
-# 
-# (c) 2014-Feb-10 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+"""
+ === LTF_sensor_py.py =================================================
+
+ Kapitel "LTF", "Abgetastete Signale im Frequenzbereich" (LTF)
+ Abgetastetes und gefiltertes "Sensorsignal" im Frequenzbereich
+
+ (c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+=======================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
@@ -23,10 +20,9 @@ from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
 import sys
-sys.path.append("..") 
+sys.path.append("..")
 import dsp_fpga_lib as dsp
-#------------------------------------------------------------------------
-# ... Ende der Import-Anweisungen
+
 Ts = 1/200.0     # sampling period
 f1 = 50.0      # signal frequency
 phi0  = 0        # signal initial phase
@@ -36,7 +32,7 @@ N_Ts = Tmax / Ts # No. of samples in Tmax
 n = arange(0,round(N_Ts)) # sample n
 xn = 1.5 + 0.5*cos(2.0*pi*f1*n*Ts + phi0)
 b = np.ones(3)/3; a = 1 # MA-filter, N = 5
-b = np.convolve([1,1,1],[1,1,1]); a = 1 
+b = np.convolve([1,1,1],[1,1,1]); a = 1
 b = [1, 0]; a = [1, -0.9] # lossy integr.
 b = [1,2,1]; a = [1]
 #p = [1 + 1j, 1 + 1j, 1]
