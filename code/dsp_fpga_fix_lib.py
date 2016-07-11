@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#===========================================================================
-# dsp_fpga_fix_lib.py
-#
-# Fixpoint library for converting numpy scalars and arrays to quantized
-# numpy values
-#
-# (c) 2015 Christian Münker 
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+"""
+=== dsp_fpga_fix_lib.py ============================================================
+ 
+ Fixpoint library for converting numpy scalars and arrays to quantized
+ numpy values
+
+ (c) 2015 Christian Münker 
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
-#from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
-#                   linspace, array, zeros, ones)
+
 __version__ = 0.5
 
 #------------------------------------------------------------------------

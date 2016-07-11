@@ -8,7 +8,7 @@
  (c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 ===========================================================================
 """
-from __future__ import division, print_function, unicode_literals, absolute_import # v3line15
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 from numpy import (pi, log10, sqrt, exp, sin, cos, tan, angle, arange,
@@ -22,10 +22,6 @@ from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
 
 from matplotlib.patches import FancyArrow
 import matplotlib.gridspec as gridspec
-
-#import dsp_fpga_lib as dsp
-#-------- ----------------------------------------------------------------
-# ... Ende der gem. import-Anweisungen
 
 #mpl.rcParams['xtick.labelsize'] = 'small'
 mpl.rc('xtick', labelsize='small', direction='in')#, major.size = 4)
@@ -45,7 +41,6 @@ FMT = ".svg"
 NFFT = 16
 OSR = 20 # Oversampling ratio for analog curves
 DEL = 0
-
 
 # generate time arrays for one signal period
 n = arange(NFFT) # discrete samples 0 ... NFFT
