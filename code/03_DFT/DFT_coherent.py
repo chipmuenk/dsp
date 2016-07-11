@@ -1,19 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-===========================================================================
-DFT_coherent.py
+=== DFT_coherent.py =======================================================
 
-Kohärente Abtastung und DFT von CT - Signalen zum Kapitel "DFT"
-ToDos:
-- Legend()
-- Koordinaten umstellen auf Figure fraction
-- Tickspacing auf 1 setzen bei diskreten Folgen
+Kohärente Abtastung von CT - Signalen und DFT zum Kapitel "DFT"
 
-
-(c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+(c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 ===========================================================================
 """
-from __future__ import division, print_function, unicode_literals # v3line15
+from __future__ import division, print_function, unicode_literals
 
 import numpy as npnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
@@ -23,6 +17,7 @@ from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
+from matplotlib.ticker import MaxNLocator
 
 
 # This Greatest Common FRACTION function also works with fractions
@@ -44,7 +39,7 @@ BASE_DIR = "/home/muenker/Daten/"
 FILENAME = "DFT_coherent"
 FMT = ".svg"
 
-fs = 260.0    # sampling frequency
+fs = 240.0    # sampling frequency
 Ts = 1.0/fs      # sampling period
 N_man  = 0     # manual selection of N if N_man > 0
 
@@ -163,6 +158,7 @@ fig2 = figure(2)
 plt.suptitle(r'DFT $S[k]$', fontsize = 18) # Overall title
 #
 ax21 = fig2.add_subplot(211); grid(True)
+ax21.xaxis.set_major_locator(MaxNLocator(integer=True)) #enforce integer tick labels
 ml, sl, bl = ax21.stem(xf,abs(Xn))
 plt.setp(ml, 'markerfacecolor', 'r', 'markersize', 8) # marker
 plt.setp(sl, 'color','r', 'linewidth', 2) # stemline
@@ -175,6 +171,8 @@ ax21.axvline(x=0, ymin = 0, ymax = 1, linewidth=1, color='k')
 
 #
 ax22 = fig2.add_subplot(212); grid(True)
+ax22.xaxis.set_major_locator(MaxNLocator(integer=True)) #enforce integer tick labels
+
 ml, sl, bl = ax22.stem(xf,angle(Xn)/pi)
 plt.setp(ml, 'markerfacecolor', 'r', 'markersize', 8)
 plt.setp(sl, 'color','r', 'linewidth', 2)

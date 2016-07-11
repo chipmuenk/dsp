@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
-#===========================================================================
-# DFT_coherent_adv.py
-#
-# # Kohärente Abtastung und DFT von CT - Signalen zum Kapitel "DFT"
-# ToDos:
-# - Legend()
-# - Koordinaten umstellen auf Figure fraction
-# - Tickspacing auf 1 setzen bei diskreten Folgen
-#
-#
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+"""
+==== DFT_coherent_adv.py ==================================================
+ 
+ # Kohärente Abtastung und DFT von CT - Signalen zum Kapitel "DFT"
+ ToDos:
+ - Manuelle Einstellung von N, L funktioniert noch nicht
+
+ (c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
@@ -21,11 +19,12 @@ from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
+from matplotlib.ticker import MaxNLocator
 
-PRINT = False         
-BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
-# BASE_DIR = "D:/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
-FILENAME = "LTI_periodizitaet" 
+EXPORT = True        
+#BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
+BASE_DIR = "D:/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
+FILENAME = "DFT_coherent" 
 FMT = ".svg"
 
 # This Greatest Common FRACTION function also works with fractions
@@ -41,10 +40,10 @@ def lim_eps(a,eps):
 
 #Initialize variables
 #------------------------------------------------
-fs = 200.0    # sampling frequency
+fs = 210.0    # sampling frequency
 Ts = 1.0/fs      # sampling period
-N_man  = 100     # manual selection of N if N_man > 0
-L_man = 2 # manual selection of L if L_man > 0
+N_man  = 0# 100     # manual selection of N if N_man > 0
+L_man = 0#2 # manual selection of L if L_man > 0
 
 fsig = 50.0    # base signal frequency
 fsig2 = 60.0  # additional harmonic or component
@@ -98,15 +97,15 @@ xn = np.sign(xn)# rect function
 
 # create new figure(1) if it does not exist, else make it active
 # and return a reference to it:
-fig = figure(1); clf()
-ax1 = fig.add_subplot(111)
+fig1 = figure(1); clf()
+ax1 = fig1.add_subplot(111)
 # Plotte x über L Perioden mit blauer Linie
 ax1.plot(t[0:L*50+1], xt[0:L*50+1], 'b-', label = '$x(t)$')
 ax1.plot(t[L*50:], xt[L*50:], color='grey', linestyle='-')   # plot rest of x
 ax1.set_xlabel(r'$t$ / s $\rightarrow$')
-ylabel(r'$x(t), \, x[n]$ / V $\rightarrow$')
+ax1.set_ylabel(r'$x(t), \, x[n]$ / V $\rightarrow$')
 grid(axis='x') # y-gridlines für beide x-Achsen
-xlim([0,Tmax])
+ax1.set_xlim([0,Tmax])
 ax2 = ax1.twiny() # Zwei Plots mit gemeinsamer y- aber verschiedenen x-Achsen
 markerline, stemlines, baseline = ax2.stem(n[0:N], xn[0:N], label = '$x[n]$')
 plt.setp(markerline, 'markerfacecolor', 'r', 'markersize', 10)
@@ -130,63 +129,73 @@ if disp_L==True:
     ax2.annotate('', (0, ylbl),(N, ylbl), xycoords='data', ha="center", va="center", size=18,
         arrowprops=dict(arrowstyle="<->", facecolor = 'red', edgecolor='black' ))
         #see matplotlib.patches.ArrowStyle
-    plt.axvline(x=N, linewidth=2, color='k', linestyle='--')
+    ax2.axvline(x=N, linewidth=2, color='k', linestyle='--')
     #
 # Textbox mit Werten für N, L
 ax2.text((N)/2.0,ylbl,'$N = %s, \, L = %s$' %(Nmax, Lmax), fontsize=18,ha="center",
          va="center", linespacing=1.5, bbox=dict(boxstyle="square", fc='white'))
               #    xycoords="figure fraction", textcoords="figure fraction")
-ylim(lim_eps(xt,0.05))    # set ylim to min/max of xt
+ax2.set_ylim(lim_eps(xt,0.05))    # set ylim to min/max of xt
 # Horizontale Linie bei y=0 von xmin bis xmax (rel. Koordinaten):
-plt.axhline()
-plt.text(0.5, 1.14, 'Kohärente Abtastung mit $N$ Samples über $L$ Perioden',
+ax2.axhline()
+ax2.text(0.5, 1.14, 'Kohärente Abtastung mit $N$ Samples über $L$ Perioden',
          horizontalalignment='center',
          fontsize=20,
          transform = ax2.transAxes)
-plt.subplots_adjust(top=0.85,right=0.95)
-if PRINT:
-    plt.savefig('D:/Daten/pueb_LTIML-Sampling_%sHz.png' %int(fs))
+fig1.subplots_adjust(top=0.85,right=0.95)
+if EXPORT:
+    fig1.savefig(BASE_DIR + FILENAME + '_xn_%sHz' %int(fs) + FMT)
 
 #-------------------------------------------------------------
 #               BERECHNE UND PLOTTE DFT
 #-------------------------------------------------------------
+
+print('N =', N)
 xn = xn[0:N] # Array auf Elemente 0 ... N-1 kürzen
 Xn = fft(xn)/ N # Berechne DFT und skaliere mit 1/N
+print(len(xn), len(Xn))
 Xn = fftshift(Xn) # schiebe DFT um -fs/2 zum Zentrieren um f = 0
 for i in range(0,N):
 # Setze Phase = 0 bei sehr kleinen Amplituden (unterdrücke numerisches Rauschen):
+    print(i)
     if abs(Xn[i]/max(abs(Xn))) < 1.0e-10: Xn[i] = 0
 xf = fftshift(fftfreq(len(xn),d=1.0/len(xn)))
 #xf= fftshift(range(0,len(xn)))
 print('xf = ', xf); print('xn = ', xn); print(Xn)
 my_xlim = lim_eps(xf, 0.05)
 #plt.xkcd() # XKCD-Style Plots (wie von Hand gezeichnet ...)
-plt.subplots(nrows=2, ncols=1, sharex=True, sharey=False, squeeze=False)
-plt.suptitle(r'DFT $S[k]$', fontsize = 18) # Overall title
+fig2 = figure(2)
+#plt.subplots(nrows=2, ncols=1, sharex=True, sharey=False, squeeze=False)
+fig2.suptitle(r'DFT $S[k]$', fontsize = 18) # Overall title
 #
-subplot(211); grid(True)
-ml, sl, bl = plt.stem(xf,abs(Xn))
+ax21 = fig2.add_subplot(211); grid(True)
+ax21.xaxis.set_major_locator(MaxNLocator(integer=True)) #enforce integer tick labels
+
+ml, sl, bl = ax21.stem(xf,abs(Xn))
 plt.setp(ml, 'markerfacecolor', 'r', 'markersize', 8) # marker
 plt.setp(sl, 'color','r', 'linewidth', 2) # stemline
 plt.setp(bl, 'linewidth', 0) # turn off baseline
-ylabel(r'$|S[k]|$ / V $\rightarrow$' )
-xlim(my_xlim)
-ylim(lim_eps(abs(Xn), 0.1))
-plt.axhline(y=0, xmin = 0, xmax = 1, linewidth=1, color='k')
-plt.axvline(x=0, ymin = 0, ymax = 1, linewidth=1, color='k')
+ax21.set_ylabel(r'$|S[k]|$ / V $\rightarrow$' )
+ax21.set_xlim(my_xlim)
+ax21.set_ylim(lim_eps(abs(Xn), 0.1))
+ax21.axhline(y=0, xmin = 0, xmax = 1, linewidth=1, color='k')
+ax21.axvline(x=0, ymin = 0, ymax = 1, linewidth=1, color='k')
 
 #
-subplot(212); grid(True)
-ml, sl, bl = plt.stem(xf,angle(Xn)/pi)
+ax22 = fig2.add_subplot(212); grid(True)
+ax22.xaxis.set_major_locator(MaxNLocator(integer=True)) #enforce integer tick labels
+
+ml, sl, bl = ax22.stem(xf,angle(Xn)/pi)
 plt.setp(ml, 'markerfacecolor', 'r', 'markersize', 8)
 plt.setp(sl, 'color','r', 'linewidth', 2)
 plt.setp(bl, 'linewidth', 0) # Grundlinie unterdrücken
-xlabel(r'$k \rightarrow$')
-ylabel(r'$ \angle S[k]$ / rad / $\pi \rightarrow$' )
-xlim(my_xlim)
-plt.axhline(linewidth=1, color='k') # horizontale Linie bei 0
-plt.axvline(linewidth=1, color='k') # vertikale Linie bei 0
+ax22.set_xlabel(r'$k \rightarrow$')
+ax22.set_ylabel(r'$ \angle S[k]$ / rad / $\pi \rightarrow$' )
+ax22.set_xlim(my_xlim)
+ax22.axhline(linewidth=1, color='k') # horizontale Linie bei 0
+ax22.axvline(linewidth=1, color='k') # vertikale Linie bei 0
 # Plot abspeichern:
-#plt.savefig('D:/Daten/ueb-DFT_Basics_1-ML_DFT%s.png' %int(N))
+if EXPORT:
+    fig2.savefig(BASE_DIR + FILENAME + '_Xf_%sHz' %int(fs) + FMT)
 
 plt.show()
