@@ -22,8 +22,7 @@ from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
 import sys
 sys.path.append('..')
 import dsp_fpga_lib as dsp
-#------------------------------------------------------------------------
-# ... Ende der Import-Anweisungen
+
 Ts = 1/200.0     # sampling period
 f1 = 50.0      # signal frequency
 phi0  = 0        # signal initial phase

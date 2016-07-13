@@ -1,23 +1,16 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#===========================================================================
-# FIX_limit_cycles.py
-#
-# IIR-Filter mit quantisierter Arithmetik und Grenzzyklen
-#
-# 
-# (c) 2013-Jul-17 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#=========================================================================
-from __future__ import division, print_function
+"""
+==== FIX_limit_cycles.py ======================================================
+ 
+ IIR-Filter mit quantisierter Arithmetik und Grenzzyklen
+ 
+ (c) 2013-Jul-17 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+=========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
-
-import numpy as np
-import numpy.random as rnd
 from numpy import sin, cos, tan, angle, pi, array, arange, log10, zeros, \
   linspace, ones, sqrt
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
-import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure, plot, stem, grid, xlabel, ylabel, \
@@ -25,9 +18,10 @@ from matplotlib.pyplot import figure, plot, stem, grid, xlabel, ylabel, \
 
 import time
 
+import sys
+sys.path.append('..')
 import dsp_fpga_fix_lib as fx
-#------------------------------------------------------------------------
-# ... Ende der Import-Anweisungen
+
 # IIR1: Kleine Grenzzyklen für alpha = +/-0.9 mit q_accu = (0,4,'round','wrap') 
 # IIR2: Großer Grenzzyklus für alpha = +0.9, x[0] = 1 und
 #               q_accu = (0,4,'round','wrap') 
