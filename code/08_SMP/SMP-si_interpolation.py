@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-SMP-si_interpolation.py ====================================================
+=== SMP-si_interpolation.py ===============================================
 
 Plots zum Kapitel "SMP:
    Darstellung der Phase eines Sinussignals in Abhängigkeit der Verzögerung 
@@ -10,7 +10,7 @@ Plots zum Kapitel "SMP:
 ===========================================================================
 """
 
-from __future__ import division, print_function, unicode_literals, absolute_import
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 from numpy import (pi, log10, sqrt, exp, sin, cos, tan, angle, arange,

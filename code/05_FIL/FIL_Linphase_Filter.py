@@ -1,34 +1,24 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#===========================================================================
-#  
-#
-# Demonstriere Einfluss von einfachen und doppelten Nullstellen im SB und DB
-# 
-# 
-# 
-# 
-# 
-# 
-# (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+"""
+=== FIL_Linphase_Filter.py ================================================
+  
+ Demonstriere Einfluss von einfachen und doppelten Nullstellen im SB und DB
+ 
+ (c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
+
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-import dsp_fpga_lib as dsp
-#------------------------------------------------------------------ v3line30
-# Ende der gemeinsamen Import-Anweisungen
 f_S = 1
 bb = [-1/8, 0, 5/8, 1, 5/8, 0, -1/8]
 aa = 1
@@ -40,8 +30,6 @@ print('------------------------------------------------')
 for i in range(len(z_0)):
     print('{0:2d} | {1:15.4f} |{2:6.3f} * e^(j {3:6.4f} pi) '\
     .format(i, z_0[i],abs(z_0[i]),np.angle(z_0[i])/pi))  
-#    print('%2d | %15.4f |%6.3f * e^(j {%6.4f} pi)'\
-#    %(i, z_0[i],abs(z_0[i]),np.angle(z_0[i])/pi))
 
 for i in range(len(z_0)):
     if z_0[i].real > 0: # Entferne Nullstellen im Durchlassband

@@ -1,35 +1,24 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#===========================================================================
-#  
-#
-# BPSK digital modulation example
-# by Ivo Maljevic
-# 
-# 
-# 
-# 
-# 
-# 
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+"""
+===== FIL_BPSK_SNR.py =================================================
+  
+ Simulate Bit Error Rate (BER) of BPSK digital modulation vs. SNR
+ by Ivo Maljevic
+ 
+=======================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
-import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-import dsp_fpga_lib as dsp
-#------------------------------------------------------------------ v3line30
-# Ende der gemeinsamen Import-Anweisungen
-#from numpy import *
+
 from scipy.special import erfc
 
 SNR_MIN     = 0 # dB

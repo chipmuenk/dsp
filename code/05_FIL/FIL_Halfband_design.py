@@ -1,33 +1,29 @@
 # -*- coding: utf-8 -*-
-#===========================================================================
-#  
-# 
-# Generate coefficients for a halfband filter.  A halfband filter
-# is a filter where the cutoff frequency is Fs/4 and every
-# other coeffecient is zero except the center tap.
-# Due to numeric inaccuracies, calculated coefficients are only 
-# close to zero and have to be forced to 0.
-# 
-# 
-# (c) 2015 Christian Münker & Florian Thevissen - Files zur Vorlesung "DSV auf FPGAs"
-#===========================================================================
-from __future__ import division, print_function, unicode_literals # v3line15
+"""
+=== FIL_Halfband_design.py ================================================
+  
+ Generate coefficients for a halfband filter.  A halfband filter
+ is a filter where the cutoff frequency is Fs/4 and every
+ other coeffecient is zero except for the center tap.
+ Due to numeric inaccuracies, coefficients are not exactly zero and are set 
+ to 0 when below a certain threshold.
+ 
+ (c) 2016 Christian Münker & Florian Thevissen - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
-import numpy.random as rnd
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
                     linspace, array, zeros, ones)
 from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
-import dsp_fpga_lib as dsp
-#------------------------------------------------------------------ v3line30
-# Ende der gemeinsamen Import-Anweisungen
+
 N = 16 # Filter order - must be even for Halfband filter!
 
 # --- Filter Design with Parks-McClellan (Remez) method -----------------------

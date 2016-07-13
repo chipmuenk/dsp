@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-=== DFT_plot_signals.py ===================================================
+=== DFT_Frequenzaufloesung.py ===================================================
 
  Plots zum Kapitel "DFT": Frequenzauflösung in Abhängigkeit von der DFT - Länge
 
  (c) 2016-Apr-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 ===========================================================================
 """
-from __future__ import division, print_function, unicode_literals, absolute_import
+from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 from numpy import (pi, log10, sqrt, exp, sin, cos, tan, angle, arange,
