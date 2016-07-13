@@ -1,33 +1,34 @@
 # -*- coding: utf-8 -*-
-#################################################################
-#
-# NOI_QNoise_Filt.py
-#
-# Simulate quantization effects in the frequency domain! 
-# A sinusoidal signal with fsig = f_S * N_per / N_FFT is being quantized.
-# N_per is the number of signal periods within the DFT window (N_FFT data points).
-# This way, the DFT is always calculated for an integer number of periods
-# (coherent DFT).
-#
-# A prime number N_per avoids periodicities of the quantization noise, giving
-# a "whiter" noise spectrum. A signal that is symmetric w.r.t. the x-axis also
-# has symmetric quantization noise. Hence, every second frequency point of its 
-# DFT is zero. This symmetry can be destroyed by adding a small DC offset or by 
-# adding e.g. second order distortions.
-# C. Muenker, 2015
-#
-###########################################################################
-from __future__ import division, print_function, absolute_import
+"""
+==== NOI_QNoise_DFT.py ===================================================
 
-import os
+ Simulate quantization effects in the frequency domain! 
+ A sinusoidal signal with fsig = f_S * N_per / N_FFT is being quantized.
+ N_per is the number of signal periods within the DFT window (N_FFT data points).
+ This way, the DFT is always calculated for an integer number of periods
+ (coherent DFT).
+
+ A prime number N_per avoids periodicities of the quantization noise, giving
+ a "whiter" noise spectrum. A signal that is symmetric w.r.t. the x-axis also
+ has symmetric quantization noise. Hence, every second frequency point of its 
+ DFT is zero. This symmetry can be destroyed by adding a small DC offset or by 
+ adding e.g. second order distortions.
+ 
+ (c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
+
 import numpy as np
 from numpy import sin, cos, pi, arange, log10, sqrt, zeros
 
 import matplotlib.pyplot as plt
 
+import sys
+sys.path.append('..')
 import dsp_fpga_fix_lib as fx
 
-#plt.style.use(['presentation_svg'])
+#plt.style.use('presentation_svg')
 #plt.rcParams['figure.figsize'] = (8.5 , 5)
 
 def fold(num):
@@ -36,7 +37,7 @@ def fold(num):
     this range are folded back to this range in agreement with the sampling
     theorem. 
     """
-    return abs((num + N_FFT/2) % N_FFT - N_FFT/2)
+    return int(abs((num + N_FFT/2) % N_FFT - N_FFT/2))
     
 ANN_TITLE = False # print title
 ANN_FREQ  = True # annotate signal frequency
@@ -203,7 +204,7 @@ if ANN_TITLE:
     ax1.set_title('DFT des quantisierten Signals $(N_{DFT} = %d)$' %(N_FFT))
 
 # ------------- plot quantization noise in dB ----------------------------------
-ax1.plot(f[0:N_FFT/2], Yq_dB[0:N_FFT/2],'k',linewidth = 2, label = r'$N_Q(f)$')
+ax1.plot(f[0:N_FFT//2], Yq_dB[0:N_FFT//2],'k',linewidth = 2, label = r'$N_Q(f)$')
 if PLT_HARMONICS:
     plt_params = {'lw':4, 'alpha':0.5, 'color':'r'}
     ax1.plot([f_sig_fold, f_sig_fold], [Hmin, Yq_dB[N_per]], **plt_params)

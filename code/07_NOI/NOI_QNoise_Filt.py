@@ -1,36 +1,35 @@
 # -*- coding: utf-8 -*-
-#################################################################
-#
-# NOI_QNoise_Filt.py
-#
-# Testbench zur Simulation von Quantisierungseffekten in Filtern
-# Ein Sinus-Signal mit fsig = f_S * N_per / N_FFT wird als Eingangssignal
-# für ein Filter mit quantisierter Signalarithmetik verwendet. N_per ist 
-# dabei die Anzahl der Perioden innerhalb der N_FFT Punkte. Dadurch wird 
-# eine FFT über eine ganze Zahl von Perioden durchgeführt, es wird keine
-# bzw. eine Rechteckfensterung benötigt.
-#
-# An das zu testende Filter werden die Koeffizientenvektoren a, b übergeben,
-# der Vektor x mit den Datenpunkten und verschiedene Faktoren und Quantizer-
-# objekte.
-#
-#
-# C. Muenker, 27-5-2011
-#
-# ToDo: Ausblenden des DC-Werts verringert Rauschleistung um (N_FFT-1)/N_FFT
-#
-###########################################################################
-from __future__ import division, print_function, absolute_import
+"""
+==== NOI_QNoise_Filt.py ===================================================
+
+ Testbench zur Simulation von Quantisierungseffekten in Filtern
+ Ein Sinus-Signal mit fsig = f_S * N_per / N_FFT wird als Eingangssignal
+ für ein Filter mit quantisierter Signalarithmetik verwendet. N_per ist 
+ dabei die Anzahl der Perioden innerhalb der N_FFT Punkte. Dadurch wird 
+ eine FFT über eine ganze Zahl von Perioden durchgeführt, es wird keine
+ bzw. eine Rechteckfensterung benötigt.
+
+ An das zu testende Filter werden die Koeffizientenvektoren a, b übergeben,
+ der Vektor x mit den Datenpunkten und verschiedene Faktoren und Quantizer-
+ objekte.
+
+
+ C. Muenker, 27-5-2011
+
+ ToDo: Ausblenden des DC-Werts verringert Rauschleistung um (N_FFT-1)/N_FFT
+
+===========================================================================
+"""
+from __future__ import division, print_function, unicode_literals
 import numpy as np
 from numpy import sin, cos, pi, array, arange, log10, zeros, tan
 import scipy.signal as sig
 import time # for benchmarking the simulation
 
+import sys
+sys.path.append('..')
 import dsp_fpga_fix_lib as fx
 
-#import matplotlib
-#matplotlib.use('qt4agg')
-#from matplotlib import rc
 import matplotlib.pyplot as plt
 
 ##plt.rcParams['text.usetex'] = True # veeery slow
@@ -211,7 +210,7 @@ Yq_dc_dB = 20 * log10(Yq_dc)   # " in dB
 
 
 # Überspringe Signalkomponente bei Berechnung des Rauschmittelwerts 
-Pq_avg = np.mean(Yq[0:N_per] ** 2) + np.mean(Yq[N_per+1:N_FFT/2] ** 2)
+Pq_avg = np.mean(Yq[0:N_per] ** 2) + np.mean(Yq[N_per+1:N_FFT//2] ** 2)
 
 Yq[N_per] = abs(Yq_sig - H_sig) 
 Yq[N_per] = 0	# oder ersetze einfach durch Null ...					
@@ -220,13 +219,13 @@ Yq[N_per] = 0	# oder ersetze einfach durch Null ...
 #Yq_dB = np.maximum(20 * log10(Yq), np.ones(len(Yq))*Hmin) 
 Yq_dB = 20 * np.log10(Yq)
 # Mittlere Rauschleistungsdichte:
-Yq_avg = 10*log10(np.mean (Yq[N_FFT_min:N_FFT/2] * Yq[N_FFT_min:N_FFT/2])/2)
+Yq_avg = 10*log10(np.mean (Yq[N_FFT_min:N_FFT//2] * Yq[N_FFT_min:N_FFT//2])/2)
 
 # Gesamtrauschleistung im Frequenzband von 0 ... f_S/2: e_N = Integral (Yq^2):
 # Diskrete Frequenzbänder: Integral -> Summe
 # Faktor 1/2: DFT liefert AMPLITUDEN des Schmalbandrauschens -> P = SUM A^2(i)/2
 
-e_N = 0.5 * np.inner(Yq[N_FFT_min:N_FFT/2], Yq[N_FFT_min:N_FFT/2])
+e_N = 0.5 * np.inner(Yq[N_FFT_min:N_FFT//2], Yq[N_FFT_min:N_FFT//2])
 SNR = 10 * log10(PSig / e_N) 
 ENOB = (SNR - 1.7609)/6.0206
 
@@ -253,7 +252,7 @@ ax4.plot(f, 20*log10(Hf), 'b', lw = 2, label = r'$H(f)$ ideal')
 ax4.plot(f, 20*log10(Hfq), 'k--', lw = 2, label = r'$H_Q(f)$ quant. Koeff.')
 #
 # Quantisierungsrauschen
-ax4.plot(f, Yq_dB[0:N_FFT/2],'k',linewidth = 2, label = r'$N_Q(f)$')
+ax4.plot(f, Yq_dB[0:N_FFT//2],'k',linewidth = 2, label = r'$N_Q(f)$')
 # mittlere Rauschleistung
 ax4.plot([0, f_S/2] , [Yq_avg, Yq_avg], color=(0.8,0.8,0.8), linewidth = 2,
     linestyle = '-')
