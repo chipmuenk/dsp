@@ -38,7 +38,7 @@ F_SB = f_SB/(f_S/2) # auf HALBE Abtastfreq.
 A_DB = 0.1 # max. Ripple im DB in dB
 A_DB_lin = (10**(A_DB/20.0)-1) / \
   (10**(A_DB/20.0)+1)*2 # und linear
-A_SB = 60 # min. DÃ€mpfung im SB in dB
+A_SB = 60 # min. Dämpfung im SB in dB
 A_SB_lin = 10**(-A_SB/20.0) # und linear
 #
 L = 44 # Manuelle Vorgabe Filterordnung
