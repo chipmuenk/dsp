@@ -4,20 +4,18 @@
 
 Python Musterlösung zu "DFT eines Moving Averaging-Filters"
 
-Berechnung und Darstellung der DFT in Python
+Berechnung und Darstellung der DFT in Python mit Verbesserungen
 
 (c) 2014-Feb-04 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 ===========================================================================
 """
 from __future__ import division, print_function, unicode_literals
 
-from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
-                    linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
+from numpy import arange
+from numpy.fft import fft
 
 import matplotlib.pyplot as plt
-from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
-    subplot, title, clf, xlim, ylim)
+from matplotlib.pyplot import figure, plot, stem, grid, xlabel, ylabel, subplot
 
 h = [1,1,1,1]
 n = arange(len(h))
