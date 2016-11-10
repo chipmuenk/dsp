@@ -1,28 +1,31 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*
-# BPSK digital modulation example
-# by Ivo Maljevic
-#=========================================================================
-# Python Musterlösung zu "Periodizität abgetasteter Signale"
-# Abtastung und Filterung eines Sensorsignals
-# 
-# (c) 2013-Jul-17 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
-#=========================================================================
-from __future__ import division, print_function # v2
+"""
+===== FIL_BPSK.py =================================================
+  
+Simulate Bit Errors and BER of BPSK digital modulation depending on
+Added White Gaussian Noise (AWGN) and filtering with (non-)linear-phase filters.
+ 
+(c) 2013-Jul-17 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
+=========================================================================
+""" 
+from __future__ import division, print_function
 
 import numpy as np
 import numpy.random as rnd
-from numpy import sin, cos, tan, angle, pi, array, arange, log10, zeros, \
-  linspace, ones, sqrt
-from numpy.fft import fft, fftshift, fftfreq
+from numpy import pi, arange, log10, ones, sqrt
+from numpy.fft import fft
 import scipy.signal as sig
-import scipy.interpolate as intp
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure, plot, stem, grid, xlabel, ylabel, \
-    subplot, title, clf
+    subplot, title
 
+import sys
+sys.path.append('..')
 import dsp_fpga_lib as dsp
+
+plt.style.use('../script.mplstyle')
+
 #------------------------------------------------------------------------
 from scipy.special import erfc
 from numpy import sign
@@ -66,9 +69,9 @@ w, H = sig.freqz(b,a,2048)
 Hmax = max(abs(H)); H = H / Hmax
 tau, w = dsp.grpdelay(b,a, 2048)
 f = w / (2* pi)
-delay = tau[np.floor(2048 / (2*OSR))] # delay at F = 0.5 / (2 * OSR)
-dN = np.floor(delay)
-print('Delay @ F= %2.3e = %.1f T_S' %((0.5 / (2 * OSR)), delay))
+delay = tau[int(np.floor(2048 / (2*OSR)))] # delay at F = 0.5 / (2 * OSR)
+dN = int(np.floor(delay))
+print('Group delay @ F= %2.3e = %.1f T_S' %((0.5 / (2 * OSR)), delay))
 #====== Symbol & Noise Generation ===============
 # random binary (+/-1) symbol sequence
 s = 2 * rnd.randint(0,high=2,size=VEC_SIZE)-1
@@ -95,10 +98,10 @@ err_f = [yf != s[OSR_2:-dN:OSR]]
 error_sum_f = np.sum(err_f)
 BER_f = error_sum_f / VEC_SIZE
 print('SNR (dB) = %4.2f => Theor. BER = %8.3e\n\
-=> Sim. Länge = %d  erforderlich' %(SNR_dB, Pe, VEC_SIZE))
-print('BPSK-Dekodierung mit gestörtem Signal')
-print('Fehler = %6d => BER = %8.3e' %(error_sum, BER))
-print('BPSK-Dekodierung mit TP-Filterung')      
+=> Sim. Länge = %d  erforderlich.\n' %(SNR_dB, Pe, VEC_SIZE))
+print('BPSK-Dekodierung mit gestörtem Signal:')
+print('Fehler = %6d => BER = %8.3e\n' %(error_sum, BER))
+print('BPSK-Dekodierung nach TP-Filterung:')      
 print('Fehler = %6d => BER = %8.3e' % (error_sum_f, BER_f))
 n = arange(N_plt)
 figure(1)
@@ -107,7 +110,7 @@ title(u'BPSK Signalübertragung mit AWGN')
 plt.ylim(-2.5,2.5);  plt.xlim(0, N_show)
 plot(n, s[0:N_plt], 'r', label = 'sent') 
 plot(n, x[0:N_plt], 'b', lw = 1, label = 'received')
-stem(n[OSR_2::OSR],y[0:np.ceil(N_plt/OSR)],
+stem(n[OSR_2::OSR],y[0:np.ceil(N_plt/OSR).astype(int)],
          'r', markerfmt = 'bo', label = 'recovered')
 if np.shape(err_pos)[1] > 0:
     plt.plot(err_pos, ones(len(err_pos))*(-1.8), '^', markersize = 10)
@@ -116,7 +119,7 @@ subplot(212)
 title(u'BPSK Signalübertragung mit AWGN (TP-gefiltert)')
 plt.ylim(-2.5,2.5); plt.xlim(0, N_show)
 plot(n,s[0:N_plt], 'r', n, xf[dN:N_plt+dN], 'b')
-stem(n[OSR_2::OSR],yf[0:np.ceil(N_plt/OSR)],'r', markerfmt = 'bo')
+stem(n[OSR_2::OSR],yf[0:int(np.ceil(N_plt/OSR))],'r', markerfmt = 'bo')
 if (np.shape(err_pos_f)[1] > 0) and (np.shape(err_pos_f)[1] < 1000) :
     plot(err_pos_f, ones(len(err_pos_f))*(-1.8), '^', markersize = 10)
 xlabel(r'$n \; \rightarrow$')
