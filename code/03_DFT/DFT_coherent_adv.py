@@ -21,7 +21,7 @@ from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 from matplotlib.ticker import MaxNLocator
 
-EXPORT = True        
+EXPORT = False        
 #BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
 BASE_DIR = "D:/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
 FILENAME = "DFT_coherent" 
@@ -92,8 +92,8 @@ xn = DC + A1 * cos(2.0*pi*fsig*n*Ts + phi1) + A2 * cos(2.0*pi*fsig2*n*Ts + phi2)
 #
 #xt = DC + A1 * sgn(cos(2.0*pi*fsig*t + phi1))
 #xn = DC + A1 * sgn(cos(2.0*pi*fsig*n*Ts + phi1))
-xt = np.sign(xt) # rect function
-xn = np.sign(xn)# rect function
+#xt = np.sign(xt) # rect function
+#xn = np.sign(xn)# rect function
 
 # create new figure(1) if it does not exist, else make it active
 # and return a reference to it:
