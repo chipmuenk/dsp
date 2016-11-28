@@ -24,9 +24,9 @@ Here, you find python snippets to demonstrate various aspects of digital signal 
 
 **[7. SMP :](https://github.com/chipmuenk/dsp_fpga/tree/master/code/7_SMP)** SaMPling, Analog-Digital Conversion and Downsampling
 
-**8. INP :** Upsampling, INterPolation and Digital-Analog conversion
+**[8. INP :](https://github.com/chipmuenk/dsp_fpga/tree/master/code/8_INP)** Upsampling, INterPolation and Digital-Analog conversion
 
-**9. SRC :** Sample Rate Conversion
+**[9. SRC :](https://github.com/chipmuenk/dsp_fpga/tree/master/code/9_SRC)** Sample Rate Conversion
 
 ## Getting started
 You can either download the zip-File containing the most up-to-date version of the files - then you can stop reading here.
