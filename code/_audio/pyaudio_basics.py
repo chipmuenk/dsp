@@ -16,12 +16,6 @@ Achtung: Funktioniert z.Z. nicht unter Anaconda 3 (pyAudio-Einbindung)
 from __future__ import division, print_function, unicode_literals
 
 import numpy as np
-from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
-                    linspace, array, zeros, ones)
-
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
-    subplot, title, clf, xlim, ylim)
 
 import os
 import pyaudio
@@ -37,7 +31,8 @@ def setupAudio(p):
     print("No. of available audio devices =", p.get_device_count())
 
     defaultInIdx = 1# p.get_default_input_device_info()['index']
-    defaultOutIdx = p.get_default_output_device_info()['index']
+    defaultOutIdx = 1#p.get_default_output_device_info()['index']
+    
 
     for i in range(p.get_device_count()):
          deviceList.append(p.get_device_info_by_index(i))
@@ -53,8 +48,8 @@ def setupAudio(p):
                  device_out_list.append(('* '+ deviceList[i]['name'], str(i)) )                
              else:
                  device_out_list.append((deviceList[i]['name'], str(i)))
-    print("\nDefault Output Device : %s" % p.get_default_output_device_info()['name'])
-    print("\nDefault Input Device : %s\n" % p.get_default_input_device_info()['name'])
+#    print("\nDefault Output Device : %s" % p.get_default_output_device_info()['name'])
+#    print("\nDefault Input Device : %s\n" % p.get_default_input_device_info()['name'])
 
 
 np_type = np.int16 # format of audio samples
@@ -88,8 +83,8 @@ stream = p.open(format=p.get_format_from_width(w_samp),
 
 
 # initialize arrays for samples
-samples_in = samples_out = zeros(CHUNK*2, dtype=np_type) # stereo
-samples_l  = samples_r = zeros(CHUNK, dtype=np_type) # mono
+samples_in = samples_out = np.zeros(CHUNK*2, dtype=np_type) # stereo
+samples_l  = samples_r = np.zeros(CHUNK, dtype=np_type) # mono
 
 data_out = 'dummy'
 
@@ -124,8 +119,8 @@ while data_out:
         break # break out of the while loop when (nearly) out of data
     # Check whether there was enough data for a full frame
     if len(samples_in) < 2 * CHUNK: # check whether frame has full length
-        samples_out = samples_np = zeros(len(samples_in), dtype=np_type)
-        samples_l = samples_r = zeros(len(samples_in)/2, dtype=np_type)
+        samples_out = samples_np = np.zeros(len(samples_in), dtype=np_type)
+        samples_l = samples_r = np.zeros(len(samples_in)/2, dtype=np_type)
 
 # ---- Numpy Magic happens here (swap L and R channel) ------------------------
     if MONO:

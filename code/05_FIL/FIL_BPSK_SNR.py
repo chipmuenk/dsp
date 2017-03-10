@@ -11,14 +11,8 @@ from __future__ import division, print_function, unicode_literals
 
 import numpy as np
 import numpy.random as rnd
-from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
-                    linspace, array, zeros, ones)
-
+from numpy import arange, sqrt
 import matplotlib.pyplot as plt
-from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
-    subplot, title, clf, xlim, ylim)
-
-
 from scipy.special import erfc
 
 SNR_MIN     = 0 # dB
@@ -32,7 +26,7 @@ BER         = np.empty(np.shape(SNR))
 loop = 0
 for snr in SNR:      # SNR loop
      Pe[loop] = 0.5*erfc(sqrt(snr)) # calculate error probability
-     VEC_SIZE = np.ceil(100/Pe[loop])  # vector length is a function of Pe
+     VEC_SIZE = int(np.ceil(100/Pe[loop]))  # vector length is a function of Pe
     
      # signal vector, new vector for each SNR value
      s = 2*rnd.randint(0,high=2,size=VEC_SIZE)-1

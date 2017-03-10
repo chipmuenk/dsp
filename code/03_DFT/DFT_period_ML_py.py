@@ -21,7 +21,7 @@ from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
 f_S = 1e4; T_S = 1/f_S
-N_FFT = 128; T_mess = N_FFT * T_S
+N_FFT = 100; T_mess = N_FFT * T_S
 f_a = 1e3; f_b = 1.1e3; DC = 1.
 t = arange(0, T_mess, T_S) # start / stop / step
 y = DC + 0.5 * sin(2 * pi * t * f_a)\

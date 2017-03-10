@@ -36,7 +36,7 @@ a = 1.1 * sin(2 * pi * f_a * t)
 x = linspace(-2, 2, N, endpoint=False) 
 #
 #q_obj = (0, 4, 'round', 'sat') # try 'round' ; 'sat'
-q_obj = {'QI':0, 'QF': 4, 'quant':'fix', 'ovfl': 'sat'} # try 'round' ; 'sat'
+q_obj = {'QI':0, 'QF': 4, 'quant':'floor', 'ovfl': 'wrap'} # try 'round' ; 'sat'
 #q_obj = {'OVFL':'sat'}
 fx_a = fx.Fixed(q_obj)
 fx_x = fx.Fixed(q_obj)

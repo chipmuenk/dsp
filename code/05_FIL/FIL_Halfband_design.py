@@ -14,15 +14,10 @@
 from __future__ import division, print_function, unicode_literals
 
 import numpy as np
-from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange,
-                    linspace, array, zeros, ones)
-from numpy.fft import fft, ifft, fftshift, ifftshift, fftfreq
+from numpy import pi, arange, log10
 import scipy.signal as sig
 
 import matplotlib.pyplot as plt
-from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
-    subplot, title, clf, xlim, ylim)
-
 
 N = 16 # Filter order - must be even for Halfband filter!
 

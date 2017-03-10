@@ -55,7 +55,7 @@ x = zeros(N_sim); x[0] = 1.0 # x ist dirac-Stoß mit Gew. 1.0
 q_coeff = {'QI':0,'QF':3,'quant':'round','ovfl':'wrap'}
  # Quantisierung nach Summation im Filter:
 #q_accu = {'QI':0,'QF':4,'quant':'fix','ovfl':'sat'} # keine Grenzzyklen
-q_accu = {'Q':1.4,'quant':'fix','ovfl':'wrap'}  # große Grenzzyklen bei QI = 0
+#q_accu = {'Q':1.4,'quant':'fix','ovfl':'wrap'}  # große Grenzzyklen bei QI = 0
 q_accu = {'QI':0,'QF':4,'quant':'fix','ovfl':'wrap'} # kleine Grenzzyklen
 
 # Keine Quantisierung ->  Werte für I, F beliebig
@@ -69,8 +69,11 @@ fx_IIR = fx.Fixed(q_accu) # Fixpoint-Objekt mit Parametern "q_accu"
 
 n = arange(N_sim)
 t1 = time.time()
+
 y = IIR2(fx_IIR_id, x, alpha_q) # ohne Quantisierung
 yq = IIR2(fx_IIR, x, alpha_q)
+#
+#yq = IIR1(fx_IIR, x, alpha_q)
 t2 = time.time()
 print('Time = ', t2 - t1)
 print('Number of overflows = ', fx_IIR.N_over)

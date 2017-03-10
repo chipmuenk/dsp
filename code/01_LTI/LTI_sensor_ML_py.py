@@ -13,7 +13,7 @@ from __future__ import division, print_function, unicode_literals
 
 from numpy import (pi, log10, exp, sqrt, sin, cos, tan, angle, arange, 
                    linspace, array, zeros, ones)
-
+import numpy as np
 import scipy.signal as sig
 
 import matplotlib.pyplot as plt
@@ -21,7 +21,7 @@ from matplotlib.pyplot import (figure, plot, stem, grid, xlabel, ylabel,
     subplot, title, clf, xlim, ylim)
 
 # ------------ Define variables ----------------
-Ts = 1/240     # sampling period
+Ts = 1/200     # sampling period
 f1 = 50.0        # signal frequency
 phi0  = 0        # signal initial phase
 tstep = 1e-3     # time step for "analog" signal
@@ -49,7 +49,7 @@ plt.axhline(1.5, linestyle='--')
 plt.subplots_adjust(top=0.88,right=0.95)
 # ------- Impulse response ------------------
 figure(2); grid(True)
-h = [1, 1, 1, 1] # impulse response MA-filter
+h = [1, 2, 3, 2, 1] # impulse response MA-filter
 #h = np.convolve([1,1,1],[1,1,1]) # cascaded filt.
 #h = [1, 0.5, 0.25, 0.125, 0.0625, 0.03125] # ~IIR
 stem(range(len(h)), h, 'b-') # plot h[n]
@@ -58,8 +58,8 @@ ylabel(r'$h[n] \rightarrow$')
 title(r'Impulsantwort $h[n]$')
 # ------- Filtered signal -------------------
 figure(3); grid(True)
-#yn = np.convolve(xn,h) # convolve & scale
-yn = sig.lfilter([1,0],[1, 0.5],xn) # IIR filter
+yn = np.convolve(xn,h) # convolve & scale
+#yn = sig.lfilter([1,0],[1, 0.5],xn) # IIR filter
 stem(range(len(yn)), yn, 'b') # y[n]
 xlabel(r'$n\;\rightarrow$')
 ylabel(r'$y[n]\;\rightarrow$')

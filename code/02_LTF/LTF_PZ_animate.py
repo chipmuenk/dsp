@@ -2,7 +2,8 @@
 """
 Created on Fri May 13 09:48:25 2016
 
-Demonstrate relationship between P/Z and magnitude frequency response
+Demonstrate relationship between P/Z and magnitude frequency response in
+an animation
 
 @author: Christian Muenker
 
@@ -17,13 +18,9 @@ from numpy import pi, exp, sin, cos
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-
-#
-# 
-
 #plt.rcParams['animation.ffmpeg_path'] = 'D:/Programme/ffmpeg/bin/ffmpeg.exe'
 plt.rcParams['animation.ffmpeg_path'] = '/opt/ffmpeg-3.02/ffmpeg'
-#plt.rcParams['savefig.bbox'] = 'tight' # tight - this garbles the video!!!
+#plt.rcParams['savefig.bbox'] = 'tight' # don't use tight - this garbles the video!!!
 
 dpi = 100
 fps = 30
@@ -33,16 +30,11 @@ movie_file = '/home/muenker/Daten/PZ_animation.mp4'
 ffmpeg_writer = animation.FFMpegWriter(fps = fps, extra_args=['-vcodec', 'libx264'])
 #animation.MovieWriterRegistry.list()
 
-#P = np.array([0.8* exp(1j * pi * 0.3), 0.8* exp(-1j * pi * 0.3)])
-P = [-0.9]
-#Z = np.array([exp(1j * pi * 0.6), exp(-1j * pi * 0.6)])
+P = np.array([0.8* exp(1j * pi * 0.3), 0.8* exp(-1j * pi * 0.3)])
+#P = np.array([-0.9])
 
-
-P = np.array(P)
-#Z = np.array(Z)
-
-Z = 1/P
-
+Z = np.array([exp(1j * pi * 0.6), exp(-1j * pi * 0.6)])
+#Z = 1/P # allpass
 
 # First set up the figure, the axis, and the plot element we want to animate
 fig = plt.figure(1)
@@ -124,16 +116,16 @@ def animate(i, color_data, scat):
     line_p.set_data(pl_x, pl_y)
     line_z.set_data(zl_x, zl_y)
 
-    print(i, " von ", N)
+#    print(i, " of ", N) # for debugging
 #    line2.set_data(phi[:i], mag[:i])
     line2.set_data(phi[i], mag[i])
     point1.set_data(x_uc[i],y_uc[i])
     text.set_text(
-        str("ZL = %.2f" %(zl[i]) + "\n" + "PL = %.2f" %(pl[i]))  )  
-#    print(i,x,y)
+        str("ZL = %.2f" %(zl[i]) + "\n" + "PL = %.2f" %(pl[i]))  )
     return line_p, line_z, point1, line2, text
 
-# call the animator.  blit=True means only re-draw the parts that have changed.
+# Now call the animator:  
+# blit=True: only re-draw the parts that have changed.
 # frames: number of frames to be recorded
 # interval: time between frames in ms = 1000/fps ; 
 # total length = frames x interval
