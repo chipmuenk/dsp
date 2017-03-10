@@ -2,6 +2,12 @@
 __pycache__/
 *.py[cod]
 
+# Jupyter Notebook backups
+.ipynb_checkpoints/
+
+# Spyder project files
+.spyproject/
+
 # C extensions
 *.so
 
