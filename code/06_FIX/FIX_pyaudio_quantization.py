@@ -31,13 +31,13 @@ np_type = np.int16 # format of audio samples
 CHUNK = 1024 # number of stereo samples per frame
 
 path = '/home/muenker/Daten/share/Musi/wav/'
-path = '../_media/'
+#path = '../_media/'
 
 #filename = 'chord.wav'
-#filename = '07 - Danny Gottlieb with John McLaughlin - Duet.wav'
-filename = 'Ole_16bit.wav'
+filename = '07 - Danny Gottlieb with John McLaughlin - Duet.wav'
+#filename = 'Ole_16bit.wav'
 #filename = '01 - Santogold - L.E.S Artistes.wav'
-filename = 'SpaceRipple.wav'
+#filename = 'SpaceRipple.wav'
 
 wf = wave.open(os.path.join(path, filename))
 n_chan = wf.getnchannels() # number of channels in wav-file
@@ -57,7 +57,7 @@ stream = p.open(format=p.get_format_from_width(w_samp),
 
 # Define quantization mode and create a quantization instance for each channel
 # quantize with just a few bits:
-q_obj = {'Q':0.9,'quant':'round','ovfl':'wrap'} # try 'quant':'round', 'ovfl':'sat'
+q_obj = {'Q':-2.15,'quant':'round','ovfl':'sat'} # try 'quant':'round', 'ovfl':'sat'
 
 # Overflows QI = -1 means the MSB is 2^{-1} = 0.5
 #q_obj = {'Q':-1.15,'quant':'fix','ovfl':'wrap'} # try  'ovfl':'sat'

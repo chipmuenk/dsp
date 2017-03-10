@@ -51,6 +51,8 @@ def IIR1(q_inst, x, a):
     print(np.max(y))
     return y
     
+
+    
 def FIR1(q_inst, x, a):
     """
     Transversales Fixpoint-Filter mit y[i] = Q< x[i] + a x[i-1] >
@@ -72,7 +74,6 @@ rate_in = wf.getframerate() # samplerate in wav-file
 
 print("Channels:", n_chan, "\nSample width:",w_samp,"bytes\nSample rate:",rate_in)
 MONO = n_chan == 1 # test if audio file is mono
-#MONO = False
 
 p = pyaudio.PyAudio() # instantiate PyAudio + setup PortAudio system
 
@@ -83,9 +84,11 @@ stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
                 rate=wf.getframerate(),
                 output=True) 
 
-q_obj = {'Q':20.0,'quant':'fix','ovfl':'none'} # integer quantization
+q_obj = {'Q':14.0,'quant':'round','ovfl':'wrap'} # integer quantization
+fx_Q_fil = fx.Fixed(q_obj)
 fx_Q_l = fx.Fixed(q_obj)
-fx_Q_r = fx.Fixed(q_obj) 
+fx_Q_r = fx.Fixed(q_obj)
+
 
 
 # initialize arrays for samples
@@ -114,9 +117,11 @@ while data_out:
 
 # Do the filtering:
     if MONO:
-        samples_out = fx_Q_l.fix(samples_in)
-#        samples_out = FIR1(fx_Q_l, samples_in, -0.1)
-        samples_out = samples_in
+        print(max(samples_in))
+#        samples_out = fx_Q_l.fix(samples_in).astype(np_type)
+        samples_out = IIR1(fx_Q_l, samples_in, -0.1).astype(np_type)
+#        samples_out = samples_in
+        print(max(samples_out))
     else:
     #    samples_out[0::2] = fx_Q_l.fix(samples_l)
     #    samples_out[1::2] = fx_Q_r.fix(samples_r)

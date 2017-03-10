@@ -30,11 +30,12 @@ import os
 np_type = np.int16
 
 path = '/home/muenker/Daten/share/Musi/wav/'
-path = '../_media/'
+#path = '../_media/'
 #filename = 'chord.wav'
 filename = '07 - Danny Gottlieb with John McLaughlin - Duet.wav'
 filename = 'Ole_16bit.wav' # 
-#filename = '01 - Santogold - L.E.S Artistes.wav'
+filename = '01 - Santogold - L.E.S Artistes.wav'
+filename = '01 - Santogold - L.E.S Artistes_20s.wav'
 #filename = 'ComputerBeeps2.wav'
 filename = 'SpaceRipple.wav'
 
@@ -99,7 +100,7 @@ while data_out and n_chunk < N_CHUNK_MAX: # keep reading + writing data until wr
         
     if len(samples_l) < (CHUNK//n_chan):
         print(len(samples_l), "last frame!")# check whether frame has full length
-        samples_out = zeros(np.ceil(len(samples_in)/(n_chan*R))*n_chan, dtype=np_type)
+        samples_out = zeros(int(np.ceil(len(samples_in)/(n_chan*R)))*n_chan, dtype=np_type)
 
 # interleave R and L channel
     samples_out[0::n_chan] = samples_l

@@ -35,7 +35,7 @@ def lim_eps(a,eps):
 
 #Initialize variables
 #------------------------------------------------
-fs = 240.0    # sampling frequency
+fs = pi * 50 #240.0    # sampling frequency
 Ts = 1.0/fs      # sampling period
 N_man  = 0     # manual selection of N if N_man > 0 
 
@@ -44,7 +44,7 @@ fsig2 = 60.0  # additional harmonic or component
 DC   = 1.5    # DC-level (offset for cos-Signal)
 A1   = 0.5   # Amplitude
 A2   = 0.0
-phi1 = -pi/2 + 0.01 # starting phase
+phi1 = 0.0 #-pi/2 + 0.01 # starting phase
 phi2 = 0.0
 #-------------------------------------------------
 tstep = 1.0/(fsig*50) # time step for plotting "analog" signal

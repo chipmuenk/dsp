@@ -8,7 +8,10 @@ Important:
 """
 import numpy as np
 import time
+import matplotlib
+matplotlib.use("Qt4Agg")#("TkAgg")
 import matplotlib.pyplot as plt
+
 
 #plt.ion() # interactive mode on - not needed with plt.pause()
 

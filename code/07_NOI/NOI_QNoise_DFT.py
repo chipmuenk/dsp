@@ -41,12 +41,12 @@ def fold(num):
     
 ANN_TITLE = False # print title
 ANN_FREQ  = True # annotate signal frequency
-ANN_SFDR  = True # annotate spurious free dynamic range
+ANN_SFDR  = False # annotate spurious free dynamic range
 ANN_SNR   = True # annotate SNR
 ANN_NOISE = True # annotage noise power
 PLT_N_AVG = True # plot a line with average quantization noise power
-PLT_HARMONICS = True # plot signal and harmonics as red lines
-PLT_PN_AXIS = True # plot second axis scaled for noise power
+PLT_HARMONICS = False # plot signal and harmonics as red lines
+PLT_PN_AXIS = False # plot second axis scaled for noise power
 #----------------------------------------------------------------------------
 # Define DFT length, sampling frequency etc.
 N_FFT = 2048    # number of DFT data points
