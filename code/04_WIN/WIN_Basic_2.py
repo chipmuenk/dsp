@@ -34,11 +34,11 @@ mpl.rcParams['xtick.minor.width'] = 1
 mpl.rcParams['ytick.major.size'] = 5
 mpl.rcParams['ytick.major.width'] = 2
 
-EXPORT =  False # exportiere Grafiken im Format FMT
+EXPORT =  True # exportiere Grafiken im Format FMT
 #BASE_DIR = "/home/muenker/Daten/HM/dsvFPGA/Vorlesung/2016ss/nologo/img/"
-BASE_DIR = "D:/Daten/HM/Tests/dsvFPGA/2017ss/"
-FILENAME = "DFT_" # "DFT" #
-FMT = ".svg"
+BASE_DIR = "D:/Daten/HM/Tests/dsvFPGA/2016ss/"
+FILENAME = "DFT_ML_" # "DFT" #
+FMT = ".png"
 
 SHOW_CFT = True # show continuous signal
 SHOW_SAMPLED = False # show sampled signal
@@ -48,15 +48,14 @@ SHOW_REP = False # show repeated measurement windows
 SHOW_LABEL = False # show label with plot info in FIG 1 + 6
 SHOW_WINDOW = True # window function as a semi-transparent area
 
-SHOW_LOG = True # use logarithmic scale
+SHOW_LOG = True
 
-SHOW_FIG1_TIME = False
 SHOW_FIG2_WINDOW = False  # Window function and its spectrum
 SHOW_FIG3 = False # single-sided DFT
 SHOW_FIG4 = False # two-sided DFT
 SHOW_FIG4_SLIDE = False #two-sided DFT for slides
 SHOW_FIG5_SLIDE = False # Window spectrum for presentation (large plot)
-SHOW_FIG6_BW = True # B & W figure for skript, tests, ...
+SHOW_FIG6_BW = True # B&W plots for skript, tests, ...
 
 PLOT_EMPTY = False # plot empty coordinate diagram
 
@@ -80,15 +79,14 @@ tstep = 1.0/(fs*OSR) # time step for plotting "analog" signal
 #Initialize signal related variables
 #------------------------------------------------
 DC   = 0.0    # DC-Offset
-fsig1 = 36000.0;  fsig2 = 75000 #24200  # analog signal frequencies,
-A1   = 0.5;       A2 = 0.022# * sqrt(10)          # amplitudes and
+fsig1 = 75000.0;  fsig2 = 30000 #24200  # analog signal frequencies,
+A1   = 0.01;       A2 = 0.5          # amplitudes and
 phi1 = pi/3;    phi2 = 0     # starting phases
 Anoi = 0.0  # noise amplitude (uniform distribution)
 Pnoi = 0.0 # noise power (gaussian distribution)
-Noise_floor = sqrt(1e-5) # "noise floor" in V
-Xn_dB_min = -50 # minimum value for dB calculation (can be used as noise floor)
-Xn_dB_disp_min = -60 # minimum displayed value for dB representation
-Xn_dB_disp_max = +5 # minimum displayed dB value
+Noise_Floor = 3e-3 # constant "noise floor" for Figure 6
+Xn_dB_min = -60 # minimum displayed dB value
+Xn_dB_max = +5 # minimum displayed dB value
 #-------------------------------------------------
 
 mk_lg = 8  # markersize large for stemplots
@@ -137,81 +135,80 @@ xn = xtw[::OSR] # sample data by picking every OSR sample
 #-------------------------------------------------------------
 # create new figure(1) if it does not exist, else make it active
 # clear it and return a reference to it.
-if SHOW_FIG1_TIME:    
-    fig1 = figure(1)#, figsize = (9.5,2), dpi = 300)
-    fig1.clf() #
-    ax11 = fig1.add_subplot(111) # use object oriented matplotlib API
-                                 # for more flexibility
-    # original signal x as black line
-    if SHOW_CFT:
-        ax11.plot(t[0:M_FFT*OSR*L], xt[0:M_FFT*OSR*L], 'k-', lw = 1)
-    #    ax11.plot(t[M_FFT*OSR:(2*M_FFT-1)*OSR], xtw[M_FFT*OSR:(2*M_FFT-1)*OSR], 'k-')
-    
-    # M_FFT windowed samples (T_meas) of xtw as red line + stem plot
-    if SHOW_DFT:
-        ax12 = ax11.twiny()         # two plots with same y- but different x-axes
-        ml_b, sl_b, bl_b = ax12.stem(n[M_FFT:2*M_FFT], xn[M_FFT:2*M_FFT])
-        plt.setp(ml_b, 'markerfacecolor', 'b', 'markersize', mk_lg,
-                 'markeredgecolor', 'r', 'markeredgewidth', 2) # markers
-        plt.setp(sl_b, 'color','r', 'linewidth', 2) # stemline
-        plt.setp(bl_b, 'linewidth',0) # turn off baseline
-        #    ax12.set_xlabel(r'$n \rightarrow$')
-        ax12.grid('off') # dont plot x-gridlines for second x-axis
-        ax12.set_xticks([]) # turn off ticks
-    
-        if SHOW_LABEL:
-            ax12.text(0.5,0.07,
-                 r'$f_S = %.1f$ Hz, $N_{FFT} = %d$, $f_{sig1} = %.1f$ Hz'
-                   %(fs,M_FFT, fsig1), fontsize=16,
-                 ha="center", va="center",linespacing=1.5, transform = ax12.transAxes,
-                 bbox=dict(alpha=0.9,boxstyle="round,pad=0.2", fc='0.9'))
-    
-        ax12.set_xlim([M_FFT/2, (L-0.5) * M_FFT]) # match range for second x-axis with first one
-        ax12.set_ylim(-0.2 * max(xt), 1.15 * max(xt))    # set ylim to min/max of xtw
-        # Draw x-Axis:
-        ax12.axhline(0, xmin = 0, xmax = 1, linewidth=2, color='k')
-    
-    
-    # sampled signal x as blue stems
-    if SHOW_SAMPLED:
-        ax11.stem(t[0:M_FFT*OSR*L:OSR], xt[0:M_FFT*OSR*L:OSR], 'b-', lw = 2)
-    
-    # sampled and zeroed signal x outside window
-    if SHOW_ZERO:
-        ax11.stem(t[0:M_FFT*OSR:OSR], zeros(M_FFT), 'r-', lw = 2)
-        ax11.stem(t[2*M_FFT*OSR:M_FFT*OSR*L:OSR], zeros(M_FFT*(L-2)), 'r-', lw = 2)
-    
-    
-    # show repeated measurement windows in grey before and after actual plot
-    if L > 1 and SHOW_REP:
-        ax11.plot(t[0:M_FFT*OSR], xtw[0:M_FFT*OSR],
-                  t[(2*M_FFT-1)*OSR:], xtw[(2*M_FFT-1)*OSR:], color='grey', linestyle='--')
-        ml_g1, sl_g1, bl_g1 = ax12.stem(n[0:M_FFT], xn[0:M_FFT])
-        ml_g2, sl_g2, bl_g2 = ax12.stem(n[2*M_FFT:], xn[2*M_FFT:])
-        plt.setp(ml_g1, 'markerfacecolor', 'grey', 'markersize', mk_sm)
-        plt.setp(sl_g1, 'color','grey', 'linewidth', 1, linestyle='-')
-        plt.setp(bl_g1, 'linewidth',0) # turn off baseline
-        plt.setp(ml_g2, 'markerfacecolor', 'grey', 'markersize', mk_sm)
-        plt.setp(sl_g2, 'color','grey', 'linewidth', 1, linestyle='-')
-        plt.setp(bl_g2, 'linewidth',0) # turn off baseline
-    
-    
-    if SHOW_WINDOW:
-        # Plot window function as a semi-transparent area
-        ax11.fill_between(t[M_FFT*OSR:(2*M_FFT - 1)*OSR], wn[:-OSR]*np.max(xt)*1.1, color = (0,0,0,0.2),
-                      lw = 1.5, edgecolor = 'black', linestyle = '-')
-    
-    ax11.set_xlabel(r'Zeit / s $\rightarrow$')
-    ax11.set_ylabel(r'Amplitude / V $\rightarrow$')
-    ax11.set_xlim([Tmeas/2, (L-0.5) * Tmeas])
-    #
-    fig1.tight_layout(pad = 0.5, rect=[0, 0, 0.99, 0.99]) # make room for title: rect=[0, 0, 1, 0.9]
-    #plt.tight_layout()
-    #fig1.text(0.5, 0.99, "Gefensterte Zeitfunktion", ha='center', va = 'top',
-    #         fontsize=18, transform = fig1.transFigure) # create title
-    
-    if EXPORT:
-        fig1.savefig(BASE_DIR + 'WIN_Basic-Time_%s' %int(M_FFT) + FMT)
+fig1 = figure(1)#, figsize = (9.5,2), dpi = 300)
+fig1.clf() #
+ax11 = fig1.add_subplot(111) # use object oriented matplotlib API
+                             # for more flexibility
+# original signal x as black line
+if SHOW_CFT:
+    ax11.plot(t[0:M_FFT*OSR*L], xt[0:M_FFT*OSR*L], 'k-', lw = 1)
+#    ax11.plot(t[M_FFT*OSR:(2*M_FFT-1)*OSR], xtw[M_FFT*OSR:(2*M_FFT-1)*OSR], 'k-')
+
+# M_FFT windowed samples (T_meas) of xtw as red line + stem plot
+if SHOW_DFT:
+    ax12 = ax11.twiny()         # two plots with same y- but different x-axes
+    ml_b, sl_b, bl_b = ax12.stem(n[M_FFT:2*M_FFT], xn[M_FFT:2*M_FFT])
+    plt.setp(ml_b, 'markerfacecolor', 'b', 'markersize', mk_lg,
+             'markeredgecolor', 'r', 'markeredgewidth', 2) # markers
+    plt.setp(sl_b, 'color','r', 'linewidth', 2) # stemline
+    plt.setp(bl_b, 'linewidth',0) # turn off baseline
+    #    ax12.set_xlabel(r'$n \rightarrow$')
+    ax12.grid('off') # dont plot x-gridlines for second x-axis
+    ax12.set_xticks([]) # turn off ticks
+
+    if SHOW_LABEL:
+        ax12.text(0.5,0.07,
+             r'$f_S = %.1f$ Hz, $N_{FFT} = %d$, $f_{sig1} = %.1f$ Hz'
+               %(fs,M_FFT, fsig1), fontsize=16,
+             ha="center", va="center",linespacing=1.5, transform = ax12.transAxes,
+             bbox=dict(alpha=0.9,boxstyle="round,pad=0.2", fc='0.9'))
+
+    ax12.set_xlim([M_FFT/2, (L-0.5) * M_FFT]) # match range for second x-axis with first one
+    ax12.set_ylim(-0.2 * max(xt), 1.15 * max(xt))    # set ylim to min/max of xtw
+    # Draw x-Axis:
+    ax12.axhline(0, xmin = 0, xmax = 1, linewidth=2, color='k')
+
+
+# sampled signal x as blue stems
+if SHOW_SAMPLED:
+    ax11.stem(t[0:M_FFT*OSR*L:OSR], xt[0:M_FFT*OSR*L:OSR], 'b-', lw = 2)
+
+# sampled and zeroed signal x outside window
+if SHOW_ZERO:
+    ax11.stem(t[0:M_FFT*OSR:OSR], zeros(M_FFT), 'r-', lw = 2)
+    ax11.stem(t[2*M_FFT*OSR:M_FFT*OSR*L:OSR], zeros(M_FFT*(L-2)), 'r-', lw = 2)
+
+
+# show repeated measurement windows in grey before and after actual plot
+if L > 1 and SHOW_REP:
+    ax11.plot(t[0:M_FFT*OSR], xtw[0:M_FFT*OSR],
+              t[(2*M_FFT-1)*OSR:], xtw[(2*M_FFT-1)*OSR:], color='grey', linestyle='--')
+    ml_g1, sl_g1, bl_g1 = ax12.stem(n[0:M_FFT], xn[0:M_FFT])
+    ml_g2, sl_g2, bl_g2 = ax12.stem(n[2*M_FFT:], xn[2*M_FFT:])
+    plt.setp(ml_g1, 'markerfacecolor', 'grey', 'markersize', mk_sm)
+    plt.setp(sl_g1, 'color','grey', 'linewidth', 1, linestyle='-')
+    plt.setp(bl_g1, 'linewidth',0) # turn off baseline
+    plt.setp(ml_g2, 'markerfacecolor', 'grey', 'markersize', mk_sm)
+    plt.setp(sl_g2, 'color','grey', 'linewidth', 1, linestyle='-')
+    plt.setp(bl_g2, 'linewidth',0) # turn off baseline
+
+
+if SHOW_WINDOW:
+    # Plot window function as a semi-transparent area
+    ax11.fill_between(t[M_FFT*OSR:(2*M_FFT - 1)*OSR], wn[:-OSR]*np.max(xt)*1.1, color = (0,0,0,0.2),
+                  lw = 1.5, edgecolor = 'black', linestyle = '-')
+
+ax11.set_xlabel(r'Zeit / s $\rightarrow$')
+ax11.set_ylabel(r'Amplitude / V $\rightarrow$')
+ax11.set_xlim([Tmeas/2, (L-0.5) * Tmeas])
+#
+fig1.tight_layout(pad = 0.5, rect=[0, 0, 0.99, 0.99]) # make room for title: rect=[0, 0, 1, 0.9]
+#plt.tight_layout()
+#fig1.text(0.5, 0.99, "Gefensterte Zeitfunktion", ha='center', va = 'top',
+#         fontsize=18, transform = fig1.transFigure) # create title
+
+if EXPORT:
+    fig1.savefig(BASE_DIR + 'WIN_Basic-Time_%s' %int(M_FFT) + FMT)
 #-------------------------------------------------------------
 #     Figure 2: Plot Window Function and its DFT
 #-------------------------------------------------------------
@@ -269,7 +266,8 @@ xfn = fftfreq(M_FFT, d=1.0/M_FFT)
 #
 # Calculate Xn in dBs with a fixed minimum
 Xn_dB = np.maximum(20*log10(abs(Xn)),Xn_dB_min)
-Xn1 = 2.*abs(Xn[0:M_FFT//2]); Xn1[0] = Xn1[0] / 2
+Xn1 = 2.*abs(Xn[0:M_FFT//2]) + Noise_Floor;
+Xn1[0] = Xn1[0] / 2
 Xn1_dB = np.maximum(20*log10(abs(Xn1)),Xn_dB_min)
 
 #-------------------------------------------------------------
@@ -295,7 +293,7 @@ if SHOW_FIG3:
     ax31.set_xlabel(r'$f \; \mathrm{[Hz]} \;\rightarrow $')
     #
     ax32 = fig3.add_subplot(212)
-    ml, sl, bl = ax32.stem(xfn[:M_FFT//2],Xn1_dB[:M_FFT//2],bottom=Xn_dB_disp_min)
+    ml, sl, bl = ax32.stem(xfn[:M_FFT//2],Xn1_dB[:M_FFT//2],bottom=Xn_dB_min)
     plt.setp(ml, 'markerfacecolor', 'r', 'markersize', mk_lg) # markerline
     plt.setp(sl, 'color','r', 'linewidth', 2) # stemline
     plt.setp(bl, 'color','k') # black baseline
@@ -308,6 +306,57 @@ if SHOW_FIG3:
     #==============================================================================
     ax32.grid(True)
     fig3.tight_layout()
+
+#-------------------------------------------------------------
+#     Figure 6: B & W DFT for skript and tests
+#-------------------------------------------------------------
+if SHOW_FIG6_BW:
+    fig6 = plt.figure(6)
+    fig6.clf()
+    ax61 = fig6.add_subplot(111)
+    #plt.title('Einseitige DFT $S[k]$') # Overall title
+    #ml, sl, bl = ax61.stem(xf[:M_FFT//2],Xn1) # plot vs freq.
+    if SHOW_LOG: 
+        if not PLOT_EMPTY:
+            ml, sl, bl = ax61.stem(xfn[:M_FFT//2],Xn1_dB, bottom = Xn_dB_min) # plot vs. n
+        ax61.set_ylabel(r'$|S[k]|$ in dBW $\rightarrow$' )
+        ax61.set_ylim(Xn_dB_min,Xn_dB_max)
+    else:
+        if not PLOT_EMPTY:
+            ml, sl, bl = ax61.stem(xfn[:M_FFT//2],Xn1) # plot vs. n
+        ax61.set_ylabel(r'$|S[k]|$ in V $\rightarrow$' )
+        ax61.set_ylim(0,1.2)
+    
+    if not PLOT_EMPTY:
+        plt.setp(ml, 'markerfacecolor', 'k', 'markersize', mk_lg) # markerline
+        plt.setp(sl, 'color','k', 'linewidth', 2) # stemline
+        plt.setp(bl, 'linewidth',0) # turn off baseline
+    
+    ax61.set_xlim(-M_FFT/100.,M_FFT/2.)
+    minor_ticks = np.arange(0, M_FFT/2, 5)
+    ax61.axhline(0, xmin = 0, xmax = 1, linewidth=1, color='k')
+    ax61.axvline(x=0, ymin = 0, ymax = 1, linewidth=1, color='k')
+    ax61.set_xlabel(r'$k \;\rightarrow $')
+    if SHOW_LABEL:
+        ax61.text(0.5,0.9,
+         r'$f_S = %.1f$ kHz, $N_{FFT} = %d$, $f_{sig1} = %.1f$ kHz, $f_{sig2} = %.1f$ kHz'
+           %(fs/1000,M_FFT, fsig1/1000, fsig2/1000), fontsize=16,
+         ha="center", va="center",linespacing=1.5, transform = ax61.transAxes,
+         bbox=dict(alpha=0.9,boxstyle="round,pad=0.2", fc='0.9'))
+    ax61.grid(which='both')
+    ax61.tick_params(which = 'both', direction = 'out')
+    minor_ticksx = np.arange(0, M_FFT/2, 1)
+    major_ticksx = np.arange(0, M_FFT/2, 5)
+    loc = plticker.MultipleLocator(base=5.0) # this locator puts ticks at regular intervals
+    ax61.yaxis.set_minor_locator(loc)
+    ax61.set_xticks(major_ticksx)
+    ax61.set_xticks(minor_ticksx, minor=True)
+    ax61.grid(which='minor', alpha=0.5)
+    ax61.grid(which='major', alpha=1)
+    
+    fig6.tight_layout()
+    if EXPORT:
+        fig6.savefig(BASE_DIR + FILENAME + '_bw_%s' %(M_FFT) + FMT)
 
 #-------------------------------------------------------------
 #     Figure 5: Plot Window DFT for slides
@@ -424,56 +473,8 @@ if SHOW_FIG4:
     #plt.grid('on')
     #plt.savefig('D:/Daten/ueb-DFT_Basics_1-ML_DFT%s.png' %int(M_FFT))
     #==============================================================================
+    
 
-#-------------------------------------------------------------
-#     Figure 6: B & W DFT for skript and tests
-#-------------------------------------------------------------
-if SHOW_FIG6_BW:
-    fig6 = plt.figure(6)
-    fig6.clf()
-    ax61 = fig6.add_subplot(111)
-    #plt.title('Einseitige DFT $S[k]$') # Overall title
-    #ml, sl, bl = ax61.stem(xf[:M_FFT//2],Xn1) # plot vs freq.
-    if SHOW_LOG:
-        if not PLOT_EMPTY:
-            ml, sl, bl = ax61.stem(xfn[:M_FFT//2],Xn1_dB, bottom = Xn_dB_disp_min) # plot vs. n
-        ax61.set_ylabel(r'$|S[k]|$ in dBW $\rightarrow$' )
-        ax61.set_ylim(Xn_dB_disp_min, Xn_dB_disp_max)
-    else:
-        if not PLOT_EMPTY:
-            ml, sl, bl = ax61.stem(xfn[:M_FFT//2],Xn1) # plot vs. n
-        ax61.set_ylabel(r'$|S[k]|$ in V $\rightarrow$' )
-        ax61.set_ylim(0,1.2)
-    
-    if not PLOT_EMPTY:
-        plt.setp(ml, 'markerfacecolor', 'k', 'markersize', mk_lg) # markerline
-        plt.setp(sl, 'color','k', 'linewidth', 2) # stemline
-        plt.setp(bl, 'linewidth',0) # turn off baseline
-    
-    ax61.set_xlim(-M_FFT/100.,M_FFT/2.)
-    minor_ticks = np.arange(0, M_FFT/2, 5)
-    ax61.axhline(0, xmin = 0, xmax = 1, linewidth=1, color='k')
-    ax61.axvline(x=0, ymin = 0, ymax = 1, linewidth=1, color='k')
-    ax61.set_xlabel(r'$k \;\rightarrow $')
-    if SHOW_LABEL:
-        ax61.text(0.5,0.9,
-         r'$f_S = %.1f$ kHz, $N_{FFT} = %d$, $f_{sig1} = %.1f$ kHz, $f_{sig2} = %.1f$ kHz'
-           %(fs/1000,M_FFT, fsig1/1000, fsig2/1000), fontsize=16,
-         ha="center", va="center",linespacing=1.5, transform = ax61.transAxes,
-         bbox=dict(alpha=0.9,boxstyle="round,pad=0.2", fc='0.9'))
-    ax61.grid(which='both')
-    ax61.tick_params(which = 'both', direction = 'out')
-    minor_ticksx = np.arange(0, M_FFT/2, 1)
-    major_ticksx = np.arange(0, M_FFT/2, 5)
-    loc = plticker.MultipleLocator(base=5.0) # this locator puts ticks at regular intervals
-    ax61.yaxis.set_minor_locator(loc)
-    ax61.set_xticks(major_ticksx)
-    ax61.set_xticks(minor_ticksx, minor=True)
-    ax61.grid(which='minor', alpha=0.5)
-    ax61.grid(which='major', alpha=1)
-    
-    fig6.tight_layout()
-    if EXPORT:
-        fig6.savefig(BASE_DIR + FILENAME + '_bw_%s' %(M_FFT) + FMT)
+
 
 plt.show()
