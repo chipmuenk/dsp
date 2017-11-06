@@ -8,8 +8,6 @@ Eine Audio-Datei wird blockweise eingelesen, in numpy-Arrays umgewandelt
 dann werden linker und rechter Kanal getauscht und die Datei wird auf
 ein Audio-Device ausgegeben.
 
-Achtung: Funktioniert z.Z. nicht unter Anaconda 3 (pyAudio-Einbindung)
-
 (c) 2016 Christian Münker - Files zur Vorlesung "DSV auf FPGAs"
 ===========================================================================
 """
