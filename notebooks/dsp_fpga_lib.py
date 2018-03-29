@@ -9,21 +9,10 @@ dsp_fpga_lib (Version 8)
 # Christian Münker
 # Christopher Felton
 # Alexander Kain for CS506/606 "Special Topics: Speech Signal Processing" CSLU / OHSU
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Lesser General Public License for more details.
-#
-# You should have received a copy of the GNU Lesser General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 from __future__ import division
+import sys
 import string # needed for remezord?
 import numpy as np
 import numpy.ma as ma
@@ -31,14 +20,60 @@ from numpy import pi, asarray, absolute, sqrt, log10, arctan,\
    ceil, hstack, mod
 
 import scipy.signal as sig
+from scipy import __version__ as sci_version
 from scipy import special # needed for remezord
 import scipy.spatial.distance as sc_dist
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from  matplotlib import patches
 
 
 __version__ = "0.8"
+def versions():
+    print("Python version:", ".".join(map(str, sys.version_info[:3])))
+    print("Numpy:", np.__version__)
+    print("Scipy:", sci_version)
+    print("Matplotlib:", mpl.__version__, mpl.get_backend())
 
+mpl_rc = {'lines.linewidth'           : 1.5,
+          'lines.markersize'          : 10,  # markersize in points
+          'text.color'                : 'black',
+          'font.family'               : 'sans-serif',#'serif',
+          'font.style'                : 'normal',
+          'mathtext.fontset'          : 'stixsans',#'stix',
+          'mathtext.fallback_to_cm'   : True,
+          'mathtext.default'          : 'it',
+          'font.size'                 : 12, 
+          'legend.fontsize'           : 12, 
+          'axes.labelsize'            : 12, 
+          'axes.titlesize'            : 14, 
+          'axes.linewidth'            : 1, # linewidth for coordinate system
+          'axes.formatter.use_mathtext': True, # use mathtext for scientific notation.
+          #
+          'axes.grid'                 : True,
+          'grid.color'                : '#222222',
+          'axes.facecolor'            : 'white',
+          'axes.labelcolor'           : 'black',
+          'axes.edgecolor'            : 'black',
+          'grid.linestyle'            : ':',
+          'grid.linewidth'            : 0.5,
+          #
+          'xtick.direction'           : 'out',
+          'ytick.direction'           : 'out',
+          'xtick.color'               : 'black',
+          'ytick.color'               : 'black',
+          'xtick.top'                 : False, # mpl >= 2.0 only
+          #
+          'figure.figsize'            : (5,4), # default figure size in inches
+          'figure.dpi'                : 100,
+          'savefig.dpi'               : 100,
+          'figure.facecolor'          : 'white',
+          'figure.edgecolor'          : '#808080',
+          'savefig.facecolor'         : 'white',
+          'savefig.edgecolor'         : 'white', 
+          'hatch.color'               : '#808080',
+          'hatch.linewidth'           : 0.5
+          }
 
 def H_mag(zaehler, nenner, z, lim):
     """ Calculate magnitude of H(z) or H(s) in polynomial form at the complex
@@ -234,10 +269,203 @@ uniq, mult = sp.signal.unique_roots(vals, rtype='avg')
 #            mult.append(1)
 #    return array(pout), array(mult)
 
+#------------------------------------------------------------------------------
+def zplane(b=None, a=1, z=None, p=None, k=1,  pn_eps=1e-3, analog=False,
+              plt_ax = None, plt_poles=True, style='square', anaCircleRad=0, lw=2,
+              mps = 10, mzs = 10, mpc = 'r', mzc = 'b', plabel = '', zlabel = ''):
+        """
+        Plot the poles and zeros in the complex z-plane either from the
+        coefficients (`b,`a) of a discrete transfer function `H`(`z`) (zpk = False)
+        or directly from the zeros and poles (z,p) (zpk = True).
+
+        When only b is given, an FIR filter with all poles at the origin is assumed.
+
+        Parameters
+        ----------
+        b :  array_like
+             Numerator coefficients (transversal part of filter)
+             When b is not None, poles and zeros are determined from the coefficients
+             b and a
+
+        a :  array_like (optional, default = 1 for FIR-filter)
+             Denominator coefficients (recursive part of filter)
+
+        z :  array_like, default = None
+             Zeros
+             When b is None, poles and zeros are taken directly from z and p
+
+        p :  array_like, default = None
+             Poles
+
+        analog : boolean (default: False)
+            When True, create a P/Z plot suitable for the s-plane, i.e. suppress
+            the unit circle (unless anaCircleRad > 0) and scale the plot for
+            a good display of all poles and zeros.
+
+        pn_eps : float (default : 1e-2)
+             Tolerance for separating close poles or zeros
+
+        plt_ax : handle to axes for plotting (default: None)
+            When no axes is specified, the current axes is determined via plt.gca()
+
+        plt_poles : Boolean (default : True)
+            Plot poles. This can be used to suppress poles for FIR systems
+            where all poles are at the origin.
+
+        style : string (default: 'square')
+            Style of the plot, for style == 'square' make scale of x- and y-
+            axis equal.
+
+        mps : integer  (default: 10)
+            Size for pole marker
+
+        mzs : integer (default: 10)
+            Size for zero marker
+
+        mpc : char (default: 'r')
+            Pole marker colour
+
+        mzc : char (default: 'b')
+            Zero marker colour
+
+        lw : integer (default:  2)
+            Linewidth for unit circle
+
+        plabel, zlabel : string (default: '')
+            This string is passed to the plot command for poles and zeros and
+            can be displayed by legend()
 
 
+        Returns
+        -------
+        z, p, k : ndarray
 
-def zplane(b, a=1, pn_eps=1e-2, zpk=False, analog=False, plt_ax = None, pltLib='matplotlib',
+
+        Notes
+        -----
+        """
+        # TODO:
+        # - polar option
+        # - add keywords for color of circle -> **kwargs
+        # - add option for multi-dimensional arrays and zpk data
+
+        # make sure that all inputs are arrays
+        b = np.atleast_1d(b)
+        a = np.atleast_1d(a)
+        z = np.atleast_1d(z) # make sure that p, z  are arrays
+        p = np.atleast_1d(p)
+
+        if b.any(): # coefficients were specified
+            if len(b) < 2 and len(a) < 2:
+                logger.error('No proper filter coefficients: both b and a are scalars!')
+                return z, p, k
+
+            # The coefficients are less than 1, normalize the coefficients
+            if np.max(b) > 1:
+                kn = np.max(b)
+                b = b / float(kn)
+            else:
+                kn = 1.
+
+            if np.max(a) > 1:
+                kd = np.max(a)
+                a = a / abs(kd)
+            else:
+                kd = 1.
+
+            # Calculate the poles, zeros and scaling factor
+            p = np.roots(a)
+            z = np.roots(b)
+            k = kn/kd
+        elif not (len(p) or len(z)): # P/Z were specified
+            print('Either b,a or z,p must be specified!')
+            return z, p, k
+
+        # find multiple poles and zeros and their multiplicities
+        if len(p) < 2: # single pole, [None] or [0]
+            if not p or p == 0: # only zeros, create equal number of poles at origin
+                p = np.array(0,ndmin=1) #
+                num_p = np.atleast_1d(len(z))
+            else:
+                num_p = [1.] # single pole != 0
+        else:
+            #p, num_p = sig.signaltools.unique_roots(p, tol = pn_eps, rtype='avg')
+            p, num_p = unique_roots(p, tol = pn_eps, rtype='avg')
+    #        p = np.array(p); num_p = np.ones(len(p))
+        if len(z) > 0:
+            z, num_z = unique_roots(z, tol = pn_eps, rtype='avg')
+    #        z = np.array(z); num_z = np.ones(len(z))
+            #z, num_z = sig.signaltools.unique_roots(z, tol = pn_eps, rtype='avg')
+        else:
+            num_z = []
+
+        if not plt_ax:
+            ax = plt.gca()# fig.add_subplot(111)
+        else:
+            ax = plt_ax
+            
+        if analog == False:
+            # create the unit circle for the z-plane
+            uc = patches.Circle((0,0), radius=1, fill=False,
+                                color='grey', ls='solid', zorder=1)
+            ax.add_patch(uc)
+            if style == 'square':
+                r = 1.1
+                ax.axis([-r, r, -r, r], 'equal')
+                ax.axis('equal')
+        #    ax.spines['left'].set_position('center')
+        #    ax.spines['bottom'].set_position('center')
+        #    ax.spines['right'].set_visible(True)
+        #    ax.spines['top'].set_visible(True)
+
+        else: # s-plane
+            if anaCircleRad > 0:
+                # plot a circle with radius = anaCircleRad
+                uc = patches.Circle((0,0), radius=anaCircleRad, fill=False,
+                                    color='grey', ls='solid', zorder=1)
+                ax.add_patch(uc)
+            # plot real and imaginary axis
+            ax.axhline(lw=2, color = 'k', zorder=1)
+            ax.axvline(lw=2, color = 'k', zorder=1)
+
+        # Plot the zeros
+        ax.scatter(z.real, z.imag, s=mzs*mzs, zorder=2, marker = 'o',
+                   facecolor = 'none', edgecolor = mzc, lw = lw, label=zlabel)
+        # and print their multiplicity
+        for i in range(len(z)):
+            if num_z[i] > 1:
+                ax.text(np.real(z[i]), np.imag(z[i]),'  (' + str(num_z[i]) +')',
+                                va = 'top', color=mzc)
+        if plt_poles:
+            # Plot the poles
+            ax.scatter(p.real, p.imag, s=mps*mps, zorder=2, marker='x',
+                       color=mpc, lw=lw, label=plabel)
+            # and print their multiplicity
+            for i in range(len(p)):
+                if num_p[i] > 1:
+                    ax.text(np.real(p[i]), np.imag(p[i]), '  (' + str(num_p[i]) +')',
+                                    va = 'bottom', color=mpc)
+
+            # increase distance between ticks and labels
+            # to give some room for poles and zeros
+        for tick in ax.get_xaxis().get_major_ticks():
+            tick.set_pad(12.)
+            tick.label1 = tick._get_text1()
+        for tick in ax.get_yaxis().get_major_ticks():
+            tick.set_pad(12.)
+            tick.label1 = tick._get_text1()
+
+        xl = ax.get_xlim(); Dx = max(abs(xl[1]-xl[0]), 0.05)
+        yl = ax.get_ylim(); Dy = max(abs(yl[1]-yl[0]), 0.05)
+        ax.set_xlim((xl[0]-Dx*0.05, max(xl[1]+Dx*0.05,0)))
+        ax.set_ylim((yl[0]-Dy*0.05, yl[1] + Dy*0.05))
+
+        return z, p, k
+
+#------------------------------------------------------------------------------
+
+
+def zplane1(b, a=1, pn_eps=1e-2, zpk=False, analog=False, plt_ax = None, pltLib='matplotlib',
           verbose=False, style='square', anaCircleRad=0, lw=2,
           mps = 10, mzs = 10, mpc = 'r', mzc = 'b', plabel = '', zlabel = ''):
     """
