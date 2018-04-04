@@ -36,7 +36,7 @@ def versions():
     print("Matplotlib:", mpl.__version__, mpl.get_backend())
 
 mpl_rc = {'lines.linewidth'           : 1.5,
-          'lines.markersize'          : 10,  # markersize in points
+          'lines.markersize'          : 8,  # markersize in points
           'text.color'                : 'black',
           'font.family'               : 'sans-serif',#'serif',
           'font.style'                : 'normal',
@@ -72,7 +72,10 @@ mpl_rc = {'lines.linewidth'           : 1.5,
           'savefig.facecolor'         : 'white',
           'savefig.edgecolor'         : 'white', 
           'hatch.color'               : '#808080',
-          'hatch.linewidth'           : 0.5
+          'hatch.linewidth'           : 0.5,
+          #
+          'animation.html'            : 'jshtml'  # for matplotlib 2.1 and above, uses JavaScript
+          #'animation.html'           : 'html5' # for matplotlib 2.0 and below, converts to x264 using ffmpeg video codec
           }
 
 def H_mag(zaehler, nenner, z, lim):
