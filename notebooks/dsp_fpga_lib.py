@@ -64,7 +64,7 @@ mpl_rc = {'lines.linewidth'           : 1.5,
           'ytick.color'               : 'black',
           'xtick.top'                 : False, # mpl >= 2.0 only
           #
-          'figure.figsize'            : (5,4), # default figure size in inches
+          'figure.figsize'            : (7,4), # default figure size in inches
           'figure.dpi'                : 100,
           'savefig.dpi'               : 100,
           'figure.facecolor'          : 'white',
