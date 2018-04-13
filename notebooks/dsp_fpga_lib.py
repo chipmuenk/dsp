@@ -77,6 +77,7 @@ mpl_rc = {'lines.linewidth'           : 1.5,
           'animation.html'            : 'jshtml'  # for matplotlib 2.1 and above, uses JavaScript
           #'animation.html'           : 'html5' # for matplotlib 2.0 and below, converts to x264 using ffmpeg video codec
           }
+plt.rcParams.update(mpl_rc) # define plot properties 
 
 def H_mag(zaehler, nenner, z, lim):
     """ Calculate magnitude of H(z) or H(s) in polynomial form at the complex
