@@ -1,0 +1,10 @@
+# Author: Christian Münkler
+# Style file with large labels for presentation slides
+
+axes.titlesize : 24
+axes.labelsize : 20
+lines.linewidth : 3
+lines.markersize : 10
+xtick.labelsize : 18
+ytick.labelsize : 18
+legend.fontsize : 18
