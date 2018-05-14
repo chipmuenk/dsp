@@ -62,19 +62,21 @@ mpl_rc = {'lines.linewidth'           : 1.5,
           'ytick.direction'           : 'out',
           'xtick.color'               : 'black',
           'ytick.color'               : 'black',
-          'xtick.top'                 : False, # mpl >= 2.0 only
           #
           'figure.figsize'            : (7,4), # default figure size in inches
-          'figure.dpi'                : 100,
-          'savefig.dpi'               : 100,
           'figure.facecolor'          : 'white',
           'figure.edgecolor'          : '#808080',
+          'figure.dpi'                : 100,
+          'savefig.dpi'               : 100,
           'savefig.facecolor'         : 'white',
-          'savefig.edgecolor'         : 'white', 
-          'hatch.color'               : '#808080',
-          'hatch.linewidth'           : 0.5,
-          #
-          'animation.html'            : 'jshtml'  # for matplotlib 2.1 and above, uses JavaScript
+          'savefig.edgecolor'         : 'white',
+          'savefig.bbox'              : 'tight',
+          'savefig.pad_inches'        : 0,
+          
+          #'hatch.color'               : '#808080', # mpl >= 2.0 only
+          #'hatch.linewidth'           : 0.5, # mpl >= 2.0 only
+          #'xtick.top'                 : False, # mpl >= 2.0 only
+          #'animation.html'            : 'jshtml'  # for matplotlib 2.1 and above, uses JavaScript
           #'animation.html'           : 'html5' # for matplotlib 2.0 and below, converts to x264 using ffmpeg video codec
           }
 plt.rcParams.update(mpl_rc) # define plot properties 
