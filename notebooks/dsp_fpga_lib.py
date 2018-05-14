@@ -75,8 +75,8 @@ mpl_rc = {'lines.linewidth'           : 1.5,
           
           #'hatch.color'               : '#808080', # mpl >= 2.0 only
           #'hatch.linewidth'           : 0.5, # mpl >= 2.0 only
-          #'xtick.top'                 : False, # mpl >= 2.0 only
-          #'animation.html'            : 'jshtml'  # for matplotlib 2.1 and above, uses JavaScript
+          'xtick.top'                 : False, # mpl >= 2.0 only
+          'animation.html'            : 'jshtml'  # for matplotlib 2.1 and above, uses JavaScript
           #'animation.html'           : 'html5' # for matplotlib 2.0 and below, converts to x264 using ffmpeg video codec
           }
 plt.rcParams.update(mpl_rc) # define plot properties 
