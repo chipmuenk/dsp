@@ -36,6 +36,10 @@ class Fixed(object):
     * **'QI'** : integer word length, default: 0
       
     * **'QF'** : fractional word length; default: 15; QI + QF + 1 = W (1 sign bit)
+
+    * **'Q'**  : Quantization format as string, e.g. '0.15', it is translated
+                 to`WI` and `WF` and deleted afterwards. When both `Q` and `WI` / `WF`
+                 are given, `Q` takes precedence
       
     * **'quant'** : Quantization method, optional; default = 'floor'
       
@@ -51,10 +55,13 @@ class Fixed(object):
       - 'wrap': do a two's complement wrap-around
       - 'sat' : saturate at minimum / maximum value
       - 'none': no overflow; the integer word length is ignored
+      
+    Additionally, the following keys define the base / display format for the
+    fixpoint number:
 
-    * **'frmt'** : Output format, optional; default = 'frac'
+    * **'frmt'** : Output format, optional; default = 'float'
 
-      - 'frac' : (default) return result as a fraction
+      - 'float': (default) return result as a fraction
       - 'dec'  : return result in decimal form, scaled by :math:`2^{WF}`
       - 'bin'  : return result as binary string, scaled by :math:`2^{WF}`
       - 'hex'  : return result as hex string, scaled by :math:`2^{WF}`
@@ -185,9 +192,11 @@ class Fixed(object):
         try:
             _ = len(y)
         except TypeError: # exception -> y is scalar:   
+            SCALAR = True
             over_pos = over_neg = yq = 0
         else: # no exception -> y is array:
             # create empty arrays for result and overflows with same shape as y
+            SCALAR = False
             y = np.asarray(y)
             yq = np.zeros(y.shape)
             over_pos = over_neg = np.zeros(y.shape, dtype = bool)
@@ -237,12 +246,15 @@ class Fixed(object):
  # TODO           not quite: neg. hex numbers should be written as twos complemente
             # http://stackoverflow.com/questions/16427073/signed-integer-to-twos-complement-hexadecimal
 
-            return vhex(yq)
-        elif self.frmt == 'bin':
-            return np.binary_repr(yq, width=(self.QF + self.QI + 1))
-        elif self.frmt in {'frac', 'dec'}:
-            return yq
+            yq = vhex(yq)
+        if self.frmt == 'bin':
+            yq = np.binary_repr(yq, width=(self.QF + self.QI + 1))
+        if SCALAR:
+            return yq.item()
         else:
+            return yq
+
+        if self.frmt not in {'float', 'dec', 'hex', 'bin'}:
             raise Exception('Unknown output format "%s"!'%(self.format))
             return None
         
