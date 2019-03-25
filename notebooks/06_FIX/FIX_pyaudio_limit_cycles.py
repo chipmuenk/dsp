@@ -32,8 +32,8 @@ import wave
 
 np_type = np.int16 # data format for audio sample
 CHUNK = 1024 # number of samples per frame
-# path = '/home/muenker/Daten/share/Musi/wav/'
-path = '../_media/'
+path = '/home/muenker/Daten/share/Musi/wav/'
+#path = '../_media/'
 # filename = 'Ole_16bit.wav'
 filename = 'SpaceRipple.wav'
 
@@ -76,6 +76,13 @@ print("Channels:", n_chan, "\nSample width:",w_samp,"bytes\nSample rate:",rate_i
 MONO = n_chan == 1 # test if audio file is mono
 
 p = pyaudio.PyAudio() # instantiate PyAudio + setup PortAudio system
+
+device_count = p.get_device_count()
+print("Device Count = ", device_count)
+for i in range(0, device_count):
+    print("Name: " + p.get_device_info_by_index(i)["name"])
+    print("Index: " + p.get_device_info_by_index(i)["index"])
+    print("\n")
 
 # open a stream on the desired device with the desired audio parameters 
 # for reading or writing

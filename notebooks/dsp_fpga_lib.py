@@ -71,14 +71,21 @@ mpl_rc = {'lines.linewidth'           : 1.5,
           'savefig.facecolor'         : 'white',
           'savefig.edgecolor'         : 'white',
           'savefig.bbox'              : 'tight',
-          'savefig.pad_inches'        : 0,
+          'savefig.pad_inches'        : 0}
+
+mpl_rc_1 = {'animation.html'          : 'html5'}
+# for matplotlib 2.0 and below, converts to x264 using ffmpeg video codec}
+# for matplotlib 2.1 and above:
+mpl_rc_2 = {'hatch.color'             : '#808080', # mpl >= 2.0
+            'hatch.linewidth'         : 0.5,       # mpl >= 2.0
+            'xtick.top'               : False,     # mpl >= 2.0
+            'animation.html'          : 'jshtml'   # javascript, mpl >= 2.1 
+           }    
+if mpl.__version__ >= "2.1":
+    mpl_rc.update(mpl_rc_2)
+else: 
+    mpl_rc.update(mpl_rc_1)
           
-          #'hatch.color'               : '#808080', # mpl >= 2.0 only
-          #'hatch.linewidth'           : 0.5, # mpl >= 2.0 only
-          'xtick.top'                 : False, # mpl >= 2.0 only
-          'animation.html'            : 'jshtml'  # for matplotlib 2.1 and above, uses JavaScript
-          #'animation.html'           : 'html5' # for matplotlib 2.0 and below, converts to x264 using ffmpeg video codec
-          }
 plt.rcParams.update(mpl_rc) # define plot properties 
 
 def H_mag(zaehler, nenner, z, lim):

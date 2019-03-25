@@ -93,10 +93,12 @@ bb = np.real(bb)
 nulls = np.roots(bb) # zeros of H(s)
 poles = np.roots(aa) # poles of H(s)
 
+nulls =[-1100]
+poles =[-11000]
 #nulls = [0,0]
 #poles = [-1,-2]
-#bb = np.poly(nulls
-#aa = np.poly(poles)
+bb = np.poly(nulls)
+aa = np.poly(poles)
 print("aa, bb =", aa,bb)
 print("P, N =", np.roots(aa), np.roots(bb))
 print("Angle(P) = ", angle(np.roots(aa))/ pi * 180)
