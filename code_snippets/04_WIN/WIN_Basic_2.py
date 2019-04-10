@@ -44,7 +44,7 @@ SHOW_CFT = True # show continuous signal
 SHOW_SAMPLED = False # show sampled signal
 SHOW_ZERO = True # show zeros outside the window
 SHOW_DFT = True # show DFT samples
-SHOW_REP = False # show repeated measurement windows
+SHOW_REP = True # show repeated measurement windows
 SHOW_LABEL = False # show label with plot info in FIG 1 + 6
 SHOW_WINDOW = True # window function as a semi-transparent area
 
@@ -175,8 +175,8 @@ if SHOW_SAMPLED:
 
 # sampled and zeroed signal x outside window
 if SHOW_ZERO:
-    ax11.stem(t[0:M_FFT*OSR:OSR], zeros(M_FFT), 'r-', lw = 2)
-    ax11.stem(t[2*M_FFT*OSR:M_FFT*OSR*L:OSR], zeros(M_FFT*(L-2)), 'r-', lw = 2)
+    ax11.stem(t[0:M_FFT*OSR:OSR], zeros(M_FFT), 'r-')
+    ax11.stem(t[2*M_FFT*OSR:M_FFT*OSR*L:OSR], zeros(M_FFT*(L-2)), 'r-')
 
 
 # show repeated measurement windows in grey before and after actual plot
