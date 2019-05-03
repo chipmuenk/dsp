@@ -190,10 +190,11 @@ class Fixed(object):
     
         """
         try:
-            _ = len(y)
+            self.N += len(y)
         except TypeError: # exception -> y is scalar:   
             SCALAR = True
             over_pos = over_neg = yq = 0
+            self.N += 1
         else: # no exception -> y is array:
             # create empty arrays for result and overflows with same shape as y
             SCALAR = False
@@ -260,7 +261,8 @@ class Fixed(object):
         
         
     def resetN(self):
-        """ Reset overflow-counters of Fixed object"""
+        """ Reset counter and overflow-counters of Fixed object"""
+        self.N = 0 
         self.N_over = 0
         self.N_over_neg = 0
         self.N_over_pos = 0
