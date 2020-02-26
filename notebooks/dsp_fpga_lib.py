@@ -288,8 +288,8 @@ def zplane(b=None, a=1, z=None, p=None, k=1,  pn_eps=1e-3, analog=False,
               mps = 10, mzs = 10, mpc = 'r', mzc = 'b', plabel = '', zlabel = ''):
         """
         Plot the poles and zeros in the complex z-plane either from the
-        coefficients (`b,`a) of a discrete transfer function `H`(`z`) (zpk = False)
-        or directly from the zeros and poles (z,p) (zpk = True).
+        coefficients (`b,`a) of a discrete transfer function `H`(`z`) (b specified)
+        or directly from the zeros and poles (z,p specified).
 
         When only b is given, an FIR filter with all poles at the origin is assumed.
 
