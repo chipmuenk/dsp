@@ -61,3 +61,15 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# local config files
+.bash_history
+.bash_logout
+.bashrc
+.config/
+.gitconfig
+.gitignore
+.ipython/
+.jupyter/
+.local/
+.profile
