@@ -4,20 +4,11 @@ Created on Mon Apr 30 10:29:42 2012
 dsp_fpga_lib (Version 8)
 @author: Muenker_2
 """
-#
-# Copyright (c) 2011 - 2015: 
-# Christian Münker
-# Christopher Felton
-# Alexander Kain for CS506/606 "Special Topics: Speech Signal Processing" CSLU / OHSU
-
-
-from __future__ import division
 import sys
 import string # needed for remezord?
 import numpy as np
 import numpy.ma as ma
-from numpy import pi, asarray, absolute, sqrt, log10, arctan,\
-   ceil, hstack, mod
+from numpy import pi, asarray, absolute, sqrt, log10, arctan, ceil, hstack, mod
 
 import scipy.signal as sig
 from scipy import __version__ as sci_version
@@ -26,7 +17,6 @@ import scipy.spatial.distance as sc_dist
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from  matplotlib import patches
-
 
 __version__ = "0.8"
 def versions():
@@ -424,7 +414,7 @@ def zplane(b=None, a=1, z=None, p=None, k=1,  pn_eps=1e-3, analog=False,
             ax.add_patch(uc)
             if style == 'square':
                 r = 1.1
-                ax.axis([-r, r, -r, r], 'equal')
+                ax.axis([-r, r, -r, r])
                 ax.axis('equal')
         #    ax.spines['left'].set_position('center')
         #    ax.spines['bottom'].set_position('center')
