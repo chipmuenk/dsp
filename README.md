@@ -1,6 +1,8 @@
 # Unterlagen zu den Kursen "DSV" und "DSV auf FPGAs" 
 [Course material accompanying the lectures "DSP" and "DSP on FPGAs" (Digital signal processing on FPGAs)]
 
+**ATTENTION:** If you have cloned / forked this repo, it has been renamed from `dsp_fpga` -> `dsp` and the default branch now is called `main` (2020-Sep-29).
+
 Hier finden Sie die folgenden Materialien:
 * Jupyter Notebooks zu beiden Lehrveranstaltungen und zum YouTube Channel [https://www.youtube.com/c/ChristianMunker](https://www.youtube.com/c/ChristianMunker)
 * Übungsaufgaben und Skript zu ["DSV auf FPGAs"](docs/DSV_FPGA_Muenker_Skript.pdf)
