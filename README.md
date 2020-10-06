@@ -4,7 +4,9 @@
 Hier finden Sie die folgenden Materialien:
 
 * Folien zur Vorlesung und den Screencasts auf dem YouTube Channel [https://www.youtube.com/c/ChristianMunker](https://www.youtube.com/c/ChristianMunker)
-* Übungsaufgaben und (etwas) Theorie 
+* Viele Übungsaufgaben und (etwas) Theorie zur Vorlesung "DSV auf FPGAs"
+
+* Eine Anleitung zum Umgang mit Notebooks
 
 ### Unterlagen zum Umgang mit Jupyter Notebooks ###
 
