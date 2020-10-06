@@ -2,18 +2,22 @@
 [Course material accompanying the lectures "DSP" and "DSP on FPGAs" (Digital signal processing on FPGAs)]
 
 Hier finden Sie die folgenden Materialien:
+* Jupyter Notebooks zu beiden Lehrveranstaltungen und zum YouTube Channel [https://www.youtube.com/c/ChristianMunker](https://www.youtube.com/c/ChristianMunker)
+* Übungsaufgaben und Skript zu ["DSV auf FPGAs"](docs/DSV_FPGA_Muenker_Skript.pdf)
 
+<<<<<<< HEAD
 * Folien zur Vorlesung und den Screencasts auf dem YouTube Channel [https://www.youtube.com/c/ChristianMunker](https://www.youtube.com/c/ChristianMunker)
 * Viele Übungsaufgaben und (etwas) Theorie zur Vorlesung "DSV auf FPGAs"
 
 * Eine Anleitung zum Umgang mit Notebooks
 
 ### Unterlagen zum Umgang mit Jupyter Notebooks ###
+=======
+### Jupyter Notebooks
+>>>>>>> ae58210c355eea80bb547af49c28851274e8cb76
 
 * Kurzanleitung: https://codingthesmartway.com/getting-started-with-jupyter-notebook-for-python/ mit Video https://youtu.be/CwFq3YDU6_Y
 * Jupyter Notebooks: Ein sehr gutes Video Tutorial zu Jupyter Notebooks finden Sie unter [https://www.youtube.com/watch?v=HW29067qVWk]
-
-### Jupyter Notebooks zur Vorlesung
 
 **[01. LTI :](notebooks/01_LTI)** Linear Time-Invariant (**LTI**) Systeme im Zeitbereich
 
@@ -36,13 +40,13 @@ Hier finden Sie die folgenden Materialien:
 **[11. SRC :](notebooks/11_SRC/plots)** **S**ample **R**ate **C**onversion
 
 ## Jupyter Notebook Server in der Cloud
-Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie müssen dann nichts auf Ihrem Rechner installieren und können einfach im Browser arbeiten, müssen aber natürlich online sein. In der Vergangenheit haben die beiden folgenden Server am besten funktioniert.
+Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie müssen dann nichts auf Ihrem eigenen Rechner installieren und können einfach im Browser arbeiten, müssen aber natürlich online sein. In der Vergangenheit haben die beiden folgenden Server am besten funktioniert.
 
 ### Gesis Notebook Server
 
 Erstellen Sie einen kostenlosen Account unter https://notebooks.gesis.org 
 
-### Microsoft Azure Notebooks
+### Microsoft Azure Notebook Server
 
 Melden Sie sich mit Ihren Microsoft Konto an bei https://notebooks.azure.com (manchmal überlastet).
 
