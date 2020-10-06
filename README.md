@@ -7,7 +7,16 @@ Hier finden Sie die folgenden Materialien:
 * Jupyter Notebooks zu beiden Lehrveranstaltungen und zum YouTube Channel [https://www.youtube.com/c/ChristianMunker](https://www.youtube.com/c/ChristianMunker)
 * Übungsaufgaben und Skript zu ["DSV auf FPGAs"](docs/DSV_FPGA_Muenker_Skript.pdf)
 
+<<<<<<< HEAD
+* Folien zur Vorlesung und den Screencasts auf dem YouTube Channel [https://www.youtube.com/c/ChristianMunker](https://www.youtube.com/c/ChristianMunker)
+* Viele Übungsaufgaben und (etwas) Theorie zur Vorlesung "DSV auf FPGAs"
+
+* Eine Anleitung zum Umgang mit Notebooks
+
+### Unterlagen zum Umgang mit Jupyter Notebooks ###
+=======
 ### Jupyter Notebooks
+>>>>>>> ae58210c355eea80bb547af49c28851274e8cb76
 
 * Kurzanleitung: https://codingthesmartway.com/getting-started-with-jupyter-notebook-for-python/ mit Video https://youtu.be/CwFq3YDU6_Y
 * Jupyter Notebooks: Ein sehr gutes Video Tutorial zu Jupyter Notebooks finden Sie unter [https://www.youtube.com/watch?v=HW29067qVWk]
