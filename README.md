@@ -3,21 +3,17 @@
 
 Hier finden Sie die folgenden Materialien:
 * Jupyter Notebooks zu beiden Lehrveranstaltungen und zum YouTube Channel [https://www.youtube.com/c/ChristianMunker](https://www.youtube.com/c/ChristianMunker)
-* Übungsaufgaben und Skript zu ["DSV auf FPGAs"](docs/DSV_FPGA_Muenker_Skript.pdf)
+* Ein [Skript](docs/DSV_FPGA_Muenker_Skript.pdf) mit vielen Übungsaufgaben und etwas Theorie zu den Kursen "DSV" und "DSV auf FPGAs"
+* Eine [Anleitung](docs/2020-DSP_Notebooks) zum Umgang mit Notebooks
 
-<<<<<<< HEAD
-* Folien zur Vorlesung und den Screencasts auf dem YouTube Channel [https://www.youtube.com/c/ChristianMunker](https://www.youtube.com/c/ChristianMunker)
-* Viele Übungsaufgaben und (etwas) Theorie zur Vorlesung "DSV auf FPGAs"
+Nutzen Sie auch das interaktive Python Tool [pyFDA](https://github.com/chipmuenk/pyfda) für Filterentwurf und -analyse und zur Simulation von zeitdiskreten Systemen!
 
-* Eine Anleitung zum Umgang mit Notebooks
-
-### Unterlagen zum Umgang mit Jupyter Notebooks ###
-=======
 ### Jupyter Notebooks
->>>>>>> ae58210c355eea80bb547af49c28851274e8cb76
 
 * Kurzanleitung: https://codingthesmartway.com/getting-started-with-jupyter-notebook-for-python/ mit Video https://youtu.be/CwFq3YDU6_Y
-* Jupyter Notebooks: Ein sehr gutes Video Tutorial zu Jupyter Notebooks finden Sie unter [https://www.youtube.com/watch?v=HW29067qVWk]
+* Jupyter Notebooks: Ein weiteres sehr gutes Video Tutorial zu Jupyter Notebooks finden Sie unter [https://www.youtube.com/watch?v=HW29067qVWk]
+
+**[00. INTRO:](notebooks/00_Intro)** Eine kurze interaktive Einführung in Notebooks, Numpy, Scipy, Matplotlib
 
 **[01. LTI :](notebooks/01_LTI)** Linear Time-Invariant (**LTI**) Systeme im Zeitbereich
 
@@ -44,11 +40,11 @@ Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Ser
 
 ### Gesis Notebook Server
 
-Erstellen Sie einen kostenlosen Account unter https://notebooks.gesis.org 
+Erstellen Sie einen kostenlosen Account unter https://notebooks.gesis.org oder unter http://notebooks.gesis.org/services/binder/v2/gh/chipmuenk/dsp/main. Bei letzterem wird dieses Github Repo fertig für Sie eingerichtet!
 
 ### Microsoft Azure Notebook Server
 
-Melden Sie sich mit Ihren Microsoft Konto an bei https://notebooks.azure.com (manchmal überlastet).
+Melden Sie sich mit Ihren Microsoft Konto an bei https://notebooks.azure.com (manchmal überlastet, wird abgekündigt?!).
 
 ### Einrichten Ihres Servers
 Installieren Sie im Terminal des Servers die folgenden Python Module nach:
