@@ -15,9 +15,9 @@ Nutzen Sie auch das interaktive Python Tool [pyFDA](https://github.com/chipmuenk
 
 **[00. INTRO:](notebooks/00_Intro)** Eine kurze interaktive Einführung in Notebooks, Numpy, Scipy, Matplotlib
 
-**[01. LTI :](notebooks/01_LTI)** Linear Time-Invariant (**LTI**) Systeme im Zeitbereich
+**[01. LTI :](notebooks/01_LTI/_LTI-Index.ipynb)** Linear Time-Invariant (**LTI**) Systeme im Zeitbereich
 
-**[02. LTF :](notebooks/02_LTF)** **LT**I Systeme im **F**requenzbereich
+**[02. LTF :](notebooks/02_LTF/_LTF-Index.ipynb)** **LT**I Systeme im **F**requenzbereich
 
 **[03. DFT :](notebooks/03_DFT)** Discrete Fourier Transformation (**DFT**) und FFT
 
