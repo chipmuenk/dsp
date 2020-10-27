@@ -19,7 +19,7 @@ Nutzen Sie auch das interaktive Python Tool [pyFDA](https://github.com/chipmuenk
 
 **[02. LTF :](notebooks/02_LTF/_LTF-Index.ipynb)** **LT**I Systeme im **F**requenzbereich
 
-**[03. DFT :](notebooks/03_DFT)** Discrete Fourier Transformation (**DFT**) und FFT
+**[03. DFT :](notebooks/03_DFT/_DFT-Index.ipynb)** Discrete Fourier Transformation (**DFT**) und FFT
 
 **[04. WIN :](notebooks/04_WIN)** Fensterung periodischer und stationärer Signale
 
