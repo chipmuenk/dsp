@@ -13,7 +13,7 @@ Nutzen Sie auch das interaktive Python Tool [pyFDA](https://github.com/chipmuenk
 * Kurzanleitung: https://codingthesmartway.com/getting-started-with-jupyter-notebook-for-python/ mit Video https://youtu.be/CwFq3YDU6_Y
 * Jupyter Notebooks: Ein weiteres sehr gutes Video Tutorial zu Jupyter Notebooks finden Sie unter [https://www.youtube.com/watch?v=HW29067qVWk]
 
-**[00. INTRO:](notebooks/00_Intro)** Eine kurze interaktive Einführung in Notebooks, Numpy, Scipy, Matplotlib
+**[00. INTRO:](notebooks/00_Intro/_INTRO-Index.ipynb)** Eine kurze interaktive Einführung in Notebooks, Numpy, Scipy, Matplotlib
 
 **[01. LTI :](notebooks/01_LTI/_LTI-Index.ipynb)** Linear Time-Invariant (**LTI**) Systeme im Zeitbereich
 
@@ -21,17 +21,17 @@ Nutzen Sie auch das interaktive Python Tool [pyFDA](https://github.com/chipmuenk
 
 **[03. DFT :](notebooks/03_DFT/_DFT-Index.ipynb)** Discrete Fourier Transformation (**DFT**) und FFT
 
-**[04. WIN :](notebooks/04_WIN)** Fensterung periodischer und stationärer Signale
+**[04. WIN :](notebooks/04_WIN/_index.ipynb)** Fensterung periodischer und stationärer Signale
 
-**[06. FIL :](notebooks/06_FIL)** Digitale **FIL**ter und Filterentwurf
+**[06. FIL :](notebooks/06_FIL/_index.ipynb)** Digitale **FIL**ter und Filterentwurf
 
-**[07. FIX :](notebooks/07_FIX)** **FIX**point Systeme im Zeitbereich: Quantisierung und Wortlängeneffekte
+**[07. FIX :](notebooks/07_FIX/_index.ipynb)** **FIX**point Systeme im Zeitbereich: Quantisierung und Wortlängeneffekte
 
-**[08. NOI :](notebooks/08_NOI)** Fixpoint Systeme im Frequenzbereich: Quantization **NOI**se
+**[08. NOI :](notebooks/08_NOI/_index.ipynb)** Fixpoint Systeme im Frequenzbereich: Quantization **NOI**se
 
-**[09. SMP :](notebooks/09_SMP)** **S**a**MP**ling, Analog-Digital Conversion and Downsampling
+**[09. SMP :](notebooks/09_SMP/_index.ipynb)** **S**a**MP**ling, Analog-Digital Conversion and Downsampling
 
-**[10. INP :](notebooks/10_INP)** Upsampling, **IN**ter**P**olation und Digital-Analog conversion
+**[10. INP :](notebooks/10_INP/_index.ipynb)** Upsampling, **IN**ter**P**olation und Digital-Analog conversion
 
 **[11. SRC :](notebooks/11_SRC/plots)** **S**ample **R**ate **C**onversion
 
