@@ -44,7 +44,7 @@ Erstellen Sie einen kostenlosen Account unter https://notebooks.gesis.org oder u
 
 ### Microsoft Azure Notebook Server
 
-Melden Sie sich mit Ihren Microsoft Konto an bei https://notebooks.azure.com (manchmal überlastet, wird abgekündigt?!).
+Melden Sie sich mit Ihren Microsoft Konto an bei https://notebooks.azure.com . Achtung: Dieser Service wird zum Januar 2021 eingestellt, Notebooks können portiert werden zu https://github.com/features/codespaces .
 
 ### Einrichten Ihres Servers
 Installieren Sie im Terminal des Servers die folgenden Python Module nach:
