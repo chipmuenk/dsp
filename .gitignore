@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 
 # Jupyter Notebook backups
-.ipynb_checkpoints
+.ipynb_checkpoints/
 
 # Spyder project files
 .spyproject/
@@ -73,4 +73,4 @@ target/
 .jupyter/
 .local/
 .profile
-
+.npm/
