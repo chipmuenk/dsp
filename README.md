@@ -1,5 +1,7 @@
 # Unterlagen zu den Kursen "DSV" und "DSV auf FPGAs" 
-[Course material accompanying the lectures "DSP" and "DSP on FPGAs" (Digital signal processing on FPGAs)]
+[Course material accompanying the courses "DSP" and "DSP on FPGAs" (Digital signal processing on FPGAs)]
+
+**ATTENTION:** If you have cloned / forked this repo, it has been renamed from `dsp_fpga` -> `dsp` and the default branch now is called `main` (2020-Sep-29).
 
 Hier finden Sie die folgenden Materialien:
 * Jupyter Notebooks zu beiden Lehrveranstaltungen und zum YouTube Channel [https://www.youtube.com/c/ChristianMunker](https://www.youtube.com/c/ChristianMunker)
@@ -14,6 +16,8 @@ Nutzen Sie auch das interaktive Python Tool [pyFDA](https://github.com/chipmuenk
 * Jupyter Notebooks: Ein weiteres sehr gutes Video Tutorial zu Jupyter Notebooks finden Sie unter [https://www.youtube.com/watch?v=HW29067qVWk]
 
 **[00. INTRO:](notebooks/00_Intro/_INTRO-Index.ipynb)** Eine kurze interaktive Einführung in Notebooks, Numpy, Scipy, Matplotlib
+
+**[00. LAB:](notebooks/00_LAB/_index.ipynb)** Praktikumsversuche (als Jupyter Notebooks)
 
 **[01. LTI :](notebooks/01_LTI/_LTI-Index.ipynb)** Linear Time-Invariant (**LTI**) Systeme im Zeitbereich
 
@@ -69,10 +73,12 @@ Dazu muss ein git Client von der git homepage (http://git-scm.com/) auf Ihrem Re
 
 Notfalls können Sie die Files auch gezippt herunterladen von  https://github.com/chipmuenk/dsp, können dann aber keine Updates holen.
 
-Es schadet auch nicht, ein paar git Kommandos zu beherrschen, z.B. mit Hilfe von [Ry’s Git Tutorial](http://rypress.com/tutorials/git/index).
 
+### git
+Es schadet nicht, ein paar git Kommandos zu beherrschen, z.B. mit Hilfe von
 
-
-```python
-
-```
+* [git - Der einfache Einstieg](http://rogerdudler.github.io/git-guide/index.de.html) von Roger Dudler gibt den kürzest möglichen Einstieg in die Git Bash (= Kon-
+sole) - mit Cheat-Sheet! - in vielen Sprachen
+* [An Illustrated Guide to Git on Windows](http://nathanj.github.io/gitguide/tour.html) (2009) gibt einen ähnlich kompakten Einstieg in die Arbeit mit dem graphischen Frontend Git GUI
+* [Pro Git Book](http://git-scm.com/book/de/v2), das "offizielle" Git Buch von Scott Chacon und Ben Straub gibt es hier in ziemlich vielen Sprachen
+* [Learn Git Branching](https://learngitbranching.js.org?locale=de_DE) ist eine „gamifizierte“ Variante mit Schwerpunkt Branching und Merging (auch auf Deutsch)
