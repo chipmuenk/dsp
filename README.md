@@ -1,5 +1,5 @@
 # Unterlagen zu den Kursen "DSV" und "DSV auf FPGAs" 
-[Course material accompanying the lectures "DSP" and "DSP on FPGAs" (Digital signal processing on FPGAs)]
+[Course material accompanying the courses "DSP" and "DSP on FPGAs" (Digital signal processing on FPGAs)]
 
 **ATTENTION:** If you have cloned / forked this repo, it has been renamed from `dsp_fpga` -> `dsp` and the default branch now is called `main` (2020-Sep-29).
 
