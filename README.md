@@ -17,6 +17,8 @@ Nutzen Sie auch das interaktive Python Tool [pyFDA](https://github.com/chipmuenk
 
 **[00. INTRO:](notebooks/00_Intro/_INTRO-Index.ipynb)** Eine kurze interaktive Einführung in Notebooks, Numpy, Scipy, Matplotlib
 
+**[00. LAB:](notebooks/00_LAB/_index.ipynb)** Praktikumsversuche (als Jupyter Notebooks)
+
 **[01. LTI :](notebooks/01_LTI/_LTI-Index.ipynb)** Linear Time-Invariant (**LTI**) Systeme im Zeitbereich
 
 **[02. LTF :](notebooks/02_LTF/_LTF-Index.ipynb)** **LT**I Systeme im **F**requenzbereich
