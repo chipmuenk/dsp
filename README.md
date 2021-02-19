@@ -77,8 +77,8 @@ Notfalls können Sie die Files auch gezippt herunterladen von  https://github.co
 ### git
 Es schadet nicht, ein paar git Kommandos zu beherrschen, z.B. mit Hilfe von
 
-* [git - Der einfache Einstieg](http://rogerdudler.github.io/git-guide/index.de.html) gibt den kürzest möglichen Einstieg in die Git Bash (= Kon-
-sole) - mit Cheat-Sheet!
-* [An Illustrated Guide to Git on Windows](http://nathanj.github.io/gitguide/tour.html) gibt einen ähnlich kompakten Einstieg in die Arbeit mit dem graphischen Frontend Git GUI
+* [git - Der einfache Einstieg](http://rogerdudler.github.io/git-guide/index.de.html) von Roger Dudler gibt den kürzest möglichen Einstieg in die Git Bash (= Kon-
+sole) - mit Cheat-Sheet! - in vielen Sprachen
+* [An Illustrated Guide to Git on Windows](http://nathanj.github.io/gitguide/tour.html) (2009) gibt einen ähnlich kompakten Einstieg in die Arbeit mit dem graphischen Frontend Git GUI
 * [Pro Git Book](http://git-scm.com/book/de/v2), das "offizielle" Git Buch von Scott Chacon und Ben Straub gibt es hier in ziemlich vielen Sprachen
 * [Learn Git Branching](https://learngitbranching.js.org?locale=de_DE) ist eine „gamifizierte“ Variante mit Schwerpunkt Branching und Merging (auch auf Deutsch)
