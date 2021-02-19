@@ -73,10 +73,11 @@ Dazu muss ein git Client von der git homepage (http://git-scm.com/) auf Ihrem Re
 
 Notfalls können Sie die Files auch gezippt herunterladen von  https://github.com/chipmuenk/dsp, können dann aber keine Updates holen.
 
-Es schadet auch nicht, ein paar git Kommandos zu beherrschen, z.B. mit Hilfe von [Ry’s Git Tutorial](http://rypress.com/tutorials/git/index).
 
+### git
+Es schadet nicht, ein paar git Kommandos zu beherrschen, z.B. mit Hilfe von
 
-
-```python
-
-```
+* [git - Der einfache Einstieg](http://rogerdudler.github.io/git-guide/index.de.html) gibt den kürzest möglichen Einstieg in die Git Bash (= Kon-
+sole) - mit Cheat-Sheet!
+* [An Illustrated Guide to Git on Windows](http://nathanj.github.io/gitguide/tour.html) gibt einen ähnlich kompakten Einstieg in die Arbeit mit dem graphischen Frontend Git GUI
+* [Ry’s Git Tutorial](http://rypress.com/tutorials/git/index).
