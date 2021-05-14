@@ -17,7 +17,7 @@ Nutzen Sie auch das interaktive Python Tool [pyFDA](https://github.com/chipmuenk
 
 **[00. INTRO:](notebooks/00_Intro/_INTRO-Index.ipynb)** Eine kurze interaktive Einführung in Notebooks, Numpy, Scipy, Matplotlib
 
-**[00. LAB:](notebooks/00_LAB/_index.ipynb)** Praktikumsversuche (als Jupyter Notebooks)
+**[00. LAB :](notebooks/00_LAB/_index.ipynb)** Praktikumsversuche (als Jupyter Notebooks)
 
 **[01. LTI :](notebooks/01_LTI/_LTI-Index.ipynb)** Linear Time-Invariant (**LTI**) Systeme im Zeitbereich
 
@@ -26,6 +26,8 @@ Nutzen Sie auch das interaktive Python Tool [pyFDA](https://github.com/chipmuenk
 **[03. DFT :](notebooks/03_DFT/_DFT-Index.ipynb)** Discrete Fourier Transformation (**DFT**) und FFT
 
 **[04. WIN :](notebooks/04_WIN/_index.ipynb)** Fensterung periodischer und stationärer Signale
+
+**[05. SPS :](notebooks/05_SPS/_index.ipynb)** **SP**ektral**S**chätzung
 
 **[06. FIL :](notebooks/06_FIL/_index.ipynb)** Digitale **FIL**ter und Filterentwurf
 
@@ -46,9 +48,9 @@ Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Ser
 
 Erstellen Sie einen kostenlosen Account unter https://notebooks.gesis.org oder unter http://notebooks.gesis.org/services/binder/v2/gh/chipmuenk/dsp/main. Bei letzterem wird dieses Github Repo fertig für Sie eingerichtet!
 
-### Microsoft Azure Notebook Server
+### Microsoft Codespaces
 
-Melden Sie sich mit Ihren Microsoft Konto an bei https://notebooks.azure.com . Achtung: Dieser Service wird zum Januar 2021 eingestellt, Notebooks können portiert werden zu https://github.com/features/codespaces .
+Anscheinend können Notebooks auch können portiert werden zu https://github.com/features/codespaces .
 
 ### Einrichten Ihres Servers
 Installieren Sie im Terminal des Servers die folgenden Python Module nach:
