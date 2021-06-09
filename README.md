@@ -10,7 +10,7 @@ Hier finden Sie die folgenden Materialien:
 
 Nutzen Sie auch das interaktive Python Tool [pyFDA](https://github.com/chipmuenk/pyfda) für Filterentwurf und -analyse und zur Simulation von zeitdiskreten Systemen!
 
-### Jupyter Notebooks
+## Jupyter Notebooks
 
 * Kurzanleitung: https://codingthesmartway.com/getting-started-with-jupyter-notebook-for-python/ mit Video https://youtu.be/CwFq3YDU6_Y
 * Jupyter Notebooks: Ein weiteres sehr gutes Video Tutorial zu Jupyter Notebooks finden Sie unter [https://www.youtube.com/watch?v=HW29067qVWk]
@@ -76,7 +76,7 @@ Dazu muss ein git Client von der git homepage (http://git-scm.com/) auf Ihrem Re
 Notfalls können Sie die Files auch gezippt herunterladen von  https://github.com/chipmuenk/dsp, können dann aber keine Updates holen.
 
 
-### git
+## git
 Es schadet nicht, ein paar git Kommandos zu beherrschen, z.B. mit Hilfe von
 
 * [git - Der einfache Einstieg](http://rogerdudler.github.io/git-guide/index.de.html) von Roger Dudler gibt den kürzest möglichen Einstieg in die Git Bash (= Kon-
@@ -84,3 +84,6 @@ sole) - mit Cheat-Sheet! - in vielen Sprachen
 * [An Illustrated Guide to Git on Windows](http://nathanj.github.io/gitguide/tour.html) (2009) gibt einen ähnlich kompakten Einstieg in die Arbeit mit dem graphischen Frontend Git GUI
 * [Pro Git Book](http://git-scm.com/book/de/v2), das "offizielle" Git Buch von Scott Chacon und Ben Straub gibt es hier in ziemlich vielen Sprachen
 * [Learn Git Branching](https://learngitbranching.js.org?locale=de_DE) ist eine „gamifizierte“ Variante mit Schwerpunkt Branching und Merging (auch auf Deutsch)
+
+## Zusätzliche Resourcen
+* Mark Wickert hat Juypter Notebooks und Papers zu Real-Time Audio Anwendungen erstellt: ["Real-Time Digital Signal Processing Using pyaudio_helper and the ipywidgets"](https://conference.scipy.org/proceedings/scipy2018/pdfs/mark_wickert_250.pdf) (SCIPY 2018) mit GitHub Repo [scikit-dsp-comm](https://github.com/mwickert/scikit-dsp-comm) und ["A Real-Time 3D Audio Simulator for Cognitive Hearing Science"](http://conference.scipy.org/proceedings/scipy2019/mark_wickert.html) (SCIPY 2019)
