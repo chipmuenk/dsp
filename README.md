@@ -48,6 +48,9 @@ Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Ser
 
 Erstellen Sie einen kostenlosen Account unter https://notebooks.gesis.org oder unter http://notebooks.gesis.org/services/binder/v2/gh/chipmuenk/dsp/main. Bei letzterem wird dieses Github Repo fertig für Sie eingerichtet!
 
+### Binder
+Ein weiterer Service ist [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/chipmuenk/dsp/HEAD)
+
 ### Microsoft Codespaces
 
 Anscheinend können Notebooks auch können portiert werden zu https://github.com/features/codespaces .
