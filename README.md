@@ -41,16 +41,16 @@ Nutzen Sie auch das interaktive Python Tool [pyfda](https://github.com/chipmuenk
 **[11. SRC :](notebooks/11_SRC/plots)** **S**ample **R**ate **C**onversion
 
 ## Jupyter Notebook Server in der Cloud
-Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie brauchen dann nichts auf Ihrem eigenen Rechner installieren, müssen aber natürlich online sein. In der Vergangenheit haben die beiden folgenden Services am besten funktioniert, die eine fertig konfigurierte VM mit Notebook Server für Sie hochfahren. Die Startzeit beträgt daher bei beiden ein paar Minuten.
+Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie brauchen dann nichts auf Ihrem eigenen Rechner installieren, müssen aber natürlich online sein. In der Vergangenheit haben die beiden folgenden Services am besten funktioniert, die eine fertig konfigurierte VM mit Notebook Server für Sie hochfahren. Die Startzeit beträgt daher bei beiden ein paar Minuten. Wenn Sie die unten angegebenen Links verwenden, startet der Notebook Server auf dieser Seite, die mit Rechtsklick -> "Show Markdown Preview" gerendert wird.
+
+Falls Sie mit dem klassischen Jupyter Notebook Interface starten (keine Tabs), können Sie zum übersichtlicheren Jupyterlab Interface wechseln, indem Sie in der Adresszeile des Browsers `tree` durch `lab` ersetzen.
 
 ### Binder
 Mit diesem Service können Sie per Knopfdruck [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/chipmuenk/dsp/HEAD?urlpath=lab/tree/README.md) mit den Notebooks dieses Repos experimentieren, aber keine Änderungen dauerhaft abspeichern.
 
 ### Gesis Notebook Server
 Auch dieser Service basiert auf Binder, zusätzlich können Sie hier Änderungen oder eigene Daten dauerhaft ("persistent") ablegen.
-Dafür benötigen Sie einen kostenlosen Account unter https://notebooks.gesis.org, mit http://notebooks.gesis.org/services/binder/v2/gh/chipmuenk/dsp/main?urlpath=lab/tree/README.md wird das DSP Github Repo gleich fertig eingerichtet!
-
-Nach dem Start können Sie zum übersichtlicheren Jupyterlab Interface wechseln, indem Sie in der Adresszeile des Browsers `tree` durch `lab` ersetzen.
+Dafür benötigen Sie einen kostenlosen Account unter https://notebooks.gesis.org, mit dieser [Abkürzung](http://notebooks.gesis.org/services/binder/v2/gh/chipmuenk/dsp/main?urlpath=lab/tree/README.md) wird das DSP Github Repo gleich fertig eingerichtet.
 
 #### Manuelle Installation
 Clonen Sie dieses Repo aus dem Terminal des Remote Servers mit `git clone https://github.com/chipmuenk/dsp`.
