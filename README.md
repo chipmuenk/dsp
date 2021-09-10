@@ -8,7 +8,7 @@ Hier finden Sie die folgenden Materialien:
 * Ein [Skript](docs/DSV_FPGA_Muenker_Skript.pdf) mit vielen Übungsaufgaben und etwas Theorie zu den Kursen "DSV" und "DSV auf FPGAs"
 * Eine [Anleitung](docs/2020-DSP_Notebooks) zum Umgang mit Notebooks
 
-Nutzen Sie auch das interaktive Python Tool [pyFDA](https://github.com/chipmuenk/pyfda) für Filterentwurf und -analyse und zur Simulation von zeitdiskreten Systemen!
+Nutzen Sie auch das interaktive Python Tool [pyfda](https://github.com/chipmuenk/pyfda) für Filterentwurf und -analyse und zur Simulation von zeitdiskreten Systemen!
 
 ## Jupyter Notebooks
 
@@ -42,30 +42,22 @@ Nutzen Sie auch das interaktive Python Tool [pyFDA](https://github.com/chipmuenk
 **[11. SRC :](notebooks/11_SRC/plots)** **S**ample **R**ate **C**onversion
 
 ## Jupyter Notebook Server in der Cloud
-Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie müssen dann nichts auf Ihrem eigenen Rechner installieren und können einfach im Browser arbeiten, müssen aber natürlich online sein. In der Vergangenheit haben die beiden folgenden Server am besten funktioniert.
+Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie brauchen dann nichts auf Ihrem eigenen Rechner installieren, müssen aber natürlich online sein. In der Vergangenheit haben die beiden folgenden Server am besten funktioniert.
 
 ### Gesis Notebook Server
 
-Erstellen Sie einen kostenlosen Account unter https://notebooks.gesis.org oder unter http://notebooks.gesis.org/services/binder/v2/gh/chipmuenk/dsp/main. Bei letzterem wird dieses Github Repo fertig für Sie eingerichtet!
+Erstellen Sie einen kostenlosen Account unter https://notebooks.gesis.org oder unter http://notebooks.gesis.org/services/binder/v2/gh/chipmuenk/dsp/main. Bei letzterem wird das DSP Github Repo fertig für Sie eingerichtet! Ihre eigenen Files und Änderung werden beim nächsten Einloggen wieder hergestellt.
 
-### Binder
-Ein weiterer Service ist [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/chipmuenk/dsp/HEAD)
-
-### Microsoft Codespaces
-
-Anscheinend können Notebooks auch können portiert werden zu https://github.com/features/codespaces .
-
-### Einrichten Ihres Servers
 Installieren Sie im Terminal des Servers die folgenden Python Module nach:
 
-    pip install numpy
-    pip install scipy
-    pip install matplotlib
-    pip install nbdime
+    pip install numpy scipy matplotlib nbdime
 
-Dann clonen Sie dieses Repo aus dem Terminal mit `git clone https://github.com/chipmuenk/dsp`.
+Dann clonen Sie dieses Repo aus dem Terminal des Remote Servers mit `git clone https://github.com/chipmuenk/dsp`.
 
 Wenn Sie lieber ein Jupyterlab Interface haben möchten, ersetzen Sie in der Adresszeile `tree` durch `lab`.
+
+### Binder
+Ein weiterer Service ist [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/chipmuenk/dsp/HEAD). Hier können Sie sofort (naja ... Startzeit ca. 2 min.) mit den Notebooks dieses Repos experimentieren, aber keine eigenen Files dauerhaft abspeichern.
 
 ## Lokal arbeiten
 Wenn Sie Python auf Ihrem Rechner installiert haben, können Sie auch offline arbeiten und haben eine bessere Performance. Die Notebooks (und die Libraries) clonen Sie auf Ihren Rechner aus dem (lokalen) Terminal mit 
