@@ -48,7 +48,7 @@ Mit diesem Service können Sie per Knopfdruck [![Binder](https://mybinder.org/ba
 
 ### Gesis Notebook Server
 Auch dieser Service basiert auf Binder, zusätzlich können Sie hier Änderungen oder eigene Daten dauerhaft ("persistent") ablegen.
-Dafür benötigen Sie einen kostenlosen Account unter https://notebooks.gesis.org, mit http://notebooks.gesis.org/services/binder/v2/gh/chipmuenk/dsp/main wird das DSP Github Repo gleich fertig eingerichtet!
+Dafür benötigen Sie einen kostenlosen Account unter https://notebooks.gesis.org, mit http://notebooks.gesis.org/services/binder/v2/gh/chipmuenk/dsp/main?urlpath=lab/tree/README.md wird das DSP Github Repo gleich fertig eingerichtet!
 
 Nach dem Start können Sie zum übersichtlicheren Jupyterlab Interface wechseln, indem Sie in der Adresszeile des Browsers `tree` durch `lab` ersetzen.
 
