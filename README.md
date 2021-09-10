@@ -14,7 +14,7 @@ Nutzen Sie auch das interaktive Python Tool [pyfda](https://github.com/chipmuenk
 * Kurzanleitung: https://codingthesmartway.com/getting-started-with-jupyter-notebook-for-python/ mit Video https://youtu.be/CwFq3YDU6_Y
 * Jupyter Notebooks: Ein weiteres sehr gutes Video Tutorial zu Jupyter Notebooks finden Sie unter [https://www.youtube.com/watch?v=HW29067qVWk]
 
-**[00. INTRO:](notebooks/00_Intro/_INTRO-Index.ipynb)** Eine kurze interaktive Einführung in Notebooks, Numpy, Scipy, Matplotlib
+**[00. INTRO:](notebooks/00_Intro/_index.ipynb)** Eine kurze interaktive Einführung in Notebooks, Numpy, Scipy, Matplotlib
 
 **[00. LAB :](notebooks/00_LAB/_index.ipynb)** Praktikumsversuche (als Jupyter Notebooks)
 
@@ -44,7 +44,7 @@ Nutzen Sie auch das interaktive Python Tool [pyfda](https://github.com/chipmuenk
 Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie brauchen dann nichts auf Ihrem eigenen Rechner installieren, müssen aber natürlich online sein. In der Vergangenheit haben die beiden folgenden Services am besten funktioniert, die eine fertig konfigurierte VM mit Notebook Server für Sie hochfahren. Die Startzeit beträgt daher bei beiden ein paar Minuten.
 
 ### Binder
-Mit diesem Service können Sie per Knopfdruck [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/chipmuenk/dsp/HEAD) mit den Notebooks dieses Repos experimentieren, aber keine Änderungen dauerhaft abspeichern.
+Mit diesem Service können Sie per Knopfdruck [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/chipmuenk/dsp/HEAD?filepath=README.md) mit den Notebooks dieses Repos experimentieren, aber keine Änderungen dauerhaft abspeichern.
 
 ### Gesis Notebook Server
 Auch dieser Service basiert auf Binder, zusätzlich können Sie hier Änderungen oder eigene Daten dauerhaft ("persistent") ablegen.
