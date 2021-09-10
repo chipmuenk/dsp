@@ -11,7 +11,6 @@ Hier finden Sie die folgenden Materialien:
 Nutzen Sie auch das interaktive Python Tool [pyfda](https://github.com/chipmuenk/pyfda) für Filterentwurf und -analyse und zur Simulation von zeitdiskreten Systemen!
 
 ## Jupyter Notebooks
-
 * Kurzanleitung: https://codingthesmartway.com/getting-started-with-jupyter-notebook-for-python/ mit Video https://youtu.be/CwFq3YDU6_Y
 * Jupyter Notebooks: Ein weiteres sehr gutes Video Tutorial zu Jupyter Notebooks finden Sie unter [https://www.youtube.com/watch?v=HW29067qVWk]
 
@@ -42,22 +41,23 @@ Nutzen Sie auch das interaktive Python Tool [pyfda](https://github.com/chipmuenk
 **[11. SRC :](notebooks/11_SRC/plots)** **S**ample **R**ate **C**onversion
 
 ## Jupyter Notebook Server in der Cloud
-Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie brauchen dann nichts auf Ihrem eigenen Rechner installieren, müssen aber natürlich online sein. In der Vergangenheit haben die beiden folgenden Services am besten funktioniert, die eine fertig konfigurierte VM mit Jupyter Server für Sie bereitstellen. Die Startzeit beträgt daher bei beiden um die zwei Minuten.
-
-### Gesis Notebook Server
-
-Erstellen Sie einen kostenlosen Account unter https://notebooks.gesis.org oder unter http://notebooks.gesis.org/services/binder/v2/gh/chipmuenk/dsp/main. Mit letzterem Link wird das DSP Github Repo gleich mit eingerichtet! Ihre eigenen Files und Änderung werden beim nächsten Einloggen wieder hergestellt.
-
-Installieren Sie im Terminal des Servers die folgenden Python Module nach:
-
-    pip install numpy scipy matplotlib nbdime
-
-Dann clonen Sie dieses Repo aus dem Terminal des Remote Servers mit `git clone https://github.com/chipmuenk/dsp`.
-
-Wenn Sie lieber ein Jupyterlab Interface haben möchten, ersetzen Sie in der Adresszeile `tree` durch `lab`.
+Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie brauchen dann nichts auf Ihrem eigenen Rechner installieren, müssen aber natürlich online sein. In der Vergangenheit haben die beiden folgenden Services am besten funktioniert, die eine fertig konfigurierte VM mit Notebook Server für Sie hochfahren. Die Startzeit beträgt daher bei beiden ein paar Minuten.
 
 ### Binder
-Ein weiterer Service ist [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/chipmuenk/dsp/HEAD). Hier können Sie sofort (naja ... Startzeit ca. 2 min.) mit den Notebooks dieses Repos experimentieren, aber keine eigenen Files dauerhaft abspeichern.
+Mit diesem Service können Sie per Knopfdruck [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/chipmuenk/dsp/HEAD) mit den Notebooks dieses Repos experimentieren, aber keine Änderungen dauerhaft abspeichern.
+
+### Gesis Notebook Server
+Auch dieser Service basiert auf Binder, zusätzlich können Sie hier Änderungen oder eigene Daten dauerhaft ("persistent") ablegen.
+Dafür benötigen Sie einen kostenlosen Account unter https://notebooks.gesis.org, mit http://notebooks.gesis.org/services/binder/v2/gh/chipmuenk/dsp/main wird das DSP Github Repo gleich fertig eingerichtet!
+
+Nach dem Start können Sie zum übersichtlicheren Jupyterlab Interface wechseln, indem Sie in der Adresszeile des Browsers `tree` durch `lab` ersetzen.
+
+#### Manuelle Installation
+Clonen Sie dieses Repo aus dem Terminal des Remote Servers mit `git clone https://github.com/chipmuenk/dsp`.
+
+Danach installieren Sie im Terminal des Servers ein paar Python Module:
+
+    pip install numpy scipy matplotlib nbdime
 
 ## Lokal arbeiten
 Wenn Sie Python auf Ihrem Rechner installiert haben, können Sie auch offline arbeiten und haben eine bessere Performance. Die Notebooks (und die Libraries) clonen Sie auf Ihren Rechner aus dem (lokalen) Terminal mit 
