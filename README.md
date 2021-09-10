@@ -42,11 +42,11 @@ Nutzen Sie auch das interaktive Python Tool [pyfda](https://github.com/chipmuenk
 **[11. SRC :](notebooks/11_SRC/plots)** **S**ample **R**ate **C**onversion
 
 ## Jupyter Notebook Server in der Cloud
-Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie brauchen dann nichts auf Ihrem eigenen Rechner installieren, müssen aber natürlich online sein. In der Vergangenheit haben die beiden folgenden Server am besten funktioniert.
+Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie brauchen dann nichts auf Ihrem eigenen Rechner installieren, müssen aber natürlich online sein. In der Vergangenheit haben die beiden folgenden Services am besten funktioniert, die eine fertig konfigurierte VM mit Jupyter Server für Sie bereitstellen. Die Startzeit beträgt daher bei beiden um die zwei Minuten.
 
 ### Gesis Notebook Server
 
-Erstellen Sie einen kostenlosen Account unter https://notebooks.gesis.org oder unter http://notebooks.gesis.org/services/binder/v2/gh/chipmuenk/dsp/main. Bei letzterem wird das DSP Github Repo fertig für Sie eingerichtet! Ihre eigenen Files und Änderung werden beim nächsten Einloggen wieder hergestellt.
+Erstellen Sie einen kostenlosen Account unter https://notebooks.gesis.org oder unter http://notebooks.gesis.org/services/binder/v2/gh/chipmuenk/dsp/main. Mit letzterem Link wird das DSP Github Repo gleich mit eingerichtet! Ihre eigenen Files und Änderung werden beim nächsten Einloggen wieder hergestellt.
 
 Installieren Sie im Terminal des Servers die folgenden Python Module nach:
 
