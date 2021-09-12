@@ -5,10 +5,13 @@
 
 Hier finden Sie die folgenden Materialien:
 * Jupyter Notebooks zu beiden Lehrveranstaltungen und zum YouTube Channel [https://www.youtube.com/c/ChristianMunker](https://www.youtube.com/c/ChristianMunker)
+* Die gezippten Folien zu den YouTube Videos im Libreoffice und im PDF - Format als "Assets" in den Releases
 * Ein [Skript](docs/DSV_FPGA_Muenker_Skript.pdf) mit vielen Übungsaufgaben und etwas Theorie zu den Kursen "DSV" und "DSV auf FPGAs"
 * Eine [Anleitung](docs/2020-DSP_Notebooks) zum Umgang mit Notebooks
 
 Nutzen Sie auch das interaktive Python Tool [pyfda](https://github.com/chipmuenk/pyfda) für Filterentwurf und -analyse und zur Simulation von zeitdiskreten Systemen!
+
+[pyfixp](https://github.com/chipmuenk/pyfixp) ist eine Library für schnelle Fixpoint-Arithmetik (basierend auf dem Python-Modul numpy), hier finden Sie auch weitere Notebooks zu Quantisierung und Fixpointfiltern (work in progress).
 
 ## Jupyter Notebooks
 * Kurzanleitung: https://codingthesmartway.com/getting-started-with-jupyter-notebook-for-python/ mit Video https://youtu.be/CwFq3YDU6_Y
