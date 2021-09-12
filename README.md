@@ -5,7 +5,7 @@
 
 Hier finden Sie die folgenden Materialien:
 * Jupyter Notebooks zu beiden Lehrveranstaltungen und zum YouTube Channel [https://www.youtube.com/c/ChristianMunker](https://www.youtube.com/c/ChristianMunker)
-* Die gezippten Folien zu den YouTube Videos im Libreoffice und im PDF - Format als "Assets" in den Releases
+* Die gezippten Folien zu den YouTube Videos im Libreoffice und im PDF - Format als "Assets" im [aktuellen Release](https://github.com/chipmuenk/dsp/releases/tag/2020ss.2)
 * Ein [Skript](docs/DSV_FPGA_Muenker_Skript.pdf) mit vielen Übungsaufgaben und etwas Theorie zu den Kursen "DSV" und "DSV auf FPGAs"
 * Eine [Anleitung](docs/2020-DSP_Notebooks) zum Umgang mit Notebooks
 
