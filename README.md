@@ -21,11 +21,11 @@ Nutzen Sie auch das interaktive Python Tool [pyfda](https://github.com/chipmuenk
 
 **[00. LAB :](notebooks/00_LAB/_index.ipynb)** Praktikumsversuche (als Jupyter Notebooks)
 
-**[01. LTI :](notebooks/01_LTI/_LTI-Index.ipynb)** Linear Time-Invariant (**LTI**) Systeme im Zeitbereich
+**[01. LTI :](notebooks/01_LTI/_index.ipynb)** Linear Time-Invariant (**LTI**) Systeme im Zeitbereich
 
-**[02. LTF :](notebooks/02_LTF/_LTF-Index.ipynb)** **LT**I Systeme im **F**requenzbereich
+**[02. LTF :](notebooks/02_LTF/_index.ipynb)** **LT**I Systeme im **F**requenzbereich
 
-**[03. DFT :](notebooks/03_DFT/_DFT-Index.ipynb)** Discrete Fourier Transformation (**DFT**) und FFT
+**[03. DFT :](notebooks/03_DFT/_index.ipynb)** Discrete Fourier Transformation (**DFT**) und FFT
 
 **[04. WIN :](notebooks/04_WIN/_index.ipynb)** Fensterung periodischer und stationärer Signale
 
