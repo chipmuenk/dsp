@@ -41,7 +41,7 @@ Nutzen Sie auch das interaktive Python Tool [pyfda](https://github.com/chipmuenk
 
 **[10. INP :](notebooks/10_INP/_index.ipynb)** Upsampling, **IN**ter**P**olation und Digital-Analog conversion
 
-**[11. SRC :](notebooks/11_SRC/_index.ipynb_)** **S**ample **R**ate **C**onversion
+**[11. SRC :](notebooks/11_SRC/_index.ipynb)** **S**ample **R**ate **C**onversion
 
 ## Jupyter Notebook Server in der Cloud
 Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie brauchen dann nichts auf Ihrem eigenen Rechner installieren, müssen aber natürlich online sein. In der Vergangenheit haben die beiden folgenden Services am besten funktioniert, die eine fertig konfigurierte VM mit Notebook Server für Sie hochfahren. Die Startzeit beträgt daher bei beiden ein paar Minuten. Wenn Sie die unten angegebenen Links verwenden, startet der Notebook Server auf dieser Seite, die mit Rechtsklick -> "Show Markdown Preview" gerendert wird.
