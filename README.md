@@ -44,7 +44,7 @@ Mit [pyfixp](https://github.com/chipmuenk/pyfixp) entsteht eine Library für sch
 **[11. SRC :](notebooks/11_SRC/_index.ipynb)** **S**ample **R**ate **C**onversion
 
 ## Jupyter Notebook Server in der Cloud
-Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie brauchen dann nichts auf Ihrem eigenen Rechner installieren, müssen aber natürlich online sein. Ich gebe hier keine Tipps mehr, das kostenlose Services selten länger als ein paar Monate funktionieren. Die Startzeit beträgt daher bei beiden ein paar Minuten. Wenn Sie die unten angegebenen Links verwenden, startet der Notebook Server auf dieser Seite, die mit Rechtsklick -> "Show Markdown Preview" gerendert wird.
+Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie brauchen dann nichts auf Ihrem eigenen Rechner installieren, müssen aber natürlich online sein. Ich gebe hier keine Empfehlungen mehr, da kostenlose Services selten länger als ein paar Monate funktionieren. Die Startzeit beträgt bei den meisten Services ein paar Minuten. 
 
 Falls Sie mit dem klassischen Jupyter Notebook Interface starten (keine Tabs), können Sie zum übersichtlicheren Jupyterlab Interface wechseln, indem Sie in der Adresszeile des Browsers `tree` durch `lab` ersetzen.
 
@@ -52,7 +52,7 @@ Falls Sie mit dem klassischen Jupyter Notebook Interface starten (keine Tabs), k
 Mit diesem Service können Sie per Knopfdruck [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/chipmuenk/dsp/HEAD?urlpath=lab/tree/README.md) mit den Notebooks dieses Repos experimentieren, aber keine Änderungen dauerhaft abspeichern.
 
 ### Gesis Notebook Server
-Auch dieser Service basiert auf Binder und erlaubt keine Persistenz, arbeitet aber meist zuverlässiger.
+Auch dieser (Service)[https://notebooks.gesis.org/] basiert auf Binder und erlaubt keine Persistenz, arbeitet aber meist zuverlässiger.
 
 #### Manuelle Installation
 Clonen Sie dieses Repo aus dem Terminal des Remote Servers mit `git clone https://github.com/chipmuenk/dsp`.
