@@ -44,7 +44,7 @@ Mit [pyfixp](https://github.com/chipmuenk/pyfixp) entsteht eine Library für sch
 **[11. SRC :](notebooks/11_SRC/_index.ipynb)** **S**ample **R**ate **C**onversion
 
 ## Jupyter Notebook Server in der Cloud
-Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie brauchen dann nichts auf Ihrem eigenen Rechner installieren, müssen aber natürlich online sein. In der Vergangenheit haben die beiden folgenden Services am besten funktioniert, die eine fertig konfigurierte VM mit Notebook Server für Sie hochfahren. Die Startzeit beträgt daher bei beiden ein paar Minuten. Wenn Sie die unten angegebenen Links verwenden, startet der Notebook Server auf dieser Seite, die mit Rechtsklick -> "Show Markdown Preview" gerendert wird.
+Am einfachsten können Sie mit Jupyter Notebooks interaktiv auf einem Remote Server arbeiten, Sie brauchen dann nichts auf Ihrem eigenen Rechner installieren, müssen aber natürlich online sein. Ich gebe hier keine Empfehlungen mehr, da kostenlose Services selten länger als ein paar Monate funktionieren. Die Startzeit beträgt bei den meisten Services ein paar Minuten. 
 
 Falls Sie mit dem klassischen Jupyter Notebook Interface starten (keine Tabs), können Sie zum übersichtlicheren Jupyterlab Interface wechseln, indem Sie in der Adresszeile des Browsers `tree` durch `lab` ersetzen.
 
@@ -52,8 +52,7 @@ Falls Sie mit dem klassischen Jupyter Notebook Interface starten (keine Tabs), k
 Mit diesem Service können Sie per Knopfdruck [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/chipmuenk/dsp/HEAD?urlpath=lab/tree/README.md) mit den Notebooks dieses Repos experimentieren, aber keine Änderungen dauerhaft abspeichern.
 
 ### Gesis Notebook Server
-Auch dieser Service basiert auf Binder, zusätzlich können Sie hier Änderungen oder eigene Daten dauerhaft ("persistent") ablegen.
-Dafür benötigen Sie einen kostenlosen Account unter https://notebooks.gesis.org, mit dieser [Abkürzung](http://notebooks.gesis.org/services/binder/v2/gh/chipmuenk/dsp/main?urlpath=lab/tree/README.md) wird das DSP Github Repo gleich fertig eingerichtet.
+Auch dieser (Service)[https://notebooks.gesis.org/] basiert auf Binder und erlaubt keine Persistenz, arbeitet aber meist zuverlässiger.
 
 #### Manuelle Installation
 Clonen Sie dieses Repo aus dem Terminal des Remote Servers mit `git clone https://github.com/chipmuenk/dsp`.
@@ -63,7 +62,12 @@ Danach installieren Sie im Terminal des Servers ein paar Python Module:
     pip install numpy scipy matplotlib nbdime
 
 ## Lokal arbeiten
-Wenn Sie Python auf Ihrem Rechner installiert haben, können Sie auch offline arbeiten und haben eine bessere Performance. Die Notebooks (und die Libraries) clonen Sie auf Ihren Rechner aus dem (lokalen) Terminal mit 
+Wenn Sie Python auf Ihrem Rechner installiert haben, können Sie auch offline arbeiten und haben eine bessere Performance. 
+
+- Bei Ihnen läuft schon Python? Dann genügt ein pip install jupyterlab und Sie können aus dem Terminal jupyter lab Ihren lokalen Server starten. 
+- Sie möchten kein Python installieren, aber trotzdem mit Notebooks arbeiten? Testen Sie die noch ganz frische JupyterLab Desktop Applikation (https://github.com/jupyterlab/jupyterlab-desktop)
+
+Die Notebooks (und die Libraries) clonen Sie auf Ihren Rechner aus dem (lokalen) Terminal mit 
 
     git clone https://github.com/chipmuenk/dsp
     
