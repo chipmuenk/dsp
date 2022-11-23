@@ -5,13 +5,12 @@
 
 Hier finden Sie die folgenden Materialien:
 * Jupyter Notebooks zu beiden Lehrveranstaltungen und zum YouTube Channel [https://www.youtube.com/c/ChristianMunker](https://www.youtube.com/c/ChristianMunker)
-* Die gezippten Folien zu den YouTube Videos im Libreoffice und im PDF - Format als "Assets" im [aktuellen Release](https://github.com/chipmuenk/dsp/releases/tag/2020ss.2)
-* Ein [Skript](docs/DSV_FPGA_Muenker_Skript.pdf) mit vielen Übungsaufgaben und etwas Theorie zu den Kursen "DSV" und "DSV auf FPGAs"
-* Eine [Anleitung](docs/2020-DSP_Notebooks) zum Umgang mit Notebooks
+* Im [aktuellen Release](https://github.com/chipmuenk/dsp/releases/latest) finden Sie als "Assets":
+    - die gezippten Folien zu den YouTube Videos im Libreoffice und im PDF - Format, 
+    - ein Skript mit vielen Übungsaufgaben und etwas Theorie zu den Kursen "DSV" und "DSV auf FPGAs"
+    - eine Anleitung zum Umgang mit Notebooks
 
 Nutzen Sie auch das interaktive Python Tool [pyfda](https://github.com/chipmuenk/pyfda) für Filterentwurf und -analyse und zur Simulation von zeitdiskreten Systemen!
-
-Mit [pyfixp](https://github.com/chipmuenk/pyfixp) entsteht eine Library für schnelle Fixpoint-Arithmetik (basierend auf dem Python-Modul numpy), die auch in pyfda eingesetzt wird. Hier finden Sie auch weitere Notebooks zu Quantisierung und Fixpointfiltern (work in progress).
 
 ## Jupyter Notebooks
 * Kurzanleitung: https://codingthesmartway.com/getting-started-with-jupyter-notebook-for-python/ mit Video https://youtu.be/CwFq3YDU6_Y
@@ -50,16 +49,6 @@ Falls Sie mit dem klassischen Jupyter Notebook Interface starten (keine Tabs), k
 
 ### Binder
 Mit diesem Service können Sie per Knopfdruck [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/chipmuenk/dsp/HEAD?urlpath=lab/tree/README.md) mit den Notebooks dieses Repos experimentieren, aber keine Änderungen dauerhaft abspeichern.
-
-### Gesis Notebook Server
-Auch dieser (Service)[https://notebooks.gesis.org/] basiert auf Binder und erlaubt keine Persistenz, arbeitet aber meist zuverlässiger.
-
-#### Manuelle Installation
-Clonen Sie dieses Repo aus dem Terminal des Remote Servers mit `git clone https://github.com/chipmuenk/dsp`.
-
-Danach installieren Sie im Terminal des Servers ein paar Python Module:
-
-    pip install numpy scipy matplotlib nbdime
 
 ## Lokal arbeiten
 Wenn Sie Python auf Ihrem Rechner installiert haben, können Sie auch offline arbeiten und haben eine bessere Performance. 
